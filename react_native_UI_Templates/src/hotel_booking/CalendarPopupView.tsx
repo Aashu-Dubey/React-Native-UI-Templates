@@ -7,7 +7,9 @@ import {
   SafeAreaView,
   Pressable,
   StatusBar,
+  TouchableWithoutFeedback,
 } from 'react-native';
+import Config from '../Config';
 import CustomCalendar from './CustomCalendar';
 
 interface Props {
@@ -63,53 +65,65 @@ const CustomerCalendar: React.FC<Props> = ({
       onRequestClose={() => setShowCal(false)}
     >
       <StatusBar backgroundColor="rgba(0,0,0, 0.5)" />
-      <SafeAreaView style={styles.containerStyle}>
-        <View style={{ backgroundColor: 'white', borderRadius: 24 }}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.timelineContainerStyle}>
-              <Text style={styles.fromToTextStyle}>From</Text>
-              <Text style={styles.startEndDateTextStyles}>
-                {formattedDate(startDate)}
-              </Text>
-            </View>
-            <View style={styles.verticleDivider} />
-            <View style={styles.timelineContainerStyle}>
-              <Text style={styles.fromToTextStyle}>To</Text>
-              <Text style={styles.startEndDateTextStyles}>
-                {formattedDate(endDate)}
-              </Text>
-            </View>
-          </View>
-          <View style={{ height: 0.5, backgroundColor: 'lightgrey' }} />
-
-          <CustomCalendar
-            minDate={minimumDate}
-            startDate={startDate}
-            endDate={endDate}
-            startEndDateChange={(startDateData, endDateData) => {
-              setStartDate(startDateData);
-              setEndDate(endDateData);
-            }}
-          />
-
-          <View style={{ padding: 16, paddingTop: 8 }}>
+      <TouchableWithoutFeedback
+        style={{ flex: 1 }}
+        onPress={() => setShowCal(false)}
+      >
+        <SafeAreaView style={styles.containerStyle}>
+          <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => {}}>
             <View
-              style={{ borderRadius: 24, elevation: 8, overflow: 'hidden' }}
+              style={{ backgroundColor: 'white', borderRadius: 24, margin: 24 }}
             >
-              <Pressable
-                style={styles.applyBtn}
-                android_ripple={{ color: 'lighgrey' }}
-                onPress={() => {
-                  onApplyClick(startDate, endDate);
-                  setShowCal(false);
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.timelineContainerStyle}>
+                  <Text style={styles.fromToTextStyle}>From</Text>
+                  <Text style={styles.startEndDateTextStyles}>
+                    {formattedDate(startDate)}
+                  </Text>
+                </View>
+                <View style={styles.verticleDivider} />
+                <View style={styles.timelineContainerStyle}>
+                  <Text style={styles.fromToTextStyle}>To</Text>
+                  <Text style={styles.startEndDateTextStyles}>
+                    {formattedDate(endDate)}
+                  </Text>
+                </View>
+              </View>
+              <View style={{ height: 0.5, backgroundColor: 'lightgrey' }} />
+
+              <CustomCalendar
+                minDate={minimumDate}
+                startDate={startDate}
+                endDate={endDate}
+                startEndDateChange={(startDateData, endDateData) => {
+                  setStartDate(startDateData);
+                  setEndDate(endDateData);
                 }}
-              >
-                <Text style={styles.applyBtnText}>Apply</Text>
-              </Pressable>
+              />
+
+              <View style={styles.applyBtnMainContainer}>
+                <View
+                  style={{ borderRadius: 24, elevation: 8, overflow: 'hidden' }}
+                >
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.applyBtn,
+                      { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+                    ]}
+                    android_ripple={{ color: 'lighgrey' }}
+                    onPress={() => {
+                      onApplyClick(startDate, endDate);
+                      setShowCal(false);
+                    }}
+                  >
+                    <Text style={styles.applyBtnText}>Apply</Text>
+                  </Pressable>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      </SafeAreaView>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
@@ -119,7 +133,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0, 0.5)',
-    padding: 24,
   },
   timelineContainerStyle: {
     flex: 1,
@@ -149,6 +162,17 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: 'grey',
     opacity: 0.4,
+  },
+  applyBtnMainContainer: {
+    padding: 16,
+    paddingTop: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.63,
   },
 });
 

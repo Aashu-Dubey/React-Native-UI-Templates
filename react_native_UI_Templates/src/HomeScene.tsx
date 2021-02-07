@@ -17,6 +17,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../res';
 import { showToast } from './util/action';
+import Config from './Config';
 
 interface Props {}
 
@@ -86,30 +87,22 @@ const ListItem: React.FC<ListItemProps> = ({
         transform: [{ translateY }],
       }}
     >
-      {/* <View style={{ flex: 1, aspectRatio: 1.5 }}> */}
       <Image
-        style={{
-          flex: 1,
-          // height: 120,
-          // width: undefined,
-          aspectRatio: 1.5,
-          borderRadius: 4,
-        }}
+        style={{ flex: 1, aspectRatio: 1.5, borderRadius: 4 }}
         source={item.background}
         resizeMode="cover"
-        // resizeMethod="resize"
       />
-      {/* </View> */}
+
       <Pressable
-        style={{
-          flex: 1,
-          // height: 120,
-          // width: '100%',
-          borderRadius: 4,
-          // position: 'absolute',
-          backgroundColor: 'rgba(128,128,128,0.1)',
-          ...StyleSheet.absoluteFillObject,
-        }}
+        style={({ pressed }) => [
+          {
+            flex: 1,
+            borderRadius: 4,
+            backgroundColor: 'rgba(128,128,128,0.1)',
+            ...StyleSheet.absoluteFillObject,
+            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
+          },
+        ]}
         android_ripple={{ color: 'rgba(128,128,128,0.3)' }}
         onPress={onScreenClicked}
       />
@@ -127,7 +120,9 @@ const HomeScene: React.FC<Props> = () => {
     <SafeAreaView style={{ flex: 1, marginTop }}>
       <View style={{ flexDirection: 'row', padding: 8 }}>
         <Pressable
-          style={{ padding: 8 }}
+          style={({ pressed }) => [
+            { padding: 8, opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+          ]}
           onPress={() => navigation.toggleDrawer()}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
         >
@@ -135,7 +130,9 @@ const HomeScene: React.FC<Props> = () => {
         </Pressable>
         <Text style={styles.headerText}>React-Native UI</Text>
         <Pressable
-          style={{ padding: 8 }}
+          style={({ pressed }) => [
+            { padding: 8, opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+          ]}
           onPress={() => setGrid(!isGrid)}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
         >

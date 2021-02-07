@@ -15,6 +15,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../res';
 import { TextInput } from 'react-native-gesture-handler';
+import Config from './Config';
 
 interface Props {}
 
@@ -26,7 +27,13 @@ const FeedbackScene: React.FC<Props> = () => {
     <SafeAreaView style={{ flex: 1, marginTop }}>
       <View style={{ flexDirection: 'row', padding: 8, paddingBottom: 0 }}>
         <Pressable
-          style={{ padding: 8, paddingBottom: 0 }}
+          style={({ pressed }) => [
+            {
+              padding: 8,
+              paddingBottom: 0,
+              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
+            },
+          ]}
           onPress={() => navigation.openDrawer()}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
         >
@@ -44,7 +51,13 @@ const FeedbackScene: React.FC<Props> = () => {
           Give your best time for this moment.
         </Text>
         <TextInput style={styles.input} placeholder="Enter your feedback..." />
-        <Pressable style={styles.button} android_ripple={{ color: 'grey' }}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
+          ]}
+          android_ripple={{ color: 'grey' }}
+        >
           <Text style={styles.buttonText}>Send</Text>
         </Pressable>
       </KeyboardAvoidingView>
@@ -90,6 +103,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginTop: 16,
     alignSelf: 'center',
+    justifyContent: 'center',
     backgroundColor: 'dodgerblue',
     borderRadius: 4,
     elevation: 8,

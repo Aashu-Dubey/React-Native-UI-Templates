@@ -13,6 +13,7 @@ import CustomerCalendar from './CalendarPopupView';
 import FilterModal from './FiltersModal';
 import HotelListItem from './HotelListItem';
 import { HOTEL_LIST } from './model/hotel_list_data';
+import Config from '../Config';
 
 interface Props {}
 
@@ -32,11 +33,6 @@ const HALF_MONTHS = [
 ];
 
 const HotelHomeScreen: React.FC<Props> = () => {
-  // const headerHeight = useHeaderHeight();
-  // const navigation = useNavigation();
-
-  // const topMargin = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight ?? 0;
-
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(() => {
     const date = new Date();
@@ -50,13 +46,6 @@ const HotelHomeScreen: React.FC<Props> = () => {
     <>
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
-          style={
-            {
-              // backgroundColor: 'white',
-              // elevation: 16,
-              // paddingHorizontal: 8,
-            }
-          }
           contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
           data={HOTEL_LIST}
           renderItem={(data) =>
@@ -97,7 +86,10 @@ const HotelHomeScreen: React.FC<Props> = () => {
                   selectionColor="#54D3C2"
                 />
                 <Pressable
-                  style={styles.searchBtn}
+                  style={({ pressed }) => [
+                    styles.searchBtn,
+                    { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+                  ]}
                   onPress={() => {}}
                   android_ripple={{
                     color: 'grey',
@@ -110,7 +102,10 @@ const HotelHomeScreen: React.FC<Props> = () => {
               </View>
               <View style={styles.headerDetailContainer}>
                 <Pressable
-                  style={styles.headerSectionContainer}
+                  style={({ pressed }) => [
+                    styles.headerSectionContainer,
+                    { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+                  ]}
                   android_ripple={{ color: 'lighgrey' }}
                   onPress={() => setShowCal(true)}
                 >
@@ -165,6 +160,13 @@ const styles = StyleSheet.create({
     marginRight: 16,
     fontSize: 18,
     elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
   },
   searchBtn: {
     padding: 12,
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
   },
   verticalDivider: {
     width: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'darkgrey',
     marginRight: 8,
     marginVertical: 8,
   },
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
   hotelCountText: {
     flex: 1,
     fontSize: 16,
-    textAlignVertical: 'center',
+    alignSelf: 'center',
     fontFamily: 'WorkSans-Regular',
   },
 });

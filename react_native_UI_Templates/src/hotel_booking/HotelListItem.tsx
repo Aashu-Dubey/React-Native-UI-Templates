@@ -41,7 +41,7 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
     <Animated.View
       style={[styles.container, { opacity, transform: [{ translateY }] }]}
     >
-      <View>
+      <View style={styles.imageContainer}>
         <Image
           style={{ height: 170, width: undefined }}
           source={item.imagePath}
@@ -97,8 +97,20 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginHorizontal: 24,
     borderRadius: 16,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+  },
+  imageContainer: {
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    overflow: 'hidden',
   },
   title: { flex: 1, fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
   subText: {

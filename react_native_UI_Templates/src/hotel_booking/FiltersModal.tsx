@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Config from '../Config';
 import RangeSliderView from './RangeSliderView';
 import SliderView from './SliderView';
 import Switch from './Swtch';
@@ -22,7 +23,7 @@ interface Props {
 const popularFList = [
   { titleTxt: 'Free Breakfast', isSelected: false },
   { titleTxt: 'Free Parking', isSelected: false },
-  { titleTxt: 'Pool', isSelected: false },
+  { titleTxt: 'Pool', isSelected: true },
   { titleTxt: 'Pet Friendly', isSelected: false },
   { titleTxt: 'Free wifi', isSelected: false },
 ];
@@ -30,7 +31,7 @@ const popularFList = [
 const accomodation_List = [
   { titleTxt: 'All', isSelected: false },
   { titleTxt: 'Apartment', isSelected: false },
-  { titleTxt: 'Home', isSelected: false },
+  { titleTxt: 'Home', isSelected: true },
   { titleTxt: 'Villa', isSelected: false },
   { titleTxt: 'Hotel', isSelected: false },
   { titleTxt: 'Resort', isSelected: false },
@@ -55,7 +56,10 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
             style={{ flex: 1, borderRadius: 4, overflow: 'hidden' }}
           >
             <Pressable
-              style={styles.checkBoxBtn}
+              style={({ pressed }) => [
+                styles.checkBoxBtn,
+                { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+              ]}
               android_ripple={{ color: 'lightgrey' }}
               onPress={() => {
                 data.isSelected = !data.isSelected;
@@ -123,7 +127,13 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
       noList.push(
         <View key={i} style={{ borderRadius: 4, overflow: 'hidden' }}>
           <Pressable
-            style={{ flexDirection: 'row', padding: 12 }}
+            style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 12,
+                opacity: !Config.isAndroid && pressed ? 0.6 : 1,
+              },
+            ]}
             android_ripple={{ color: 'lightgrey' }}
             onPress={() => checkAppPosition(i)}
           >
@@ -154,7 +164,9 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         <View style={{ flexDirection: 'row', padding: 8 }}>
           <View style={{ flex: 1, alignItems: 'flex-start' }}>
             <Pressable
-              style={{ padding: 8 }}
+              style={({ pressed }) => [
+                { padding: 8, opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+              ]}
               onPress={() => setShowFilter(false)}
               android_ripple={{ color: 'grey', radius: 20, borderless: true }}
             >
@@ -201,7 +213,10 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         <View style={styles.divider} />
         <View style={styles.buttonContainer}>
           <Pressable
-            style={styles.button}
+            style={({ pressed }) => [
+              styles.button,
+              { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+            ]}
             android_ripple={{ color: 'lighgrey' }}
             onPress={() => setShowFilter(false)}
           >
@@ -220,7 +235,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
-  headerShadow: { height: 0.2, elevation: 4, backgroundColor: 'lightgrey' },
+  headerShadow: {
+    height: Config.isAndroid ? 0.2 : 1,
+    elevation: 4,
+    backgroundColor: 'lightgrey',
+  },
   divider: { height: StyleSheet.hairlineWidth, backgroundColor: 'lightgrey' },
   sectionTitle: {
     fontSize: 18,
@@ -244,6 +263,13 @@ const styles = StyleSheet.create({
     marginTop: 8,
     elevation: 8,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
   },
   button: {
     backgroundColor: '#54D3C2',

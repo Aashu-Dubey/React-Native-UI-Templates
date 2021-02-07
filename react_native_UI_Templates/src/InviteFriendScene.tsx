@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../res';
+import Config from './Config';
 
 interface Props {}
 
@@ -24,7 +25,13 @@ const InviteFriendScene: React.FC<Props> = () => {
     <SafeAreaView style={{ flex: 1, marginTop }}>
       <View style={{ flexDirection: 'row', padding: 8, paddingBottom: 0 }}>
         <Pressable
-          style={{ padding: 8, paddingBottom: 0 }}
+          style={({ pressed }) => [
+            {
+              padding: 8,
+              paddingBottom: 0,
+              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
+            },
+          ]}
           onPress={() => navigation.toggleDrawer()}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
         >
@@ -41,7 +48,13 @@ const InviteFriendScene: React.FC<Props> = () => {
         Are you one of those who makes everything{'\n'} at the last moment?
       </Text>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Pressable style={styles.button} android_ripple={{ color: 'grey' }}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
+          ]}
+          android_ripple={{ color: 'grey' }}
+        >
           <Icon name="share" size={25} color="white" />
           <Text style={styles.buttonText}>Share</Text>
         </Pressable>
@@ -76,6 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'dodgerblue',
     borderRadius: 4,
     elevation: 8,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {

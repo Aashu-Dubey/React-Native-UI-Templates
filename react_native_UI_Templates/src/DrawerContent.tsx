@@ -6,16 +6,18 @@ import {
   useWindowDimensions,
   Pressable,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import {
   DrawerContentComponentProps,
   DrawerContentOptions,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import Animated from 'react-native-reanimated';
 import { DrawerActions } from '@react-navigation/native';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../res';
+import Config from './Config';
 
 interface DrawerItemProps {
   label: string;
@@ -56,19 +58,11 @@ const DrawerItemRow: React.FC<
             backgroundColor: focused
               ? props.activeBackgroundColor
               : props.inactiveBackgroundColor,
-            //   marginVertical: 8,
             transform: [{ translateX }],
           },
         ]}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 8,
-          paddingHorizontal: 16,
-          position: 'absolute',
-        }}
-      >
+      <View style={styles.drawerRowContentContainer}>
         {isAssetIcon ? (
           <Image
             source={icon}
@@ -85,29 +79,6 @@ const DrawerItemRow: React.FC<
           {label}
         </Text>
       </View>
-      {/* <DrawerItem
-            label="Home"
-            onPress={() => props.navigation.navigate('Home')}
-            labelStyle={{ marginLeft: -24, fontSize: 16, paddingVertical: 8 }}
-            icon={({ focused }) => (
-              <Icon
-                style={{ paddingHorizontal: 6 }}
-                name="home"
-                size={24}
-                color={focused ? props.activeBackgroundColor : 'black'}
-              />
-            )}
-            style={{
-              position: 'absolute',
-              width: window.width * 0.75,
-              backgroundColor: 'transparent',
-              marginLeft: 0,
-              //   borderRadius: 24,
-              //   borderTopStartRadius: 0,
-              //   borderBottomStartRadius: 0,
-            }}
-            focused={getActiveRouteState(routes, index, 'Home')}
-          /> */}
     </Pressable>
   );
 };
@@ -134,22 +105,13 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
   });
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={{ padding: 16, marginTop: 30 }}>
         <Animated.View
           style={[
             styles.drawerAvatarStyle,
-            {
-              elevation: 16,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 8,
-              },
-              shadowOpacity: 0.44,
-              shadowRadius: 10.32,
-              transform: [{ rotate, scale }],
-            },
+            styles.avatarShadow,
+            { transform: [{ rotate, scale }] },
           ]}
         >
           <Animated.Image
@@ -160,16 +122,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
             source={AppImages.userImage}
           />
         </Animated.View>
-        <Text
-          style={{
-            fontSize: 18,
-            color: 'grey',
-            fontFamily: 'WorkSans-SemiBold',
-            paddingTop: 4,
-          }}
-        >
-          Chris Hemsworth
-        </Text>
+        <Text style={styles.userName}>Chris Hemsworth</Text>
       </View>
       <View style={styles.divider} />
       <DrawerContentScrollView
@@ -216,7 +169,10 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
       </DrawerContentScrollView>
 
       <Pressable
-        style={styles.signOutBtnStyle}
+        style={({ pressed }) => [
+          styles.signOutBtnStyle,
+          { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
+        ]}
         android_ripple={{ color: 'lightgrey' }}
       >
         <Text
@@ -226,11 +182,17 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
         </Text>
         <Icon name="power-settings-new" size={20} color="red" />
       </Pressable>
-    </>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  userName: {
+    fontSize: 18,
+    color: 'grey',
+    fontFamily: 'WorkSans-SemiBold',
+    paddingTop: 4,
+  },
   drawerRowStyle: {
     marginHorizontal: 0,
     paddingVertical: 8,
@@ -249,21 +211,37 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: '500',
   },
+  drawerRowContentContainer: {
+    flexDirection: 'row',
+    padding: 8,
+    paddingHorizontal: 16,
+    position: 'absolute',
+  },
   drawerAvatarStyle: {
     width: 120,
     height: 120,
     borderRadius: 60,
   },
+  avatarShadow: {
+    elevation: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+  },
   divider: {
-    backgroundColor: 'black',
+    backgroundColor: 'darkgrey',
     height: StyleSheet.hairlineWidth,
-    opacity: 0.6,
+    // opacity: 0.6,
   },
   signOutBtnStyle: {
     flexDirection: 'row',
     padding: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(0, 0, 0, 0.5)',
+    borderColor: 'darkgrey',
   },
 });
 

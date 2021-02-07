@@ -12,6 +12,7 @@ export interface HotelListType {
 }
 
 export const HOTEL_LIST: HotelListType[] = [
+  // 1st item dummy for 'stickyHeaderIndices'
   {
     id: 0,
     imagePath: '',

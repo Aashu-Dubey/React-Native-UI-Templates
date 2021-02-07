@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../res';
+import Config from './Config';
 
 interface Props {}
 
@@ -24,7 +25,13 @@ const HelpScene: React.FC<Props> = () => {
     <SafeAreaView style={{ flex: 1, marginTop }}>
       <View style={{ flexDirection: 'row', padding: 8, paddingBottom: 0 }}>
         <Pressable
-          style={{ padding: 8, paddingBottom: 0 }}
+          style={({ pressed }) => [
+            {
+              padding: 8,
+              paddingBottom: 0,
+              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
+            },
+          ]}
           onPress={() => navigation.openDrawer()}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
         >
@@ -42,7 +49,13 @@ const HelpScene: React.FC<Props> = () => {
         process. We are here to{'\n'}help so please get in touch with us
       </Text>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Pressable style={styles.button} android_ripple={{ color: 'grey' }}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
+          ]}
+          android_ripple={{ color: 'grey' }}
+        >
           <Text style={styles.buttonText}>Chat with Us</Text>
         </Pressable>
       </View>
@@ -75,6 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'dodgerblue',
     borderRadius: 4,
     elevation: 8,
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',

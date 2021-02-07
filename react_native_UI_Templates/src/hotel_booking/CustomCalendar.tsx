@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Config from '../Config';
 
 interface Props {
   minDate: Date | null;
@@ -66,14 +67,8 @@ const CustomCalendar: React.FC<Props> = ({
   }, [setListOfDate]);
 
   const getIsInRange = (date: Date) => {
-    /* console.log(
-      date.toDateString(),
-      startDate.toDateString(),
-      endDate.toDateString(),
-      date > startDate && date < endDate,
-    ); */
-
     if (startDate != null && endDate != null) {
+      // change, "new Date(date.toDateString())" started giving "Inavlid date" for some reason
       /* if (
         new Date(date.toDateString()) > new Date(startDate.toDateString()) &&
         new Date(date.toDateString()) < new Date(endDate.toDateString()) */
@@ -222,20 +217,30 @@ const CustomCalendar: React.FC<Props> = ({
                 borderColor: getIsItStartAndEndDate(date)
                   ? 'white'
                   : 'transparent',
-                overflow: 'hidden',
+                // overflow: 'hidden',
                 backgroundColor: getIsItStartAndEndDate(date)
                   ? 'rgb(84, 211, 194)'
                   : 'transparent',
                 elevation: getIsItStartAndEndDate(date) ? 4 : 0,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                shadowOpacity: 0.23,
+                shadowRadius: 2.63,
               }}
             >
               <Pressable
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                android_ripple={{ color: 'lighgrey', borderless: true }}
+                style={({ pressed }) => [
+                  {
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: !Config.isAndroid && pressed ? 0.4 : 1,
+                  },
+                ]}
+                android_ripple={{ borderless: true }}
                 onPress={() => {
                   if (currentMonthDate.getMonth() === date.getMonth()) {
                     if (minimumDate != null && maximumDate != null) {
@@ -323,7 +328,10 @@ const CustomCalendar: React.FC<Props> = ({
       <View style={{ flexDirection: 'row', padding: 8 }}>
         <View style={styles.arrowContainerStyle}>
           <Pressable
-            style={styles.arrowBtnStyle}
+            style={({ pressed }) => [
+              styles.arrowBtnStyle,
+              { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+            ]}
             android_ripple={{ color: 'lighgrey' }}
             onPress={() => {
               // currentMonthDate = new Date();
@@ -340,7 +348,10 @@ const CustomCalendar: React.FC<Props> = ({
         </Text>
         <View style={styles.arrowContainerStyle}>
           <Pressable
-            style={styles.arrowBtnStyle}
+            style={({ pressed }) => [
+              styles.arrowBtnStyle,
+              { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+            ]}
             android_ripple={{ color: 'lighgrey' }}
             onPress={() => {
               // currentMonthDate = new Date();
