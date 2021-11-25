@@ -58,7 +58,7 @@ export type SwitchProps = {
   /**
    * The Switch's thumb style
    */
-  thumbStyle?: object | number | [];
+  thumbStyle?: object /*  | number | [] */;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };

@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
   },
   checkBoxBtn: {
     alignSelf: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
     padding: 8,
   },
