@@ -44,7 +44,7 @@ const HotelHomeScreen: React.FC<Props> = () => {
   const [showFilter, setShowFilter] = useState<boolean>(false);
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
           contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
           data={HOTEL_LIST}
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
     fontSize: 18,
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: 'lightgrey',
     shadowOffset: {
       width: 0,
       height: 4,

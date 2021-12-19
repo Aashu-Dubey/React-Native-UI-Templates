@@ -10,6 +10,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HotelHomeScreen } from './hotel_booking';
+import { CourseInfoScreen, HomeDesignCourse } from './design_course';
 import {
   HomeScene,
   DrawerContent,
@@ -67,6 +68,8 @@ export default () => {
             headerShown: true,
             headerTitle: 'Explore',
             headerTitleAlign: 'center',
+            headerStyle: {},
+            // safeAreaInsets: { top: 0 },
             headerTitleStyle: { fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
             headerLeft: (props) => (
               <Pressable
@@ -96,6 +99,17 @@ export default () => {
               );
             },
           }}
+        />
+
+        <Stack.Screen
+          name="DesignCourse"
+          component={HomeDesignCourse}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CourseInfo"
+          component={CourseInfoScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </>

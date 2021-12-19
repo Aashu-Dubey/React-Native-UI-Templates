@@ -166,13 +166,10 @@ const styles = StyleSheet.create({
   applyBtnMainContainer: {
     padding: 16,
     paddingTop: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.63,
+    shadowColor: 'grey',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
   },
 });
 

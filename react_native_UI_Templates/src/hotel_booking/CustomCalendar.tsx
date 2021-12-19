@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Config from '../Config';
 
@@ -206,30 +206,43 @@ const CustomCalendar: React.FC<Props> = ({
               }}
             />
             <View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                // flex: 1,
-                // position: 'absolute',
-                // flexDirection: 'row',
-                padding: 2,
-                borderRadius: 32,
-                borderWidth: getIsItStartAndEndDate(date) ? 2 : 0,
-                borderColor: getIsItStartAndEndDate(date)
-                  ? 'white'
-                  : 'transparent',
-                // overflow: 'hidden',
-                backgroundColor: getIsItStartAndEndDate(date)
-                  ? 'rgb(84, 211, 194)'
-                  : 'transparent',
-                elevation: getIsItStartAndEndDate(date) ? 4 : 0,
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 3,
+              style={[
+                {
+                  ...StyleSheet.absoluteFillObject,
+                  // flex: 1,
+                  // position: 'absolute',
+                  // flexDirection: 'row',
+                  padding: 2,
+                  borderRadius: 32,
+                  borderWidth: getIsItStartAndEndDate(date) ? 2 : 0,
+                  borderColor: getIsItStartAndEndDate(date)
+                    ? 'white'
+                    : 'transparent',
+                  // overflow: 'hidden',
+                  backgroundColor: getIsItStartAndEndDate(date)
+                    ? 'rgb(84, 211, 194)'
+                    : 'transparent',
+                  /* elevation: getIsItStartAndEndDate(date) ? 4 : 0,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.23,
+                  shadowRadius: 2.63, */
                 },
-                shadowOpacity: 0.23,
-                shadowRadius: 2.63,
-              }}
+                getIsItStartAndEndDate(date) && {
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: 'grey',
+                      shadowOffset: { width: 0, height: 0 },
+                      shadowOpacity: 0.6,
+                      shadowRadius: 2.63,
+                    },
+                    android: { elevation: 4 },
+                  }),
+                },
+              ]}
             >
               <Pressable
                 style={({ pressed }) => [

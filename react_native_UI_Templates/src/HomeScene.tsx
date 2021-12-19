@@ -35,7 +35,7 @@ const DEMOS = [
   {
     name: 'design_course',
     background: AppImages.design_course,
-    screenName: '',
+    screenName: 'DesignCourse',
   },
   {
     name: '',

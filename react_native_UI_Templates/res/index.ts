@@ -18,6 +18,12 @@ const AppImages = {
 
   // design_course
   design_course: require('./design_course/design_course.png'),
+  design_header_image: require('./design_course/userImage.png'),
+  interFace1: require('./design_course/interFace1.png'),
+  interFace2: require('./design_course/interFace2.png'),
+  interFace3: require('./design_course/interFace3.png'),
+  interFace4: require('./design_course/interFace4.png'),
+  webInterFace: require('./design_course/webInterFace.png'),
 };
 
 export { AppImages };

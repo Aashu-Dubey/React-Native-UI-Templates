@@ -99,13 +99,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     // overflow: 'hidden',
     elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
+    shadowColor: 'grey',
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.3,
-    shadowRadius: 4.65,
+    shadowRadius: 12,
   },
   imageContainer: {
     borderTopLeftRadius: 16,

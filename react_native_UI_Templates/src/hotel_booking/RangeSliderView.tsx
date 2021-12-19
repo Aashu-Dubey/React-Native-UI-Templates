@@ -1,8 +1,23 @@
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import React from 'react';
-import { StyleSheet, View, Text, useWindowDimensions } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  useWindowDimensions,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 interface Props {}
+
+const CustomMarker = (props: { triangleStyle: StyleProp<ViewStyle> }) => (
+  <View style={styles.shadowBg}>
+    <View style={styles.markerStyle}>
+      <View style={props.triangleStyle} />
+    </View>
+  </View>
+);
 
 const RangeSliderView: React.FC<Props> = () => {
   const { width } = useWindowDimensions();
@@ -18,18 +33,10 @@ const RangeSliderView: React.FC<Props> = () => {
       allowOverlap
       isMarkersSeparated
       customMarkerLeft={(_) => (
-        <View style={styles.shadowBg}>
-          <View style={styles.markerStyle}>
-            <View style={styles.triangleLeftStyle} />
-          </View>
-        </View>
+        <CustomMarker triangleStyle={styles.triangleLeftStyle} />
       )}
       customMarkerRight={(_) => (
-        <View style={styles.shadowBg}>
-          <View style={styles.markerStyle}>
-            <View style={styles.triangleRightStyle} />
-          </View>
-        </View>
+        <CustomMarker triangleStyle={styles.triangleRightStyle} />
       )}
       enableLabel
       customLabel={(prop) => {
@@ -75,6 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 16,
+    marginBottom: 8,
     alignSelf: 'center',
   },
   trackStyle: {
@@ -132,12 +140,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
     shadowRadius: 7.49,
   },
 });

@@ -58,7 +58,7 @@ export type SwitchProps = {
   /**
    * The Switch's thumb style
    */
-  thumbStyle?: object | number | [];
+  thumbStyle?: object /*  | number | [] */;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -193,7 +193,7 @@ function createStyles({
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEIGHT,
   onColor = '#54D3C2',
-  offColor = 'lightgrey',
+  offColor = 'rgba(158,158,158, 0.3)', // 'lightgrey'
   disabledColor = 'lightgrey',
   thumbColor = 'white',
   thumbSize = DEFAULT_THUMB_SIZE,
