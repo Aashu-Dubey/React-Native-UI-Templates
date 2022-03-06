@@ -12,9 +12,11 @@ import {
   Animated,
   Easing,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../../res';
+import Config from '../Config';
 
 interface Props {}
 
@@ -23,9 +25,11 @@ const infoHeight = 364.0;
 const CourseInfoScreen: React.FC<Props> = () => {
   const window = useWindowDimensions();
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   // const tempHeight = window.height - window.width / 1.2 + 24.0;
-  const marginTop = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+  const marginTop =
+    Platform.OS === 'ios' ? Math.max(insets.top, 20) : StatusBar.currentHeight;
 
   const favIconScale = useRef<Animated.Value>(new Animated.Value(0.1));
   const opacity1 = useRef<Animated.Value>(new Animated.Value(0));
@@ -77,61 +81,78 @@ const CourseInfoScreen: React.FC<Props> = () => {
         imageStyle={{ height: window.width / 1.2 }}
         source={AppImages.webInterFace}
       >
-        <ScrollView
-          style={[
-            styles.scrollContainer,
-            { marginTop: window.width / 1.2 - 24 },
-          ]}
-          contentContainerStyle={{
-            flexGrow: 1,
-            minHeight: infoHeight,
-            // maxHeight: tempHeight > infoHeight ? tempHeight : infoHeight,
+        <View
+          style={{
+            flex: 1,
+            shadowColor: 'grey',
+            shadowOffset: { width: 1.1, height: 1.1 },
+            shadowOpacity: 0.2,
+            shadowRadius: 10.0,
           }}
         >
-          <Text style={styles.courseTitle}>{'Web Design\nCourse'}</Text>
-          <View style={styles.priceRatingContainer}>
-            <Text
-              style={[styles.textStyle, { flex: 1, color: 'rgb(0, 182, 240)' }]}
-            >
-              $28.99
-            </Text>
-            <Text style={styles.textStyle}>4.3</Text>
-            <Icon name="star" size={24} color="rgb(0, 182, 240)" />
-          </View>
-          <Animated.View
-            style={{
-              flexDirection: 'row',
-              padding: 8,
-              opacity: opacity1.current,
+          <ScrollView
+            style={[
+              styles.scrollContainer,
+              {
+                marginTop: window.width / 1.2 - 24,
+                paddingBottom: insets.bottom,
+              },
+            ]}
+            contentContainerStyle={{
+              flexGrow: 1,
+              minHeight: infoHeight,
+              // maxHeight: tempHeight > infoHeight ? tempHeight : infoHeight,
             }}
-            renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
           >
-            {getTimeBoxUI('24', 'Classes')}
-            {getTimeBoxUI('2 hours', 'Time')}
-            {getTimeBoxUI('24', 'Seat')}
-          </Animated.View>
-          <Animated.Text
-            style={[styles.courseDescription, { opacity: opacity2.current }]}
-            numberOfLines={3}
-          >
-            Lorem ipsum is simply dummy text of printing & typesetting industry,
-            Lorem ipsum is simply dummy text of printing & typesetting industry.
-          </Animated.Text>
-          <Animated.View
-            style={[styles.footerContainer, { opacity: opacity3.current }]}
-            renderToHardwareTextureAndroid
-          >
-            <View style={styles.addView}>
-              <Icon name="add" size={28} color="rgb(0, 182, 240)" />
+            <Text style={styles.courseTitle}>{'Web Design\nCourse'}</Text>
+            <View style={styles.priceRatingContainer}>
+              <Text
+                style={[
+                  styles.textStyle,
+                  { flex: 1, color: 'rgb(0, 182, 240)' },
+                ]}
+              >
+                $28.99
+              </Text>
+              <Text style={styles.textStyle}>4.3</Text>
+              <Icon name="star" size={24} color="rgb(0, 182, 240)" />
             </View>
-            <View style={{ width: 16 }} />
-            <View style={styles.joinCourse}>
-              <Pressable android_ripple={{ color: 'lightgrey' }}>
-                <Text style={styles.joinCourseText}>Join Course</Text>
-              </Pressable>
-            </View>
-          </Animated.View>
-        </ScrollView>
+            <Animated.View
+              style={{
+                flexDirection: 'row',
+                padding: 8,
+                opacity: opacity1.current,
+              }}
+              renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
+            >
+              {getTimeBoxUI('24', 'Classes')}
+              {getTimeBoxUI('2 hours', 'Time')}
+              {getTimeBoxUI('24', 'Seat')}
+            </Animated.View>
+            <Animated.Text
+              style={[styles.courseDescription, { opacity: opacity2.current }]}
+              numberOfLines={3}
+            >
+              Lorem ipsum is simply dummy text of printing & typesetting
+              industry, Lorem ipsum is simply dummy text of printing &
+              typesetting industry.
+            </Animated.Text>
+            <Animated.View
+              style={[styles.footerContainer, { opacity: opacity3.current }]}
+              renderToHardwareTextureAndroid
+            >
+              <View style={styles.addView}>
+                <Icon name="add" size={28} color="rgb(0, 182, 240)" />
+              </View>
+              <View style={{ width: 16 }} />
+              <View style={styles.joinCourse}>
+                <Pressable android_ripple={{ color: 'lightgrey' }}>
+                  <Text style={styles.joinCourseText}>Join Course</Text>
+                </Pressable>
+              </View>
+            </Animated.View>
+          </ScrollView>
+        </View>
         <Animated.View
           style={[
             styles.favoriteIcon,
@@ -144,7 +165,10 @@ const CourseInfoScreen: React.FC<Props> = () => {
           <Icon name="favorite" size={28} color="white" />
         </Animated.View>
         <Pressable
-          style={[styles.backBtn, { marginTop }]}
+          style={({ pressed }) => [
+            styles.backBtn,
+            { marginTop, opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
+          ]}
           android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
           onPress={() => navigation.goBack()}
         >
@@ -193,6 +217,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 12,
     elevation: 3,
+    shadowColor: 'grey',
+    shadowOffset: { width: 1.1, height: 1.1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 8.0,
   },
   timeBoxTitle: {
     fontSize: 14,
@@ -225,10 +253,14 @@ const styles = StyleSheet.create({
   },
   joinCourse: {
     flex: 1,
-    overflow: 'hidden',
     borderRadius: 16,
     backgroundColor: 'rgb(0, 182, 240)',
     elevation: 4,
+    shadowColor: 'rgb(0, 182, 240)',
+    shadowOffset: { width: 1.1, height: 1.1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10.0,
+    ...Platform.select({ android: { overflow: 'hidden' } }),
   },
   joinCourseText: {
     padding: 18,
@@ -248,6 +280,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 18,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
   },
   backBtn: {
     position: 'absolute',

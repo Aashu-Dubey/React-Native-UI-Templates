@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StatusBar,
-  SafeAreaView,
   Image,
   TextInput,
   useWindowDimensions,
@@ -12,12 +11,14 @@ import {
   Pressable,
   FlatList,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CategoryListView from './CategoryListView';
 import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
 import PopulerCourseListView from './PopulerCourseListView';
 import { AppImages } from '../../res';
+import Config from '../Config';
 
 interface Props {}
 
@@ -32,7 +33,13 @@ const CATEGORIES = ['Ui/Ux', 'Coding', 'Basic UI'];
 const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
   <>
     <View style={styleCatrgory(selectedCat === text).categoryBtnContainer}>
-      <Pressable android_ripple={{ color: 'lightgrey' }} onPress={onPress}>
+      <Pressable
+        style={({ pressed }) => [
+          { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+        ]}
+        android_ripple={{ color: 'lightgrey' }}
+        onPress={onPress}
+      >
         <Text style={styleCatrgory(selectedCat === text).categoryBtnText}>
           {text}
         </Text>
@@ -44,19 +51,24 @@ const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
 
 const HomeDesignCourse: React.FC<Props> = () => {
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
   const navigation = useNavigation();
 
   const [selectedCategory, setSelectedCategory] = useState('Ui/Ux');
 
-  const marginTop = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+  const paddingTop =
+    Platform.OS === 'ios' ? Math.max(insets.top, 20) : StatusBar.currentHeight;
 
   const renderScrollableHeader = (
     <>
       <View style={[styles.searchInputMainContainer, { width: width * 0.75 }]}>
         <View style={styles.searchInputContainer}>
           <TextInput
-            style={styles.searchInput}
+            style={[
+              styles.searchInput,
+              !Config.isAndroid && { paddingVertical: 16 },
+            ]}
             autoCapitalize="none"
             selectionColor="dodgerblue"
             placeholderTextColor="#B9BABC"
@@ -94,7 +106,7 @@ const HomeDesignCourse: React.FC<Props> = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white', marginTop }}>
+    <View style={{ flex: 1, backgroundColor: 'white', paddingTop }}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View
         style={{ flexDirection: 'row', paddingTop: 8, paddingHorizontal: 18 }}
@@ -110,7 +122,10 @@ const HomeDesignCourse: React.FC<Props> = () => {
       </View>
 
       <FlatList
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 8 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: Config.isAndroid ? 8 : insets.bottom,
+        }}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         data={POPULAR_COURSE_LIST}
@@ -125,7 +140,7 @@ const HomeDesignCourse: React.FC<Props> = () => {
         )}
         keyExtractor={(item) => item.id.toString()}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

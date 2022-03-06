@@ -5,10 +5,14 @@ import {
   Text,
   Pressable,
   Image,
-  SafeAreaView,
   Platform,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,28 +22,23 @@ import Config from './Config';
 interface Props {}
 
 const InviteFriendScene: React.FC<Props> = () => {
+  const { width } = useWindowDimensions();
   const navigation = useNavigation<DrawerNavigationProp<{}>>();
 
-  const marginTop = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+  const { top } = useSafeAreaInsets();
+  const imageSize = width - 32;
+
+  const marginTop = Platform.OS === 'ios' ? top : StatusBar.currentHeight ?? 24;
   return (
-    <SafeAreaView style={{ flex: 1, marginTop }}>
-      <View style={{ flexDirection: 'row', padding: 8, paddingBottom: 0 }}>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              padding: 8,
-              paddingBottom: 0,
-              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
-            },
-          ]}
-          onPress={() => navigation.toggleDrawer()}
-          android_ripple={{ color: 'grey', radius: 20, borderless: true }}
-        >
-          <Icon name="menu" size={25} color="black" />
-        </Pressable>
-      </View>
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={{ flex: 1, backgroundColor: '#FEFEFE' }}
+    >
       <Image
-        style={styles.image}
+        style={[
+          styles.image,
+          { width: imageSize, height: imageSize, marginTop },
+        ]}
         source={AppImages.inviteImage}
         resizeMode="cover"
       />
@@ -59,15 +58,38 @@ const InviteFriendScene: React.FC<Props> = () => {
           <Text style={styles.buttonText}>Share</Text>
         </Pressable>
       </View>
+      <View
+        style={{
+          position: 'absolute',
+          padding: 8,
+          left: 8,
+          backgroundColor: 'white',
+        }}
+      >
+        <Pressable
+          style={({ pressed }) => [
+            {
+              marginTop: marginTop + 8,
+              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
+            },
+          ]}
+          onPress={() => navigation.toggleDrawer()}
+          android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+        >
+          <Icon name="menu" size={25} color="black" />
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    paddingHorizontal: 16,
-    width: undefined,
-    height: 320,
+    // paddingHorizontal: 16,
+    // width: undefined,
+    // height: 320,
+    backgroundColor: '#FEFEFE',
+    alignSelf: 'center',
   },
   title: {
     fontSize: 20,

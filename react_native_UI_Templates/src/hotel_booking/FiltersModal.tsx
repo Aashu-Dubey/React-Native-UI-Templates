@@ -8,12 +8,13 @@ import {
   Pressable,
   StatusBar,
   ScrollView,
+  // Switch,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Config from '../Config';
 import RangeSliderView from './RangeSliderView';
 import SliderView from './SliderView';
-import Switch from './Swtch';
+import MySwitch from './Switch';
 
 interface Props {
   showFilter: boolean;
@@ -138,10 +139,17 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
             onPress={() => checkAppPosition(i)}
           >
             <Text style={styles.switchText}>{data.titleTxt}</Text>
-            <Switch
+            <MySwitch
               value={data.isSelected}
               onValueChange={() => checkAppPosition(i)}
             />
+            {/* <Switch
+              trackColor={{ false: 'lightgrey', true: '#54D3C2' }}
+              thumbColor="white"
+              ios_backgroundColor="lightgrey"
+              onValueChange={() => checkAppPosition(i)}
+              value={data.isSelected}
+            /> */}
           </Pressable>
         </View>,
       );
@@ -161,7 +169,9 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
     >
       <StatusBar backgroundColor="white" />
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <View style={{ flexDirection: 'row', padding: 8 }}>
+        <View
+          style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}
+        >
           <View style={{ flex: 1, alignItems: 'flex-start' }}>
             <Pressable
               style={({ pressed }) => [
@@ -211,17 +221,26 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         </ScrollView>
 
         <View style={styles.divider} />
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={({ pressed }) => [
-              styles.button,
-              { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-            ]}
-            android_ripple={{ color: 'lighgrey' }}
-            onPress={() => setShowFilter(false)}
-          >
-            <Text style={styles.buttonText}>Apply</Text>
-          </Pressable>
+        <View
+          style={{
+            shadowColor: 'grey',
+            shadowOffset: { width: 4, height: 4 },
+            shadowOpacity: 0.6,
+            shadowRadius: 8,
+          }}
+        >
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.button,
+                { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+              ]}
+              android_ripple={{ color: 'lighgrey' }}
+              onPress={() => setShowFilter(false)}
+            >
+              <Text style={styles.buttonText}>Apply</Text>
+            </Pressable>
+          </View>
         </View>
       </SafeAreaView>
     </Modal>
@@ -264,13 +283,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     elevation: 8,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
   },
   button: {
     backgroundColor: '#54D3C2',

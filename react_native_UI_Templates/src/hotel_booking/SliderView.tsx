@@ -45,13 +45,10 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     elevation: 8,
     // backgroundColor: '#54D3C2',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 7.49,
   },
   thumbText: { width: 170, textAlign: 'center' },
 });

@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,6 +19,7 @@ import {
   FeedbackScene,
   InviteFriendScene,
 } from '.';
+import { IntroductionAnimationScreen } from './introduction_animation';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -32,7 +34,7 @@ const DrawerNavigator: React.FC = () => {
       overlayColor="transparent"
       drawerStyle={{
         width: window.width * 0.75,
-        backgroundColor: '#FFFEFEFE',
+        backgroundColor: 'rgb(237, 240, 242, 0.5)',
       }}
       sceneContainerStyle={styles.drawerSceneContainer}
       edgeWidth={window.width}
@@ -46,6 +48,7 @@ const DrawerNavigator: React.FC = () => {
 };
 
 export default () => {
+  const inset = useSafeAreaInsets();
   return (
     <>
       <StatusBar
@@ -68,6 +71,7 @@ export default () => {
             headerShown: true,
             headerTitle: 'Explore',
             headerTitleAlign: 'center',
+            headerStyle: { height: 60 + inset.top },
             headerTitleStyle: { fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
             headerLeft: (props) => (
               <Pressable
@@ -107,6 +111,12 @@ export default () => {
         <Stack.Screen
           name="CourseInfo"
           component={CourseInfoScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="onBoarding"
+          component={IntroductionAnimationScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

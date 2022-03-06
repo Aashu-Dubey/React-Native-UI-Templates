@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Config from '../Config';
 import { CategoryType } from './model/category';
 
 interface Props {
@@ -44,7 +45,13 @@ const PopulerCourseListView: React.FC<Props> = ({ data, onScreenClicked }) => {
       renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
     >
       <Pressable
-        style={{ flex: 1, aspectRatio: 0.8 }}
+        style={({ pressed }) => [
+          {
+            flex: 1,
+            aspectRatio: 0.8,
+            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
+          },
+        ]}
         android_ripple={{ color: 'lightgrey' }}
         onPress={onScreenClicked}
       >
@@ -105,10 +112,14 @@ const styles = StyleSheet.create({
     color: 'rgb(58, 81, 96)',
   },
   imageContainer: {
-    elevation: 2,
     borderRadius: 16,
     marginHorizontal: 16,
     marginBottom: 4,
+    elevation: 2,
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.22,
+    shadowRadius: 6.0,
   },
 });
 

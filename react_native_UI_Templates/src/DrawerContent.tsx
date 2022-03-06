@@ -6,8 +6,8 @@ import {
   useWindowDimensions,
   Pressable,
   Image,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   DrawerContentComponentProps,
   DrawerContentOptions,
@@ -46,7 +46,10 @@ const DrawerItemRow: React.FC<
   const tintColor = focused ? props.activeBackgroundColor : 'black';
   return (
     <Pressable
-      style={styles.drawerRowStyle}
+      style={({ pressed }) => [
+        styles.drawerRowStyle,
+        { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
+      ]}
       android_ripple={{ color: 'lightgrey' }}
       onPress={onpress}
     >
@@ -105,8 +108,8 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
   });
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ padding: 16, marginTop: 30 }}>
+    <SafeAreaView edges={['right', 'bottom', 'left']} style={{ flex: 1 }}>
+      <View style={{ padding: 16, marginTop: 40 }}>
         <Animated.View
           style={[
             styles.drawerAvatarStyle,
@@ -189,9 +192,10 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
 const styles = StyleSheet.create({
   userName: {
     fontSize: 18,
-    color: 'grey',
+    color: '#3A5160',
     fontFamily: 'WorkSans-SemiBold',
-    paddingTop: 4,
+    paddingTop: 8,
+    paddingLeft: 4,
   },
   drawerRowStyle: {
     marginHorizontal: 0,
@@ -223,14 +227,11 @@ const styles = StyleSheet.create({
     borderRadius: 60,
   },
   avatarShadow: {
-    elevation: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.44,
-    shadowRadius: 10.32,
+    elevation: 24,
+    shadowColor: '#3A5160',
+    shadowOffset: { width: 2, height: 4 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
   },
   divider: {
     backgroundColor: 'darkgrey',

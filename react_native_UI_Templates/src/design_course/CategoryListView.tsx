@@ -9,6 +9,7 @@ import {
   ListRenderItemInfo,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Config from '../Config';
 import { CategoryType } from './model/category';
 
 interface Props {
@@ -18,32 +19,44 @@ interface Props {
 
 const CategoryListView: React.FC<Props> = ({ data, onScreenClicked }) => {
   const { index, item } = data;
-  const translateX = useRef<Animated.Value>(new Animated.Value(50)).current;
-  const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
+  const translateX = useRef<Animated.Value>(new Animated.Value(50));
+  const opacity = useRef<Animated.Value>(new Animated.Value(0));
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(translateX, {
+      Animated.timing(translateX.current, {
         toValue: 0,
         duration: 1000,
         delay: index * (1000 / 3),
         useNativeDriver: true,
       }),
-      Animated.timing(opacity, {
+      Animated.timing(opacity.current, {
         toValue: 1,
         duration: 1000,
         delay: index * (1000 / 3),
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, [index]);
 
   return (
     <Animated.View
-      style={[styles.container, { opacity, transform: [{ translateX }] }]}
+      style={[
+        styles.container,
+        {
+          opacity: opacity.current,
+          transform: [{ translateX: translateX.current }],
+        },
+      ]}
     >
       <Pressable
-        style={{ height: 134, width: 280 }}
+        style={({ pressed }) => [
+          {
+            height: 134,
+            width: 280,
+            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
+          },
+        ]}
         android_ripple={{ color: 'lightgrey' }}
         onPress={onScreenClicked}
       >
