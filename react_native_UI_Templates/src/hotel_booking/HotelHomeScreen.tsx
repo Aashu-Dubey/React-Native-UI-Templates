@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Pressable,
-  SafeAreaView,
   TextInput,
   FlatList,
 } from 'react-native';
@@ -14,6 +13,7 @@ import FilterModal from './FiltersModal';
 import HotelListItem from './HotelListItem';
 import { HOTEL_LIST } from './model/hotel_list_data';
 import Config from '../Config';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {}
 
@@ -42,11 +42,17 @@ const HotelHomeScreen: React.FC<Props> = () => {
 
   const [showCal, setShowCal] = useState<boolean>(false);
   const [showFilter, setShowFilter] = useState<boolean>(false);
+
+  const inset = useSafeAreaInsets();
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: 'rgb(242, 242, 242)' }}>
         <FlatList
-          contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            backgroundColor: 'white',
+            paddingBottom: inset.bottom,
+          }}
           data={HOTEL_LIST}
           renderItem={(data) =>
             data.index > 0 ? (
@@ -132,7 +138,7 @@ const HotelHomeScreen: React.FC<Props> = () => {
             </View>
           )}
         />
-      </SafeAreaView>
+      </View>
       <CustomerCalendar
         {...{ showCal, setShowCal }}
         minimumDate={new Date()}

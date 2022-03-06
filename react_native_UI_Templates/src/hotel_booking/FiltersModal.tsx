@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Config from '../Config';
 import RangeSliderView from './RangeSliderView';
 import SliderView from './SliderView';
-import MySwitch from './Swtch';
+import MySwitch from './Switch';
 
 interface Props {
   showFilter: boolean;

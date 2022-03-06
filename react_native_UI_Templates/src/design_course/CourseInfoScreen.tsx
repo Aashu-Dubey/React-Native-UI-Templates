@@ -12,10 +12,10 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppImages } from '../../res';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Config from '../Config';
 
 interface Props {}

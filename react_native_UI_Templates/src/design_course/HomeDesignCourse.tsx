@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StatusBar,
-  SafeAreaView,
   Image,
   TextInput,
   useWindowDimensions,
@@ -12,13 +11,13 @@ import {
   Pressable,
   FlatList,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CategoryListView from './CategoryListView';
 import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
 import PopulerCourseListView from './PopulerCourseListView';
 import { AppImages } from '../../res';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Config from '../Config';
 
 interface Props {}
@@ -66,7 +65,10 @@ const HomeDesignCourse: React.FC<Props> = () => {
       <View style={[styles.searchInputMainContainer, { width: width * 0.75 }]}>
         <View style={styles.searchInputContainer}>
           <TextInput
-            style={[styles.searchInput, { paddingVertical: 16 }]}
+            style={[
+              styles.searchInput,
+              !Config.isAndroid && { paddingVertical: 16 },
+            ]}
             autoCapitalize="none"
             selectionColor="dodgerblue"
             placeholderTextColor="#B9BABC"

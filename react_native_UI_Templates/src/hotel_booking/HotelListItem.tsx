@@ -6,6 +6,7 @@ import {
   Image,
   Animated,
   ListRenderItemInfo,
+  useWindowDimensions,
 } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const HotelListItem: React.FC<Props> = ({ data }) => {
+  const { width } = useWindowDimensions();
   const { item, index } = data;
   const translateY = useRef<Animated.Value>(new Animated.Value(50)).current;
   const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
@@ -37,13 +39,15 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
     ]).start();
   });
 
+  const imageSize = width - 48;
+
   return (
     <Animated.View
       style={[styles.container, { opacity, transform: [{ translateY }] }]}
     >
       <View style={styles.imageContainer}>
         <Image
-          style={{ height: 170, width: undefined }}
+          style={{ height: imageSize / 2, width: imageSize }}
           source={item.imagePath}
           resizeMode="stretch"
         />
@@ -70,11 +74,11 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
           </Text>
           <Text style={styles.perNightText}>/per night</Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', marginTop: 4 }}>
           <Rating
             type="custom"
             ratingCount={5}
-            imageSize={16}
+            imageSize={20}
             ratingColor="#54D3C2"
             fractions={1}
             startingValue={item.rating}
