@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
-interface Props {}
-
 const CustomMarker = (props: { triangleStyle: StyleProp<ViewStyle> }) => (
   <View style={styles.shadowBg}>
     <View style={styles.markerStyle}>
@@ -19,10 +17,11 @@ const CustomMarker = (props: { triangleStyle: StyleProp<ViewStyle> }) => (
   </View>
 );
 
-const RangeSliderView: React.FC<Props> = () => {
+const RangeSliderView: React.FC = () => {
   const { width } = useWindowDimensions();
 
   const { containerStyle, trackStyle, selectedStyle } = styles;
+
   return (
     <MultiSlider
       {...{ containerStyle, trackStyle, selectedStyle }}
@@ -45,11 +44,10 @@ const RangeSliderView: React.FC<Props> = () => {
           twoMarkerValue,
           oneMarkerLeftPosition,
           twoMarkerLeftPosition,
-          // oneMarkerPressed,
-          // twoMarkerPressed,
         } = prop;
         const leftLabelDistance = oneMarkerLeftPosition - (width - 32) / 2 + 3;
         const rightLabelDistance = twoMarkerLeftPosition - 18 / 2 + 3;
+
         return (
           <View>
             {Number.isFinite(oneMarkerLeftPosition) &&

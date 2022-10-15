@@ -6,6 +6,9 @@ interface Props {
   animationController: React.MutableRefObject<Animated.Value>;
 }
 
+const IMAGE_WIDTH = 350;
+const IMAGE_HEIGHT = 250;
+
 const RelaxView: React.FC<Props> = ({ animationController }) => {
   const window = useWindowDimensions();
 
@@ -69,8 +72,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   image: {
-    maxWidth: 350,
-    maxHeight: 250,
+    maxWidth: IMAGE_WIDTH,
+    maxHeight: IMAGE_HEIGHT,
   },
 });
 

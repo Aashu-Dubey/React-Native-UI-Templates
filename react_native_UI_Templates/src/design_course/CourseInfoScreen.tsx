@@ -7,7 +7,6 @@ import {
   ImageBackground,
   useWindowDimensions,
   ScrollView,
-  Pressable,
   Platform,
   Animated,
   Easing,
@@ -15,26 +14,26 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MyPressable from '../components/MyPressable';
 import { AppImages } from '../../res';
 import Config from '../Config';
 
-interface Props {}
-
 const infoHeight = 364.0;
 
-const CourseInfoScreen: React.FC<Props> = () => {
+const CourseInfoScreen: React.FC = () => {
   const window = useWindowDimensions();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-
-  // const tempHeight = window.height - window.width / 1.2 + 24.0;
-  const marginTop =
-    Platform.OS === 'ios' ? Math.max(insets.top, 20) : StatusBar.currentHeight;
 
   const favIconScale = useRef<Animated.Value>(new Animated.Value(0.1));
   const opacity1 = useRef<Animated.Value>(new Animated.Value(0));
   const opacity2 = useRef<Animated.Value>(new Animated.Value(0));
   const opacity3 = useRef<Animated.Value>(new Animated.Value(0));
+
+  // const tempHeight = window.height - window.width / 1.2 + 24.0;
+  const marginTop = Config.isIos
+    ? Math.max(insets.top, 20)
+    : StatusBar.currentHeight;
 
   useEffect(() => {
     Animated.timing(favIconScale.current, {
@@ -81,15 +80,7 @@ const CourseInfoScreen: React.FC<Props> = () => {
         imageStyle={{ height: window.width / 1.2 }}
         source={AppImages.webInterFace}
       >
-        <View
-          style={{
-            flex: 1,
-            shadowColor: 'grey',
-            shadowOffset: { width: 1.1, height: 1.1 },
-            shadowOpacity: 0.2,
-            shadowRadius: 10.0,
-          }}
-        >
+        <View style={styles.contentContainer}>
           <ScrollView
             style={[
               styles.scrollContainer,
@@ -106,23 +97,12 @@ const CourseInfoScreen: React.FC<Props> = () => {
           >
             <Text style={styles.courseTitle}>{'Web Design\nCourse'}</Text>
             <View style={styles.priceRatingContainer}>
-              <Text
-                style={[
-                  styles.textStyle,
-                  { flex: 1, color: 'rgb(0, 182, 240)' },
-                ]}
-              >
-                $28.99
-              </Text>
+              <Text style={[styles.textStyle, styles.price]}>$28.99</Text>
               <Text style={styles.textStyle}>4.3</Text>
               <Icon name="star" size={24} color="rgb(0, 182, 240)" />
             </View>
             <Animated.View
-              style={{
-                flexDirection: 'row',
-                padding: 8,
-                opacity: opacity1.current,
-              }}
+              style={[styles.boxesContainer, { opacity: opacity1.current }]}
               renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
             >
               {getTimeBoxUI('24', 'Classes')}
@@ -146,13 +126,14 @@ const CourseInfoScreen: React.FC<Props> = () => {
               </View>
               <View style={{ width: 16 }} />
               <View style={styles.joinCourse}>
-                <Pressable android_ripple={{ color: 'lightgrey' }}>
+                <MyPressable>
                   <Text style={styles.joinCourseText}>Join Course</Text>
-                </Pressable>
+                </MyPressable>
               </View>
             </Animated.View>
           </ScrollView>
         </View>
+
         <Animated.View
           style={[
             styles.favoriteIcon,
@@ -164,22 +145,27 @@ const CourseInfoScreen: React.FC<Props> = () => {
         >
           <Icon name="favorite" size={28} color="white" />
         </Animated.View>
-        <Pressable
-          style={({ pressed }) => [
-            styles.backBtn,
-            { marginTop, opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
-          ]}
+
+        <MyPressable
+          style={[styles.backBtn, { marginTop }]}
           android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
           onPress={() => navigation.goBack()}
         >
           <Icon name="arrow-back-ios" size={24} color="black" />
-        </Pressable>
+        </MyPressable>
       </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    flex: 1,
+    shadowColor: 'grey',
+    shadowOffset: { width: 1.1, height: 1.1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10.0,
+  },
   scrollContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -203,6 +189,10 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     alignItems: 'center',
   },
+  price: {
+    flex: 1,
+    color: 'rgb(0, 182, 240)',
+  },
   textStyle: {
     fontSize: 22,
     fontFamily: 'WorkSans-Regular',
@@ -216,7 +206,7 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingHorizontal: 18,
     paddingVertical: 12,
-    elevation: 3,
+    elevation: 2,
     shadowColor: 'grey',
     shadowOffset: { width: 1.1, height: 1.1 },
     shadowOpacity: 0.22,
@@ -226,6 +216,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'WorkSans-SemiBold',
     color: 'rgb(0, 182, 240)',
+  },
+  boxesContainer: {
+    flexDirection: 'row',
+    padding: 8,
   },
   courseDescription: {
     flex: 1,

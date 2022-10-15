@@ -7,20 +7,17 @@ import {
   Image,
   TextInput,
   useWindowDimensions,
-  Platform,
-  Pressable,
   FlatList,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CategoryListView from './CategoryListView';
-import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
 import PopulerCourseListView from './PopulerCourseListView';
+import MyPressable from '../components/MyPressable';
+import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
 import { AppImages } from '../../res';
 import Config from '../Config';
-
-interface Props {}
 
 interface CategoryBtn {
   text: string;
@@ -33,32 +30,26 @@ const CATEGORIES = ['Ui/Ux', 'Coding', 'Basic UI'];
 const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
   <>
     <View style={styleCatrgory(selectedCat === text).categoryBtnContainer}>
-      <Pressable
-        style={({ pressed }) => [
-          { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-        ]}
-        android_ripple={{ color: 'lightgrey' }}
-        onPress={onPress}
-      >
+      <MyPressable touchOpacity={0.6} onPress={onPress}>
         <Text style={styleCatrgory(selectedCat === text).categoryBtnText}>
           {text}
         </Text>
-      </Pressable>
+      </MyPressable>
     </View>
     {text !== CATEGORIES[2] && <View style={{ width: 16 }} />}
   </>
 );
 
-const HomeDesignCourse: React.FC<Props> = () => {
+const HomeDesignCourse: React.FC = () => {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-
   const navigation = useNavigation();
 
   const [selectedCategory, setSelectedCategory] = useState('Ui/Ux');
 
-  const paddingTop =
-    Platform.OS === 'ios' ? Math.max(insets.top, 20) : StatusBar.currentHeight;
+  const paddingTop = Config.isIos
+    ? Math.max(insets.top, 20)
+    : StatusBar.currentHeight;
 
   const renderScrollableHeader = (
     <>
@@ -108,10 +99,8 @@ const HomeDesignCourse: React.FC<Props> = () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingTop }}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <View
-        style={{ flexDirection: 'row', paddingTop: 8, paddingHorizontal: 18 }}
-      >
-        <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text style={styles.headerTextNormal}>Choose your</Text>
           <Text style={styles.headerTextBold}>Design Course</Text>
         </View>
@@ -124,14 +113,14 @@ const HomeDesignCourse: React.FC<Props> = () => {
       <FlatList
         contentContainerStyle={{
           flexGrow: 1,
-          paddingBottom: Config.isAndroid ? 8 : insets.bottom,
+          paddingBottom: 16 + insets.bottom,
         }}
+        columnWrapperStyle={{ paddingHorizontal: 8 }}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         data={POPULAR_COURSE_LIST}
         ListHeaderComponent={renderScrollableHeader}
         ItemSeparatorComponent={() => <View style={{ height: 32 }} />}
-        columnWrapperStyle={{ paddingHorizontal: 8 }}
         renderItem={(data) => (
           <PopulerCourseListView
             {...{ data }}
@@ -149,7 +138,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 18,
     height: 64,
-    // alignItems: 'center',
   },
   searchInputContainer: {
     flexDirection: 'row',
@@ -178,6 +166,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     marginBottom: 8,
+  },
+  header: {
+    flexDirection: 'row',
+    paddingTop: 8,
+    paddingHorizontal: 18,
   },
   headerTextNormal: {
     color: 'grey',

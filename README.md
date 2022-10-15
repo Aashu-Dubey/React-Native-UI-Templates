@@ -4,13 +4,7 @@ React native UI templates inspired from [Best-Flutter-UI-Templates](https://gith
 
 ## Try The App
 
-### Android
-
-You can download the latest APK [here](https://github.com/Aashu-Dubey/React-Native-UI-Templates/raw/main/images/07-03-2022.apk).
-
-### iOS
-
-You need to build from source. See how to setup for iOS [here](https://reactnative.dev/docs/next/environment-setup).
+See how to setup and run for Android & iOS [here](https://reactnative.dev/docs/next/environment-setup).
 
 ### Expo
 

@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Image,
-  Pressable,
   Platform,
   StatusBar,
   useWindowDimensions,
@@ -16,19 +15,17 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
-import Config from './Config';
 
-interface Props {}
-
-const HelpScene: React.FC<Props> = () => {
+const HelpScene: React.FC = () => {
   const { width } = useWindowDimensions();
   const navigation = useNavigation<DrawerNavigationProp<{}>>();
-
   const { top } = useSafeAreaInsets();
-  const imageSize = width - 32;
 
+  const imageSize = width - 32;
   const marginTop = Platform.OS === 'ios' ? top : StatusBar.currentHeight ?? 24;
+
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
@@ -47,48 +44,25 @@ const HelpScene: React.FC<Props> = () => {
         It looks like you are experiencing problems{'\n'}with our sign up
         process. We are here to{'\n'}help so please get in touch with us
       </Text>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Pressable
-          style={({ pressed }) => [
-            styles.button,
-            { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
-          ]}
-          android_ripple={{ color: 'grey' }}
-        >
+      <View style={styles.buttonContainer}>
+        <MyPressable style={styles.button} android_ripple={{ color: 'grey' }}>
           <Text style={styles.buttonText}>Chat with Us</Text>
-        </Pressable>
+        </MyPressable>
       </View>
-      {/* <View style={{ flexDirection: 'row', padding: 8, paddingBottom: 0 }}> */}
-      <View
-        style={{
-          position: 'absolute',
-          padding: 8,
-          left: 8,
-          backgroundColor: 'white',
-        }}
+
+      <MyPressable
+        style={[styles.menuBtn, { marginTop: marginTop + 8 }]}
+        android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+        onPress={() => navigation.openDrawer()}
       >
-        <Pressable
-          style={({ pressed }) => [
-            {
-              marginTop: marginTop + 8,
-              opacity: !Config.isAndroid && pressed ? 0.4 : 1,
-            },
-          ]}
-          onPress={() => navigation.openDrawer()}
-          android_ripple={{ color: 'grey', radius: 20, borderless: true }}
-        >
-          <Icon name="menu" size={25} color="black" />
-        </Pressable>
-      </View>
+        <Icon name="menu" size={25} color="black" />
+      </MyPressable>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    // paddingHorizontal: 16,
-    // width: undefined,
-    // height: 320,
     backgroundColor: '#FEFEFE',
     alignSelf: 'center',
   },
@@ -104,6 +78,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 16,
   },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   button: {
     width: 140,
     height: 40,
@@ -118,6 +97,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     padding: 4,
+  },
+  menuBtn: {
+    position: 'absolute',
+    padding: 8,
+    left: 8,
   },
 });
 

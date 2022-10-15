@@ -8,6 +8,7 @@ interface Props {
 
 const IMAGE_WIDTH = 350;
 const IMAGE_HEIGHT = 350;
+
 const WelcomeView: React.FC<Props> = ({ animationController }) => {
   const window = useWindowDimensions();
 
@@ -54,6 +55,8 @@ const WelcomeView: React.FC<Props> = ({ animationController }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
+    left: 0,
+    right: 0,
     alignItems: 'center',
     paddingBottom: 100,
   },

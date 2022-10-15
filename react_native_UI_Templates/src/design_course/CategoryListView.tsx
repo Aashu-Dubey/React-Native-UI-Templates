@@ -4,12 +4,11 @@ import {
   View,
   Text,
   Animated,
-  Pressable,
   Image,
   ListRenderItemInfo,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Config from '../Config';
+import MyPressable from '../components/MyPressable';
 import { CategoryType } from './model/category';
 
 interface Props {
@@ -19,6 +18,7 @@ interface Props {
 
 const CategoryListView: React.FC<Props> = ({ data, onScreenClicked }) => {
   const { index, item } = data;
+
   const translateX = useRef<Animated.Value>(new Animated.Value(50));
   const opacity = useRef<Animated.Value>(new Animated.Value(0));
 
@@ -49,15 +49,9 @@ const CategoryListView: React.FC<Props> = ({ data, onScreenClicked }) => {
         },
       ]}
     >
-      <Pressable
-        style={({ pressed }) => [
-          {
-            height: 134,
-            width: 280,
-            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-          },
-        ]}
-        android_ripple={{ color: 'lightgrey' }}
+      <MyPressable
+        style={{ height: 134, width: 280 }}
+        touchOpacity={0.6}
         onPress={onScreenClicked}
       >
         <View style={styles.bgColorView} />
@@ -90,7 +84,7 @@ const CategoryListView: React.FC<Props> = ({ data, onScreenClicked }) => {
             </View>
           </View>
         </View>
-      </Pressable>
+      </MyPressable>
     </Animated.View>
   );
 };

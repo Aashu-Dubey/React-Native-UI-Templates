@@ -47,6 +47,11 @@ const CenterNextButton: React.FC<Props> = ({
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const { bottom } = useSafeAreaInsets();
+  const paddingBottom = 16 + bottom;
+
+  const dots = useMemo(() => [0, 1, 2, 3], []);
+
   useEffect(() => {
     // I think this condition could be better?
     animationController.current.addListener(({ value }) => {
@@ -83,11 +88,6 @@ const CenterNextButton: React.FC<Props> = ({
     inputRange: [0, 0.2, 0.4, 0.6, 0.8],
     outputRange: [30 * 5, 30 * 5, 30 * 5, 30 * 5, 0], // 96 is total height of next button view
   });
-
-  const dots = useMemo(() => [0, 1, 2, 3], []);
-
-  const { bottom } = useSafeAreaInsets();
-  const paddingBottom = 16 + bottom;
 
   return (
     <Animated.View
@@ -128,7 +128,6 @@ const CenterNextButton: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    // paddingBottom: 16,
     position: 'absolute',
     bottom: 0,
     left: 0,

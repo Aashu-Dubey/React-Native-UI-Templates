@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  Animated,
-  Pressable,
-  Platform,
-  StatusBar,
-} from 'react-native';
+import { StyleSheet, Text, Animated, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MyPressable from '../../components/MyPressable';
 import Config from '../../Config';
 
 interface Props {
@@ -23,7 +17,7 @@ const TopBackSkipView: React.FC<Props> = ({
   animationController,
 }) => {
   const { top } = useSafeAreaInsets();
-  const marginTop = Platform.OS === 'ios' ? top : StatusBar.currentHeight;
+  const marginTop = Config.isIos ? top : StatusBar.currentHeight;
 
   const headerTranslateY = animationController.current.interpolate({
     inputRange: [0, 0.2, 0.4, 0.6, 0.8],
@@ -41,27 +35,21 @@ const TopBackSkipView: React.FC<Props> = ({
         { marginTop, transform: [{ translateY: headerTranslateY }] },
       ]}
     >
-      <Pressable
-        style={({ pressed }) => [
-          styles.backBtn,
-          { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
-        ]}
+      <MyPressable
+        style={styles.backBtn}
         android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
         onPress={() => onBackClick()}
       >
         <Icon name="arrow-back-ios" size={24} color="black" />
-      </Pressable>
+      </MyPressable>
 
       <Animated.View style={{ transform: [{ translateX: skipAnim }] }}>
-        <Pressable
-          style={({ pressed }) => [
-            { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
-          ]}
+        <MyPressable
           android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
           onPress={() => onSkipClick()}
         >
           <Text style={{ fontFamily: 'WorkSans-Regular' }}>Skip</Text>
-        </Pressable>
+        </MyPressable>
       </Animated.View>
     </Animated.View>
   );

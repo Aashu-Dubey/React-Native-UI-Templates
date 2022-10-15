@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, Animated, Pressable } from 'react-native';
+import { StyleSheet, Text, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Config from '../../../Config';
+import MyPressable from '../../../components/MyPressable';
 
 interface Props {
   onBtnPress: () => void;
@@ -20,60 +20,6 @@ const NextButtonArrow: React.FC<Props> = ({
   const arrowAnim = useRef<Animated.AnimatedInterpolation>(
     new Animated.Value(0),
   );
-
-  /* // const [arrowState, setArrowState] = useState(0);
-  // const valueRef = useRef(0);
-
-  // const iconTransitionAnim = useRef(new Animated.Value(0));
-  // const iconOpacityAnim = useRef(new Animated.Value(1));
-  // const transitionAnim = useRef(new Animated.Value(36));
-  // const opacityAnim = useRef(new Animated.Value(0));
-
-  useEffect(() => {
-    // INITIAL SOLUTION
-    // a little workaround we can say, we can't assign interpolate to 'arrowAnim.current' at line 76, but as we're calling 'addListener' first the assign interpolation, both are working (though animation not proper sometimes)
-    // If we do this first then 'addListener' won't work
-    // TODO:- find a better solution to this
-    arrowAnim.current.addListener(({ value }: any) => {
-      if (
-        (valueRef.current < 0.7 && value >= 0.7) ||
-        (valueRef.current > 0.7 && value <= 0.7)
-      ) {
-        valueRef.current = value;
-        const config = {
-          duration: 480,
-          easing: Easing.bezier(0.4, 0.0, 0.2, 1.0),
-          useNativeDriver: true,
-        };
-        Animated.parallel([
-          Animated.timing(transitionAnim.current, {
-            toValue: value > 0.7 ? 0 : 36,
-            ...config,
-          }),
-          Animated.timing(opacityAnim.current, {
-            toValue: value > 0.7 ? 1 : 0,
-            ...config,
-          }),
-          Animated.timing(iconTransitionAnim.current, {
-            toValue: value <= 0.7 ? 0 : -36,
-            ...config,
-          }),
-          Animated.timing(iconOpacityAnim.current, {
-            toValue: value <= 0.7 ? 1 : 0,
-            ...config,
-          }),
-        ]).start();
-      }
-    });
-  }, []);
-
-  const onArrowPress = () => {
-    Animated.timing(arrowAnim.current, {
-      toValue: arrowState === 1 ? 0 : 1,
-      duration: 1600,
-      useNativeDriver: false,
-    }).start(() => setArrowState(arrowState === 1 ? 0 : 1));
-  }; */
 
   arrowAnim.current = animationController.current.interpolate({
     inputRange: [0, 0.2, 0.4, 0.6, 0.8],
@@ -125,18 +71,11 @@ const NextButtonArrow: React.FC<Props> = ({
         },
       ]}
     >
-      <Pressable
-        style={({ pressed }) => [
-          {
-            flex: 1,
-            justifyContent: 'center',
-            opacity: !Config.isAndroid && pressed ? 0.4 : 1,
-          },
-        ]}
+      <MyPressable
+        style={{ flex: 1, justifyContent: 'center' }}
         android_ripple={{ color: 'darkgrey' }}
         onPress={() => onBtnPress()}
       >
-        {/* {valueRef.current > 0.7 ? ( */}
         <Animated.View
           style={[
             styles.signupContainer,
@@ -149,7 +88,7 @@ const NextButtonArrow: React.FC<Props> = ({
           <Text style={styles.signupText}>Sign Up</Text>
           <Icon name="arrow-forward" size={24} color="white" />
         </Animated.View>
-        {/* ) : ( */}
+
         <IconPressable
           style={[
             styles.icon,
@@ -162,8 +101,7 @@ const NextButtonArrow: React.FC<Props> = ({
           size={24}
           color="white"
         />
-        {/* )} */}
-      </Pressable>
+      </MyPressable>
     </Animated.View>
   );
 };

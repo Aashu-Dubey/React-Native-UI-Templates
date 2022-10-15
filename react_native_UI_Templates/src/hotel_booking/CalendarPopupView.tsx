@@ -5,12 +5,11 @@ import {
   Text,
   Modal,
   SafeAreaView,
-  Pressable,
-  StatusBar,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Config from '../Config';
+import { BlurView } from '@react-native-community/blur';
 import CustomCalendar from './CustomCalendar';
+import MyPressable from '../components/MyPressable';
 
 interface Props {
   showCal: boolean;
@@ -62,14 +61,20 @@ const CustomerCalendar: React.FC<Props> = ({
       visible={showCal}
       animationType="fade"
       transparent
+      statusBarTranslucent
       onRequestClose={() => setShowCal(false)}
     >
-      <StatusBar backgroundColor="rgba(0,0,0, 0.5)" />
       <TouchableWithoutFeedback
         style={{ flex: 1 }}
         onPress={() => setShowCal(false)}
       >
         <SafeAreaView style={styles.containerStyle}>
+          <BlurView
+            style={{ ...StyleSheet.absoluteFillObject }}
+            blurType="light"
+            blurAmount={25}
+            reducedTransparencyFallbackColor="white"
+          />
           <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => {}}>
             <View
               style={{ backgroundColor: 'white', borderRadius: 24, margin: 24 }}
@@ -101,25 +106,16 @@ const CustomerCalendar: React.FC<Props> = ({
                 }}
               />
 
-              <View style={styles.applyBtnMainContainer}>
-                <View
-                  style={{ borderRadius: 24, elevation: 8, overflow: 'hidden' }}
-                >
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.applyBtn,
-                      { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-                    ]}
-                    android_ripple={{ color: 'lighgrey' }}
-                    onPress={() => {
-                      onApplyClick(startDate, endDate);
-                      setShowCal(false);
-                    }}
-                  >
-                    <Text style={styles.applyBtnText}>Apply</Text>
-                  </Pressable>
-                </View>
-              </View>
+              <MyPressable
+                style={[styles.applyBtn]}
+                touchOpacity={0.7}
+                onPress={() => {
+                  onApplyClick(startDate, endDate);
+                  setShowCal(false);
+                }}
+              >
+                <Text style={styles.applyBtnText}>Apply</Text>
+              </MyPressable>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -151,6 +147,14 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 24,
+    margin: 16,
+    marginTop: 8,
+    shadowColor: 'grey',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
+    elevation: 8,
   },
   applyBtnText: {
     fontSize: 18,
@@ -162,14 +166,6 @@ const styles = StyleSheet.create({
     width: 1,
     backgroundColor: 'grey',
     opacity: 0.4,
-  },
-  applyBtnMainContainer: {
-    padding: 16,
-    paddingTop: 8,
-    shadowColor: 'grey',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
   },
 });
 

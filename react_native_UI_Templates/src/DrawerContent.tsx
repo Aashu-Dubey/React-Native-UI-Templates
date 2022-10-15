@@ -4,7 +4,6 @@ import {
   View,
   Text,
   useWindowDimensions,
-  Pressable,
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,45 +12,73 @@ import {
   DrawerContentOptions,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import { DrawerActions } from '@react-navigation/native';
+import { DrawerActions, NavigationState } from '@react-navigation/native';
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
-import Config from './Config';
 
-interface DrawerItemProps {
+type DrawerScene = {
   label: string;
   icon: any;
   isAssetIcon?: boolean;
+  routeKey?: string;
+};
+
+interface DrawerItemProps extends DrawerScene {
   translateX: Animated.Adaptable<number>;
-  onpress?: () => void | null | undefined;
 }
+
+const DRAWER_SCENES: DrawerScene[] = [
+  { label: 'Home', icon: 'home', routeKey: 'home' },
+  {
+    label: 'Help',
+    icon: AppImages.support_icon,
+    isAssetIcon: true,
+    routeKey: 'help',
+  },
+  { label: 'Feedback', icon: 'help', routeKey: 'feedback' },
+  { label: 'Invite Friend', icon: 'group', routeKey: 'invite_friend' },
+  { label: 'Rate the app', icon: 'share' },
+  { label: 'About Us', icon: 'info' },
+];
+
+const getActiveRouteState = (
+  routes: NavigationState['routes'],
+  index: number,
+  routeKey: string,
+) => routes[index].name.toLowerCase().indexOf(routeKey?.toLowerCase()) >= 0;
 
 const DrawerItemRow: React.FC<
   DrawerItemProps & DrawerContentComponentProps<DrawerContentOptions>
 > = (props) => {
-  const window = useWindowDimensions();
-  const rowWidth = (window.width * 0.75 * 80) / 100;
   const {
     state,
     label,
     icon,
     isAssetIcon = false,
+    routeKey,
     translateX,
-    onpress,
   } = props;
   const { routes, index } = state;
-  const focused = getActiveRouteState(routes, index, label);
 
+  const window = useWindowDimensions();
+  const rowWidth = (window.width * 0.75 * 80) / 100;
+
+  const focused = routeKey
+    ? getActiveRouteState(routes, index, routeKey)
+    : false;
   const tintColor = focused ? props.activeBackgroundColor : 'black';
+
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.drawerRowStyle,
-        { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-      ]}
-      android_ripple={{ color: 'lightgrey' }}
-      onPress={onpress}
+    <MyPressable
+      style={styles.drawerRowStyle}
+      touchOpacity={0.6}
+      onPress={() =>
+        routeKey
+          ? props.navigation.navigate(routeKey)
+          : props.navigation.dispatch(DrawerActions.closeDrawer())
+      }
     >
       <Animated.View
         style={[
@@ -82,18 +109,16 @@ const DrawerItemRow: React.FC<
           {label}
         </Text>
       </View>
-    </Pressable>
+    </MyPressable>
   );
 };
-
-const getActiveRouteState = (routes: any[], index: number, name: string) =>
-  routes[index].name.toLowerCase().indexOf(name.toLowerCase()) >= 0;
 
 const DrawerContent: React.FC<DrawerContentComponentProps<
   DrawerContentOptions
 >> = (props) => {
   const window = useWindowDimensions();
   const rowWidth = (window.width * 0.75 * 80) / 100;
+
   const rotate = Animated.interpolate(props.progress, {
     inputRange: [0, 1],
     outputRange: [0.3, 0],
@@ -128,63 +153,27 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
         <Text style={styles.userName}>Chris Hemsworth</Text>
       </View>
       <View style={styles.divider} />
+
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{ flexGrow: 1, paddingTop: 0 }}
       >
-        <DrawerItemRow
-          label="Home"
-          icon="home"
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.navigate('Home')}
-        />
-        <DrawerItemRow
-          label="Help"
-          icon={AppImages.support_icon}
-          isAssetIcon
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.navigate('Help')}
-        />
-        <DrawerItemRow
-          label="Feedback"
-          icon="help"
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.navigate('Feedback')}
-        />
-        <DrawerItemRow
-          label="Invite Friend"
-          icon="group"
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.navigate('Invite Friend')}
-        />
-        <DrawerItemRow
-          label="Rate the app"
-          icon="share"
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
-        />
-        <DrawerItemRow
-          label="About Us"
-          icon="info"
-          {...{ ...props, translateX }}
-          onpress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
-        />
+        {DRAWER_SCENES.map((scene) => (
+          <DrawerItemRow
+            key={scene.label}
+            {...{ ...props, ...scene, translateX }}
+          />
+        ))}
       </DrawerContentScrollView>
 
-      <Pressable
-        style={({ pressed }) => [
-          styles.signOutBtnStyle,
-          { opacity: !Config.isAndroid && pressed ? 0.4 : 1 },
-        ]}
-        android_ripple={{ color: 'lightgrey' }}
-      >
+      <MyPressable style={styles.signOutBtnStyle}>
         <Text
           style={{ flex: 1, fontSize: 16, fontFamily: 'WorkSans-SemiBold' }}
         >
           Sign Out
         </Text>
         <Icon name="power-settings-new" size={20} color="red" />
-      </Pressable>
+      </MyPressable>
     </SafeAreaView>
   );
 };
@@ -236,7 +225,6 @@ const styles = StyleSheet.create({
   divider: {
     backgroundColor: 'darkgrey',
     height: StyleSheet.hairlineWidth,
-    // opacity: 0.6,
   },
   signOutBtnStyle: {
     flexDirection: 'row',

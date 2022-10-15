@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
-  Pressable,
   Image,
   Animated,
   ListRenderItemInfo,
   View,
   Text,
+  FlatList,
   StatusBar,
   Platform,
   Easing,
   useWindowDimensions,
+  GestureResponderEvent,
 } from 'react-native';
 import {
   SafeAreaView,
@@ -18,13 +19,10 @@ import {
 } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useHeaderHeight } from '@react-navigation/stack';
-import { FlatList } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
 import { showToast } from './util/action';
-import Config from './Config';
-
-interface Props {}
 
 const DEMOS = [
   {
@@ -47,25 +45,23 @@ const DEMOS = [
     background: AppImages.design_course,
     screenName: 'DesignCourse',
   },
-  /* {
-    name: '',
-    background: undefined,
-    screenName: '',
-  }, */
 ];
 
 interface ListItemProps {
   data: ListRenderItemInfo<typeof DEMOS[0]>;
   isGrid: boolean;
-  onScreenClicked: () => void;
+  onScreenClicked: ((event: GestureResponderEvent) => void) | null | undefined;
 }
+
 const ListItem: React.FC<ListItemProps> = ({
   data,
   isGrid,
   onScreenClicked,
 }) => {
-  const { width } = useWindowDimensions();
   const { index, item } = data;
+
+  const { width } = useWindowDimensions();
+
   const translateY = useRef<Animated.Value>(new Animated.Value(50)).current;
   const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -89,13 +85,9 @@ const ListItem: React.FC<ListItemProps> = ({
 
   const itemWidth = isGrid ? (width - 36) / 2 : width - 24;
 
-  /* if (item.name.length === 0) { // handling odd number of grid list
-    return null;
-  } */
   return (
     <Animated.View
       style={{
-        // flex: 1,
         width: itemWidth,
         height: itemWidth / 1.5,
         margin: 6,
@@ -105,38 +97,33 @@ const ListItem: React.FC<ListItemProps> = ({
       }}
     >
       <Image
-        style={{
-          width: '100%',
-          height: '100%',
-          // aspectRatio: 1.5,
-          borderRadius: 4,
-          opacity: item.screenName === '' ? 0.4 : 1.0, // Faded if Template is not available
-        }}
+        style={[
+          styles.demoImg,
+          { opacity: item.screenName === '' ? 0.4 : 1.0 }, // Faded if Template is not available
+        ]}
         source={item.background}
         resizeMode="cover"
       />
 
-      <Pressable
-        style={({ pressed }) => [
-          {
-            // flex: 1,
-            borderRadius: 4,
-            backgroundColor: 'rgba(128,128,128,0.1)',
-            ...StyleSheet.absoluteFillObject,
-            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-          },
-        ]}
+      <MyPressable
+        style={styles.demoPressable}
         android_ripple={{ color: 'rgba(128,128,128,0.3)' }}
+        touchOpacity={0.6}
         onPress={onScreenClicked}
       />
     </Animated.View>
   );
 };
 
-const HomeScene: React.FC<Props> = () => {
+const HomeScene: React.FC = () => {
   const headerHeight = useHeaderHeight();
   const navigation = useNavigation<any>();
+  const inset = useSafeAreaInsets();
+
   const [isGrid, setGrid] = useState(true);
+
+  const marginTop =
+    Platform.OS === 'ios' ? inset.top : StatusBar.currentHeight ?? 24;
 
   const onTemplateClicked = (temp: typeof DEMOS[0]) => {
     if (temp.screenName) {
@@ -146,81 +133,75 @@ const HomeScene: React.FC<Props> = () => {
     }
   };
 
-  const inset = useSafeAreaInsets();
-  const marginTop =
-    Platform.OS === 'ios' ? inset.top : StatusBar.currentHeight ?? 24;
-
   return (
     <SafeAreaView style={{ flex: 1, marginTop }} edges={['left', 'right']}>
-      <View
-        style={{
-          height: 52,
-          flexDirection: 'row',
-          alignItems: 'center',
-          padding: 8,
-          paddingBottom: 0,
-        }}
-      >
-        <Pressable
-          style={({ pressed }) => [
-            {
-              marginTop: 8,
-              marginLeft: 8,
-              opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-            },
-          ]}
-          onPress={() => navigation.toggleDrawer()}
+      <View style={styles.headerContainer}>
+        <MyPressable
+          style={{ marginLeft: 8 }}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+          touchOpacity={0.6}
+          onPress={() => navigation.toggleDrawer()}
         >
           <Icon name="menu" size={25} color="black" />
-        </Pressable>
+        </MyPressable>
         <Text style={styles.headerText}>React-Native UI</Text>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              marginTop: 8,
-              marginRight: 8,
-              opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-            },
-          ]}
-          onPress={() => setGrid(!isGrid)}
+        <MyPressable
+          style={{ marginRight: 8 }}
           android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+          touchOpacity={0.6}
+          onPress={() => setGrid(!isGrid)}
         >
           <Icon
             name={isGrid ? 'dashboard' : 'view-agenda'}
             size={25}
             color="black"
           />
-        </Pressable>
+        </MyPressable>
       </View>
+
       <FlatList
         key={isGrid ? 'G' : 'L'}
         style={{ marginTop: headerHeight, marginHorizontal: 6 }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: inset.bottom }}
-        data={DEMOS}
-        keyExtractor={(item) => item.name}
         numColumns={isGrid ? 2 : 1}
+        showsVerticalScrollIndicator={false}
+        data={DEMOS}
         renderItem={(data) => (
           <ListItem
-            data={data}
-            isGrid={isGrid}
+            {...{ data, isGrid }}
             onScreenClicked={() => onTemplateClicked(data.item)}
           />
         )}
-        showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => item.name}
       />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    height: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingBottom: 0,
+  },
   headerText: {
     flex: 1,
     fontSize: 22,
     fontFamily: 'WorkSans-Bold',
     textAlign: 'center',
     textAlignVertical: 'center',
-    paddingTop: 4,
+  },
+  demoImg: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 4,
+  },
+  demoPressable: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(128,128,128,0.1)',
+    borderRadius: 4,
   },
 });
 

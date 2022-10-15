@@ -5,11 +5,10 @@ import {
   Text,
   Animated,
   ListRenderItemInfo,
-  Pressable,
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Config from '../Config';
+import MyPressable from '../components/MyPressable';
 import { CategoryType } from './model/category';
 
 interface Props {
@@ -19,6 +18,7 @@ interface Props {
 
 const PopulerCourseListView: React.FC<Props> = ({ data, onScreenClicked }) => {
   const { index, item } = data;
+
   const translateY = useRef<Animated.Value>(new Animated.Value(50)).current;
   const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -44,15 +44,9 @@ const PopulerCourseListView: React.FC<Props> = ({ data, onScreenClicked }) => {
       style={[styles.container, { opacity, transform: [{ translateY }] }]}
       renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
     >
-      <Pressable
-        style={({ pressed }) => [
-          {
-            flex: 1,
-            aspectRatio: 0.8,
-            opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-          },
-        ]}
-        android_ripple={{ color: 'lightgrey' }}
+      <MyPressable
+        style={{ flex: 1, aspectRatio: 0.8 }}
+        touchOpacity={0.6}
         onPress={onScreenClicked}
       >
         <View style={styles.bgColorView} />
@@ -76,7 +70,7 @@ const PopulerCourseListView: React.FC<Props> = ({ data, onScreenClicked }) => {
             </Animated.View>
           </View>
         </View>
-      </Pressable>
+      </MyPressable>
     </Animated.View>
   );
 };

@@ -5,16 +5,15 @@ import {
   Text,
   Modal,
   SafeAreaView,
-  Pressable,
   StatusBar,
   ScrollView,
-  // Switch,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Config from '../Config';
 import RangeSliderView from './RangeSliderView';
 import SliderView from './SliderView';
+import MyPressable from '../components/MyPressable';
 import MySwitch from './Switch';
+import Config from '../Config';
 
 interface Props {
   showFilter: boolean;
@@ -53,15 +52,12 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         const data = popularFilterList[count];
         listUI.push(
           <View
-            key={j}
+            key={`popular_${j}`}
             style={{ flex: 1, borderRadius: 4, overflow: 'hidden' }}
           >
-            <Pressable
-              style={({ pressed }) => [
-                styles.checkBoxBtn,
-                { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-              ]}
-              android_ripple={{ color: 'lightgrey' }}
+            <MyPressable
+              style={styles.checkBoxBtn}
+              touchOpacity={0.6}
               onPress={() => {
                 data.isSelected = !data.isSelected;
                 setPopularFilterList([...popularFilterList]);
@@ -75,7 +71,7 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
               <Text style={{ marginStart: 4, fontFamily: 'WorkSans-Regular' }}>
                 {data.titleTxt}
               </Text>
-            </Pressable>
+            </MyPressable>
           </View>,
         );
 
@@ -97,11 +93,8 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
 
   const checkAppPosition = (index: number) => {
     if (index === 0) {
-      if (accomodationList[0].isSelected) {
-        accomodationList.forEach((d) => (d.isSelected = false));
-      } else {
-        accomodationList.forEach((d) => (d.isSelected = true));
-      }
+      const isAllSelected = accomodationList[0].isSelected;
+      accomodationList.forEach((d) => (d.isSelected = !isAllSelected));
     } else {
       accomodationList[index].isSelected = !accomodationList[index].isSelected;
 
@@ -127,30 +120,20 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
       const data = accomodationList[i];
       noList.push(
         <View key={i} style={{ borderRadius: 4, overflow: 'hidden' }}>
-          <Pressable
-            style={({ pressed }) => [
-              {
-                flexDirection: 'row',
-                padding: 12,
-                opacity: !Config.isAndroid && pressed ? 0.6 : 1,
-              },
-            ]}
-            android_ripple={{ color: 'lightgrey' }}
+          <MyPressable
+            style={{ flexDirection: 'row', padding: 12 }}
+            touchOpacity={0.6}
             onPress={() => checkAppPosition(i)}
           >
             <Text style={styles.switchText}>{data.titleTxt}</Text>
             <MySwitch
+              onColor="#54D3C2"
+              offColor="rgba(158,158,158, 0.3)"
+              thumbColor="white"
               value={data.isSelected}
               onValueChange={() => checkAppPosition(i)}
             />
-            {/* <Switch
-              trackColor={{ false: 'lightgrey', true: '#54D3C2' }}
-              thumbColor="white"
-              ios_backgroundColor="lightgrey"
-              onValueChange={() => checkAppPosition(i)}
-              value={data.isSelected}
-            /> */}
-          </Pressable>
+          </MyPressable>
         </View>,
       );
       if (i === 0) {
@@ -169,21 +152,18 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
     >
       <StatusBar backgroundColor="white" />
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}
-        >
+        <View style={styles.header}>
           <View style={{ flex: 1, alignItems: 'flex-start' }}>
-            <Pressable
-              style={({ pressed }) => [
-                { padding: 8, opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-              ]}
-              onPress={() => setShowFilter(false)}
+            <MyPressable
+              style={{ padding: 8 }}
               android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+              touchOpacity={0.6}
+              onPress={() => setShowFilter(false)}
             >
               <Icon name="close" size={25} color="black" />
-            </Pressable>
+            </MyPressable>
           </View>
-          <Text style={styles.headerText}>Filters</Text>
+          <Text style={[styles.headerText]}>Filters</Text>
           <View style={{ flex: 1 }} />
         </View>
         <View style={styles.headerShadow} />
@@ -194,8 +174,8 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         >
           <Text style={styles.sectionTitle}>Price (for 1 night)</Text>
           <RangeSliderView />
-
           <View style={styles.divider} />
+
           <Text style={[styles.sectionTitle, { paddingVertical: 12 }]}>
             Popular filters
           </Text>
@@ -221,25 +201,15 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
         </ScrollView>
 
         <View style={styles.divider} />
-        <View
-          style={{
-            shadowColor: 'grey',
-            shadowOffset: { width: 4, height: 4 },
-            shadowOpacity: 0.6,
-            shadowRadius: 8,
-          }}
-        >
+        <View style={styles.applyBtnShadow}>
           <View style={styles.buttonContainer}>
-            <Pressable
-              style={({ pressed }) => [
-                styles.button,
-                { opacity: !Config.isAndroid && pressed ? 0.6 : 1 },
-              ]}
-              android_ripple={{ color: 'lighgrey' }}
+            <MyPressable
+              style={styles.button}
+              touchOpacity={0.6}
               onPress={() => setShowFilter(false)}
             >
               <Text style={styles.buttonText}>Apply</Text>
-            </Pressable>
+            </MyPressable>
           </View>
         </View>
       </SafeAreaView>
@@ -248,6 +218,11 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+  },
   headerText: {
     fontSize: 22,
     fontFamily: 'WorkSans-Bold',
@@ -278,6 +253,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   buttonContainer: {
+    backgroundColor: '#54D3C2',
     borderRadius: 24,
     margin: 16,
     marginTop: 8,
@@ -285,10 +261,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   button: {
-    backgroundColor: '#54D3C2',
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 24,
+  },
+  applyBtnShadow: {
+    shadowColor: 'grey',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
   },
   buttonText: {
     fontSize: 18,

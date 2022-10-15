@@ -1,4 +1,5 @@
-// import _ from 'lodash';
+// This component is taken from wix/react-native-ui-lib.
+// ref:- "https://github.com/wix/react-native-ui-lib/blob/master/src/components/switch/index.tsx"
 import React, { Component } from 'react';
 import {
   TouchableOpacity,
@@ -7,6 +8,7 @@ import {
   Easing,
   StyleProp,
   ViewStyle,
+  I18nManager,
 } from 'react-native';
 
 const INNER_PADDING = 2;
@@ -88,11 +90,10 @@ class Switch extends Component<SwitchProps> {
     return {
       accessible: true,
       accessibilityRole: 'switch',
-      accessibilityStates: disabled
-        ? ['disabled']
-        : value
-        ? ['checked']
-        : ['unchecked'],
+      accessibilityState: {
+        disabled,
+        checked: value ? 'checked' : 'unchecked',
+      },
       accessibilityValue: { text: value ? '1' : '0' },
     };
   }
@@ -112,8 +113,7 @@ class Switch extends Component<SwitchProps> {
     const { disabled } = this.props;
 
     if (!disabled) {
-      //   _.invoke(this.props, 'onValueChange', !this.props.value);
-      this.props.onValueChange && this.props.onValueChange(!this.props.value);
+      this.props.onValueChange?.(!this.props.value);
     }
   };
 
@@ -122,7 +122,7 @@ class Switch extends Component<SwitchProps> {
     const width = props.width || DEFAULT_WIDTH;
     const thumbSize = props.thumbSize || DEFAULT_THUMB_SIZE;
     let position = width - (2 * INNER_PADDING + thumbSize);
-    // position *= Constants.isRTL ? -1 : 1;
+    position *= I18nManager.isRTL ? -1 : 1;
     return position;
   }
 
@@ -179,6 +179,7 @@ class Switch extends Component<SwitchProps> {
     return (
       // @ts-ignore
       <TouchableOpacity
+        {...this.getAccessibilityProps()}
         activeOpacity={1}
         style={this.getSwitchStyle()}
         onPress={this.onPress}

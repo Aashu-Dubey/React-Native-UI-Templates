@@ -12,6 +12,7 @@
   "dependencies": {
     "@miblanchard/react-native-slider": "^1.5.0",
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
+    "@react-native-community/blur": "^4.2.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/drawer": "^5.11.4",
     "@react-navigation/native": "^5.8.10",

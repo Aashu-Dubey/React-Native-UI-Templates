@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
   useWindowDimensions,
   Animated,
   Easing,
+  StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -15,22 +16,22 @@ import {
   WelcomeView,
   TopBackSkipView,
   CenterNextButton,
-} from './index';
+} from './scenes';
 
-interface Props {}
-
-const IntroductionAnimationScreen: React.FC<Props> = () => {
+const IntroductionAnimationScreen: React.FC = () => {
   const navigation = useNavigation();
-
   const window = useWindowDimensions();
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   const animationController = useRef<Animated.Value>(new Animated.Value(0));
   const animValue = useRef<number>(0);
 
   useEffect(() => {
-    animationController.current.addListener(
-      ({ value }) => (animValue.current = value),
-    );
+    animationController.current.addListener(({ value }) => {
+      animValue.current = value;
+      setCurrentPage(value);
+    });
   }, []);
 
   const relaxTranslateY = animationController.current.interpolate({
@@ -71,16 +72,14 @@ const IntroductionAnimationScreen: React.FC<Props> = () => {
 
   const onBackClick = useCallback(() => {
     let toValue;
-    if (animValue.current >= 0 && animValue.current <= 0.2) {
+    if (animValue.current >= 0.2 && animValue.current < 0.4) {
       toValue = 0.0;
-    } else if (animValue.current > 0.2 && animValue.current <= 0.4) {
+    } else if (animValue.current >= 0.4 && animValue.current < 0.6) {
       toValue = 0.2;
-    } else if (animValue.current > 0.4 && animValue.current <= 0.6) {
+    } else if (animValue.current >= 0.6 && animValue.current < 0.8) {
       toValue = 0.4;
-    } else if (animValue.current > 0.6 && animValue.current <= 0.8) {
+    } else if (animValue.current === 0.8) {
       toValue = 0.6;
-    } else if (animValue.current > 0.8 && animValue.current <= 1.0) {
-      toValue = 0.8;
     }
 
     toValue !== undefined && playAnimation(toValue);
@@ -92,6 +91,7 @@ const IntroductionAnimationScreen: React.FC<Props> = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'rgb(245, 235, 226)' }}>
+      <StatusBar barStyle={`${currentPage > 0 ? 'dark' : 'light'}-content`} />
       <SplashView {...{ onNextClick, animationController }} />
 
       <Animated.View

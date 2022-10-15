@@ -1011,6 +1011,11 @@
   resolved "https://registry.yarnpkg.com/@ptomasroos/react-native-multi-slider/-/react-native-multi-slider-2.2.2.tgz#35a97fb8c355627c6a2ded010b360ac5728b44ad"
   integrity sha512-HWyCnRD3Z3SbHK2FLWYmBBqd1B4iXipeKv1+AK0FoY/CElEDTEixHE8hN60TsqxalPrznn798LE2Q4tHuCiyaA==
 
+"@react-native-community/blur@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/blur/-/blur-4.2.0.tgz#f100d0ba220ecfed26be3c0ad2ceffa5eee17533"
+  integrity sha512-StgP5zQJOCHqDRjmcKnzVkJ920S6DYBKRJfigSUnlkNQp+HzZtVtyKq0j5a7x84NtHcV7j8Uy5mz1Lx9ZKRKfA==
+
 "@react-native-community/cli-debugger-ui@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.9.0.tgz#4177764ba69243c97aa26829d59d9501acb2bd71"

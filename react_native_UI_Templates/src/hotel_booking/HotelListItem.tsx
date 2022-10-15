@@ -17,10 +17,14 @@ interface Props {
 }
 
 const HotelListItem: React.FC<Props> = ({ data }) => {
-  const { width } = useWindowDimensions();
   const { item, index } = data;
+
+  const { width } = useWindowDimensions();
+
   const translateY = useRef<Animated.Value>(new Animated.Value(50)).current;
   const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
+
+  const imageSize = width - 48;
 
   useEffect(() => {
     Animated.parallel([
@@ -38,8 +42,6 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
       }),
     ]).start();
   });
-
-  const imageSize = width - 48;
 
   return (
     <Animated.View
@@ -66,12 +68,13 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
           </Text>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.subText} numberOfLines={1}>
-            {item.subTxt}
-            <View style={{ width: 4 }} />
-            <Icon name="location-pin" size={12} color="#54D3C2" />
-            {item.dist.toPrecision(2)} km to city
-          </Text>
+          <View style={styles.subText}>
+            <Text style={[{ marginRight: 4 }, textStyle]}>{item.subTxt}</Text>
+            <Icon name="location-pin" size={14} color="#54D3C2" />
+            <Text style={textStyle}>
+              {Number(item.dist.toPrecision(2))} km to city
+            </Text>
+          </View>
           <Text style={styles.perNightText}>/per night</Text>
         </View>
         <View style={{ flexDirection: 'row', marginTop: 4 }}>
@@ -92,7 +95,7 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
 };
 
 const textStyle = {
-  color: 'rgba(128,128,128, 0.46)',
+  color: 'rgba(128,128,128, 0.6)',
   fontFamily: 'WorkSans-Regular',
 };
 const styles = StyleSheet.create({
@@ -101,7 +104,6 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     marginHorizontal: 24,
     borderRadius: 16,
-    // overflow: 'hidden',
     elevation: 8,
     shadowColor: 'grey',
     shadowOffset: { width: 4, height: 4 },
@@ -113,13 +115,19 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     overflow: 'hidden',
   },
-  title: { flex: 1, fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
-  subText: {
-    ...textStyle,
+  title: {
     flex: 1,
-    paddingRight: 4,
+    fontSize: 22,
+    fontFamily: 'WorkSans-SemiBold',
   },
-  perNightText: { ...textStyle },
+  subText: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 4,
+    marginTop: 4,
+  },
+  perNightText: { ...textStyle, color: 'black', marginTop: 4 },
   review: {
     ...textStyle,
     marginLeft: 8,
