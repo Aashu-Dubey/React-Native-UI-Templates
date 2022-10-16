@@ -70,7 +70,7 @@ const HomeDesignCourse: React.FC = () => {
       </View>
       <Text style={styles.sectionHeaderText}>Category</Text>
       <View style={styles.categoryRowContainer}>
-        {CATEGORIES.map((text) => (
+        {CATEGORIES.map(text => (
           <CategoryButton
             {...{ text, key: text }}
             selectedCat={selectedCategory}
@@ -84,13 +84,13 @@ const HomeDesignCourse: React.FC = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={CATEGORY_LIST}
-        renderItem={(data) => (
+        renderItem={data => (
           <CategoryListView
             {...{ data }}
             onScreenClicked={() => navigation.navigate('CourseInfo')}
           />
         )}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
       />
       <Text style={styles.sectionHeaderText}>Popular Course</Text>
     </>
@@ -121,13 +121,13 @@ const HomeDesignCourse: React.FC = () => {
         data={POPULAR_COURSE_LIST}
         ListHeaderComponent={renderScrollableHeader}
         ItemSeparatorComponent={() => <View style={{ height: 32 }} />}
-        renderItem={(data) => (
+        renderItem={data => (
           <PopulerCourseListView
             {...{ data }}
             onScreenClicked={() => navigation.navigate('CourseInfo')}
           />
         )}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
       />
     </View>
   );

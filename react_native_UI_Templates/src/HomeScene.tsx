@@ -166,13 +166,13 @@ const HomeScene: React.FC = () => {
         numColumns={isGrid ? 2 : 1}
         showsVerticalScrollIndicator={false}
         data={DEMOS}
-        renderItem={(data) => (
+        renderItem={data => (
           <ListItem
             {...{ data, isGrid }}
             onScreenClicked={() => onTemplateClicked(data.item)}
           />
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={item => item.name}
       />
     </SafeAreaView>
   );

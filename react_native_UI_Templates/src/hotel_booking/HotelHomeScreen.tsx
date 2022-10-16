@@ -29,7 +29,7 @@ export const HEADER_OPTIONS: StackNavigationOptions = {
   headerTitle: 'Explore',
   headerTitleAlign: 'center',
   headerTitleStyle: { fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
-  headerLeft: (props) => (
+  headerLeft: props => (
     <MyPressable
       {...props}
       style={{ padding: 8, marginLeft: 8 }}
@@ -113,7 +113,7 @@ const HotelHomeScreen: React.FC = () => {
   );
 
   const renderItem = useCallback(
-    (data) =>
+    data =>
       data.index > 0 ? (
         <HotelListItem {...{ data }} />
       ) : (
@@ -150,7 +150,7 @@ const HotelHomeScreen: React.FC = () => {
           ListHeaderComponent={contentHeader}
           data={HOTEL_LIST}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
         />
       </View>
 

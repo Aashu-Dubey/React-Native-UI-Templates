@@ -99,7 +99,7 @@ const CenterNextButton: React.FC<Props> = ({
       <Animated.View
         style={[styles.dotsContainer, { opacity: opacity.current }]}
       >
-        {dots.map((item) => (
+        {dots.map(item => (
           <DotIndicator
             key={item}
             index={item}

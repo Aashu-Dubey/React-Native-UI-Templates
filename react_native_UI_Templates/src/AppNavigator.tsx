@@ -30,7 +30,7 @@ const DrawerNavigator: React.FC = () => {
       }}
       sceneContainerStyle={styles.drawerSceneContainer}
       drawerContentOptions={{ activeBackgroundColor: '#5cbbff' }}
-      drawerContent={(props) => <DrawerContent {...props} />}
+      drawerContent={props => <DrawerContent {...props} />}
       drawerType="back"
       overlayColor="transparent"
       edgeWidth={window.width}

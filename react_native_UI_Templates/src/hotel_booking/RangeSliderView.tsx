@@ -31,14 +31,14 @@ const RangeSliderView: React.FC = () => {
       max={1000}
       allowOverlap
       isMarkersSeparated
-      customMarkerLeft={(_) => (
+      customMarkerLeft={_ => (
         <CustomMarker triangleStyle={styles.triangleLeftStyle} />
       )}
-      customMarkerRight={(_) => (
+      customMarkerRight={_ => (
         <CustomMarker triangleStyle={styles.triangleRightStyle} />
       )}
       enableLabel
-      customLabel={(prop) => {
+      customLabel={prop => {
         const {
           oneMarkerValue,
           twoMarkerValue,

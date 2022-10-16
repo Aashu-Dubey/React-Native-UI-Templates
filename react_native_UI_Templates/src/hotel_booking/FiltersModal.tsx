@@ -94,7 +94,7 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
   const checkAppPosition = (index: number) => {
     if (index === 0) {
       const isAllSelected = accomodationList[0].isSelected;
-      accomodationList.forEach((d) => (d.isSelected = !isAllSelected));
+      accomodationList.forEach(d => (d.isSelected = !isAllSelected));
     } else {
       accomodationList[index].isSelected = !accomodationList[index].isSelected;
 

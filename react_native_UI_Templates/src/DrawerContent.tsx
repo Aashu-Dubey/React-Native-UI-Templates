@@ -51,7 +51,7 @@ const getActiveRouteState = (
 
 const DrawerItemRow: React.FC<
   DrawerItemProps & DrawerContentComponentProps<DrawerContentOptions>
-> = (props) => {
+> = props => {
   const {
     state,
     label,
@@ -115,7 +115,7 @@ const DrawerItemRow: React.FC<
 
 const DrawerContent: React.FC<DrawerContentComponentProps<
   DrawerContentOptions
->> = (props) => {
+>> = props => {
   const window = useWindowDimensions();
   const rowWidth = (window.width * 0.75 * 80) / 100;
 
@@ -158,7 +158,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
         {...props}
         contentContainerStyle={{ flexGrow: 1, paddingTop: 0 }}
       >
-        {DRAWER_SCENES.map((scene) => (
+        {DRAWER_SCENES.map(scene => (
           <DrawerItemRow
             key={scene.label}
             {...{ ...props, ...scene, translateX }}

@@ -24,7 +24,7 @@ const SliderView: React.FC = () => {
           Less than {(distValue / 10).toFixed(1)} km
         </Text>
       )}
-      onValueChange={(value) => setDistValue(value[0])}
+      onValueChange={value => setDistValue(value[0])}
     />
   );
 };
