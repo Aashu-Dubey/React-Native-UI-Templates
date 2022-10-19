@@ -5,15 +5,17 @@ import {
   Text,
   useWindowDimensions,
   Image,
+  // ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   DrawerContentComponentProps,
-  DrawerContentOptions,
+  // DrawerContentOptions,
   DrawerContentScrollView,
+  // useDrawerProgress,
 } from '@react-navigation/drawer';
 import { DrawerActions, NavigationState } from '@react-navigation/native';
-import Animated from 'react-native-reanimated';
+import Animated from 'react-native-reanimated'; // useAnimatedStyle, // interpolate, // AnimatedStyleProp,
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
@@ -27,6 +29,7 @@ type DrawerScene = {
 
 interface DrawerItemProps extends DrawerScene {
   translateX: Animated.Adaptable<number>;
+  // bgAnimStyle: AnimatedStyleProp<ViewStyle>;
 }
 
 const DRAWER_SCENES: DrawerScene[] = [
@@ -50,7 +53,7 @@ const getActiveRouteState = (
 ) => routes[index].name.toLowerCase().indexOf(routeKey?.toLowerCase()) >= 0;
 
 const DrawerItemRow: React.FC<
-  DrawerItemProps & DrawerContentComponentProps<DrawerContentOptions>
+  DrawerItemProps & DrawerContentComponentProps
 > = props => {
   const {
     state,
@@ -59,8 +62,11 @@ const DrawerItemRow: React.FC<
     isAssetIcon = false,
     routeKey,
     translateX,
+    // bgAnimStyle,
   } = props;
   const { routes, index } = state;
+
+  const sceneOptions = props.descriptors[routes[index].key]?.options;
 
   const window = useWindowDimensions();
   const rowWidth = (window.width * 0.75 * 80) / 100;
@@ -68,7 +74,10 @@ const DrawerItemRow: React.FC<
   const focused = routeKey
     ? getActiveRouteState(routes, index, routeKey)
     : false;
-  const tintColor = focused ? props.activeBackgroundColor : 'black';
+  // const tintColor = focused ? props.activeBackgroundColor : 'black'; // v5
+  const tintColor = focused
+    ? sceneOptions?.drawerActiveBackgroundColor
+    : 'black';
 
   return (
     <MyPressable
@@ -86,10 +95,13 @@ const DrawerItemRow: React.FC<
           {
             width: rowWidth,
             backgroundColor: focused
-              ? props.activeBackgroundColor
-              : props.inactiveBackgroundColor,
+              ? // ? props.activeBackgroundColor
+                // : props.inactiveBackgroundColor,
+                sceneOptions?.drawerActiveBackgroundColor
+              : sceneOptions?.drawerInactiveBackgroundColor,
             transform: [{ translateX }],
           },
+          // bgAnimStyle,
         ]}
       />
       <View style={styles.drawerRowContentContainer}>
@@ -113,24 +125,46 @@ const DrawerItemRow: React.FC<
   );
 };
 
-const DrawerContent: React.FC<DrawerContentComponentProps<
-  DrawerContentOptions
->> = props => {
+const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
   const window = useWindowDimensions();
   const rowWidth = (window.width * 0.75 * 80) / 100;
+  // const progress = useDrawerProgress();
 
-  const rotate = Animated.interpolate(props.progress, {
+  const rotate = Animated.interpolateNode(props.progress, {
     inputRange: [0, 1],
     outputRange: [0.3, 0],
   });
-  const scale = Animated.interpolate(props.progress, {
+  const scale = Animated.interpolateNode(props.progress, {
     inputRange: [0, 1],
     outputRange: [0.9, 1],
   });
-  const translateX = Animated.interpolate(props.progress, {
+  const translateX = Animated.interpolateNode(props.progress, {
     inputRange: [0, 1],
     outputRange: [-rowWidth, 0],
   });
+
+  // For @react-navigation/drawer v6 (more latest versions)
+  /* const drawerStyle = useAnimatedStyle(() => {
+    const drawerProgress = progress as Animated.SharedValue<number>;
+
+    return {
+      transform: [
+        { rotate: `${interpolate(drawerProgress.value, [0, 1], [0.3, 0])}rad` },
+        { scale: interpolate(drawerProgress.value, [0, 1], [0.9, 1]) },
+      ],
+    };
+  }, []);
+  const bgAnimStyle = useAnimatedStyle(() => {
+    const drawerProgress = progress as Animated.SharedValue<number>;
+
+    return {
+      transform: [
+        {
+          translateX: interpolate(drawerProgress.value, [0, 1], [-rowWidth, 0]),
+        },
+      ],
+    };
+  }, []); */
 
   return (
     <SafeAreaView edges={['right', 'bottom', 'left']} style={{ flex: 1 }}>
@@ -139,13 +173,15 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
           style={[
             styles.drawerAvatarStyle,
             styles.avatarShadow,
-            { transform: [{ rotate, scale }] },
+            { transform: [{ rotate: rotate as any, scale }] },
+            // drawerStyle,
           ]}
         >
           <Animated.Image
             style={[
               styles.drawerAvatarStyle,
-              { transform: [{ rotate, scale }] },
+              { transform: [{ rotate: rotate as any, scale }] },
+              // drawerStyle,
             ]}
             source={AppImages.userImage}
           />
@@ -161,7 +197,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps<
         {DRAWER_SCENES.map(scene => (
           <DrawerItemRow
             key={scene.label}
-            {...{ ...props, ...scene, translateX }}
+            {...{ ...props, ...scene, translateX /* , bgAnimStyle */ }}
           />
         ))}
       </DrawerContentScrollView>

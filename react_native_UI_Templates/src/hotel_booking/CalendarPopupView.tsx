@@ -106,16 +106,20 @@ const CustomerCalendar: React.FC<Props> = ({
                 }}
               />
 
-              <MyPressable
-                style={[styles.applyBtn]}
-                touchOpacity={0.7}
-                onPress={() => {
-                  onApplyClick(startDate, endDate);
-                  setShowCal(false);
-                }}
-              >
-                <Text style={styles.applyBtnText}>Apply</Text>
-              </MyPressable>
+              <View style={styles.applyBtnShadow}>
+                <View style={styles.applyBtnContainer}>
+                  <MyPressable
+                    style={styles.applyBtn}
+                    touchOpacity={0.6}
+                    onPress={() => {
+                      onApplyClick(startDate, endDate);
+                      setShowCal(false);
+                    }}
+                  >
+                    <Text style={styles.applyBtnText}>Apply</Text>
+                  </MyPressable>
+                </View>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -142,19 +146,25 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   startEndDateTextStyles: { fontSize: 16, fontFamily: 'WorkSans-Bold' },
-  applyBtn: {
+  applyBtnContainer: {
     backgroundColor: '#54D3C2',
+    borderRadius: 24,
+    margin: 16,
+    marginTop: 8,
+    elevation: 8,
+    overflow: 'hidden',
+  },
+  applyBtn: {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 24,
-    margin: 16,
-    marginTop: 8,
+  },
+  applyBtnShadow: {
     shadowColor: 'grey',
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.6,
     shadowRadius: 8,
-    elevation: 8,
   },
   applyBtnText: {
     fontSize: 18,

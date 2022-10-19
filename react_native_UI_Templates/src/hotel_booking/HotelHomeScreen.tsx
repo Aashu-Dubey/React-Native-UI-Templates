@@ -1,7 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, FlatList } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  useWindowDimensions,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StackNavigationOptions } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomerCalendar from './CalendarPopupView';
 import FilterModal from './FiltersModal';
@@ -24,40 +31,10 @@ const HALF_MONTHS = [
   'Dec',
 ];
 
-// Header's UI customisation for react-navigation's default screen header.
-export const HEADER_OPTIONS: StackNavigationOptions = {
-  headerTitle: 'Explore',
-  headerTitleAlign: 'center',
-  headerTitleStyle: { fontSize: 22, fontFamily: 'WorkSans-SemiBold' },
-  headerLeft: props => (
-    <MyPressable
-      {...props}
-      style={{ padding: 8, marginLeft: 8 }}
-      android_ripple={{ color: 'grey', radius: 20, borderless: true }}
-    >
-      <Icon name="arrow-back" size={25} color="black" />
-    </MyPressable>
-  ),
-  headerRight: () => (
-    <View style={{ flexDirection: 'row' }}>
-      <Icon
-        style={{ paddingHorizontal: 8 }}
-        name="favorite-border"
-        size={25}
-        color="black"
-      />
-      <Icon
-        style={{ paddingHorizontal: 8 }}
-        name="location-pin"
-        size={25}
-        color="black"
-      />
-    </View>
-  ),
-};
-
 const HotelHomeScreen: React.FC = () => {
+  const window = useWindowDimensions();
   const inset = useSafeAreaInsets();
+  const navigation = useNavigation();
 
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(() => {
@@ -142,6 +119,48 @@ const HotelHomeScreen: React.FC = () => {
 
   return (
     <>
+      {/* Header */}
+      <View
+        style={[
+          styles.header,
+          { height: 52 + inset.top, paddingTop: inset.top },
+        ]}
+      >
+        <View style={styles.headerLeft}>
+          <MyPressable
+            style={{ padding: 8 }}
+            android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+            onPress={navigation.goBack}
+          >
+            <Icon name="arrow-back" size={25} color="black" />
+          </MyPressable>
+        </View>
+        <View
+          style={{
+            marginHorizontal: 16,
+            maxWidth: window.width - 16 - 32 - 41 - 74, // 16, 32:- total padding/margin; 41, 74:- left and right view's width
+          }}
+        >
+          <Text style={styles.headerTitle} numberOfLines={1}>
+            Explore
+          </Text>
+        </View>
+        <View style={styles.headerRight}>
+          <Icon
+            style={{ paddingRight: 8 }}
+            name="favorite-border"
+            size={25}
+            color="black"
+          />
+          <Icon
+            style={{ paddingHorizontal: 8 }}
+            name="location-pin"
+            size={25}
+            color="black"
+          />
+        </View>
+      </View>
+
       <View style={styles.container}>
         <FlatList
           contentContainerStyle={[styles.list, { paddingBottom: inset.bottom }]}
@@ -172,8 +191,38 @@ const HotelHomeScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'rgb(242, 242, 242)' },
-  list: { flexGrow: 1, backgroundColor: 'white' },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingHorizontal: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'lightgrey',
+  },
+  headerLeft: {
+    alignItems: 'flex-start',
+    flexGrow: 1,
+    flexBasis: 0,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontFamily: 'WorkSans-SemiBold',
+    textAlign: 'center',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flexGrow: 1,
+    flexBasis: 0,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'rgb(242, 242, 242)',
+  },
+  list: {
+    flexGrow: 1,
+    backgroundColor: 'white',
+  },
   searchInput: {
     flex: 1,
     backgroundColor: 'white',

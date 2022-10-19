@@ -18,7 +18,6 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { useHeaderHeight } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
@@ -116,14 +115,10 @@ const ListItem: React.FC<ListItemProps> = ({
 };
 
 const HomeScene: React.FC = () => {
-  const headerHeight = useHeaderHeight();
   const navigation = useNavigation<any>();
   const inset = useSafeAreaInsets();
 
   const [isGrid, setGrid] = useState(true);
-
-  const marginTop =
-    Platform.OS === 'ios' ? inset.top : StatusBar.currentHeight ?? 24;
 
   const onTemplateClicked = (temp: typeof DEMOS[0]) => {
     if (temp.screenName) {
@@ -134,7 +129,10 @@ const HomeScene: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, marginTop }} edges={['left', 'right']}>
+    <SafeAreaView
+      style={{ flex: 1, marginTop: inset.top ? inset.top : 24 }}
+      edges={['left', 'right']}
+    >
       <View style={styles.headerContainer}>
         <MyPressable
           style={{ marginLeft: 8 }}
@@ -161,7 +159,7 @@ const HomeScene: React.FC = () => {
 
       <FlatList
         key={isGrid ? 'G' : 'L'}
-        style={{ marginTop: headerHeight, marginHorizontal: 6 }}
+        style={{ marginHorizontal: 6 }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: inset.bottom }}
         numColumns={isGrid ? 2 : 1}
         showsVerticalScrollIndicator={false}

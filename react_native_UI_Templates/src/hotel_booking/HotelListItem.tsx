@@ -81,7 +81,7 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
           <Rating
             type="custom"
             ratingCount={5}
-            imageSize={20}
+            imageSize={16}
             ratingColor="#54D3C2"
             fractions={1}
             startingValue={item.rating}
