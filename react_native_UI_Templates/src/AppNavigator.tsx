@@ -14,11 +14,6 @@ import { CourseInfoScreen, HomeDesignCourse } from './design_course';
 import { IntroductionAnimationScreen } from './introduction_animation';
 import HotelHomeScreen from './hotel_booking/HotelHomeScreen';
 
-/**
- * TODO:- Temporarily using r-nav-drawer version '6.0.0-next.2', as after this version, shadow issue started appearing for drawer
- * As explained here:- https://github.com/react-navigation/react-navigation/issues/10946
- * replace with the latest version, once this issue is fixed (or if not, find a workaround).
- */
 const Drawer = createDrawerNavigator();
 /**
  * TODO:- Temporarily using r-nav-stack instead of r-nav-native-stack cause of following issue:
@@ -33,11 +28,6 @@ const DrawerNavigator: React.FC = () => {
 
   return (
     <Drawer.Navigator
-      // drawerStyle={{
-      //   width: window.width * 0.75,
-      //   backgroundColor: 'rgb(237, 240, 242, 0.5)',
-      // }}
-      // sceneContainerStyle={styles.drawerSceneContainer}
       screenOptions={{
         drawerStyle: {
           width: window.width * 0.75,
@@ -50,11 +40,10 @@ const DrawerNavigator: React.FC = () => {
         swipeEdgeWidth: window.width,
         headerShown: false,
       }}
-      // drawerContentOptions={{ activeBackgroundColor: '#5cbbff' }}
       drawerContent={props => <DrawerContent {...props} />}
-      // drawerType="back"
-      // overlayColor="transparent"
-      // edgeWidth={window.width}
+      // this is just to enable shadow/elevation style on drawer, as it fallback to JS drawer solution instead of native one (v6)
+      // as explained here:- https://github.com/react-navigation/react-navigation/issues/10946#issuecomment-1287082343
+      detachInactiveScreens={false}
     >
       <Drawer.Screen name="home" component={HomeScene} />
       <Drawer.Screen name="help" component={HelpScene} />

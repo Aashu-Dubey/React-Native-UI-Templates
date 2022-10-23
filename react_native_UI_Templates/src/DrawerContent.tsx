@@ -5,17 +5,20 @@ import {
   Text,
   useWindowDimensions,
   Image,
-  // ViewStyle,
+  ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   DrawerContentComponentProps,
-  // DrawerContentOptions,
   DrawerContentScrollView,
-  // useDrawerProgress,
+  useDrawerProgress,
 } from '@react-navigation/drawer';
 import { DrawerActions, NavigationState } from '@react-navigation/native';
-import Animated from 'react-native-reanimated'; // useAnimatedStyle, // interpolate, // AnimatedStyleProp,
+import Animated, {
+  AnimatedStyleProp,
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
 import { AppImages } from '../res';
@@ -28,8 +31,7 @@ type DrawerScene = {
 };
 
 interface DrawerItemProps extends DrawerScene {
-  translateX: Animated.Adaptable<number>;
-  // bgAnimStyle: AnimatedStyleProp<ViewStyle>;
+  bgAnimStyle: AnimatedStyleProp<ViewStyle>;
 }
 
 const DRAWER_SCENES: DrawerScene[] = [
@@ -61,8 +63,7 @@ const DrawerItemRow: React.FC<
     icon,
     isAssetIcon = false,
     routeKey,
-    translateX,
-    // bgAnimStyle,
+    bgAnimStyle,
   } = props;
   const { routes, index } = state;
 
@@ -74,7 +75,7 @@ const DrawerItemRow: React.FC<
   const focused = routeKey
     ? getActiveRouteState(routes, index, routeKey)
     : false;
-  // const tintColor = focused ? props.activeBackgroundColor : 'black'; // v5
+
   const tintColor = focused
     ? sceneOptions?.drawerActiveBackgroundColor
     : 'black';
@@ -95,13 +96,10 @@ const DrawerItemRow: React.FC<
           {
             width: rowWidth,
             backgroundColor: focused
-              ? // ? props.activeBackgroundColor
-                // : props.inactiveBackgroundColor,
-                sceneOptions?.drawerActiveBackgroundColor
+              ? sceneOptions?.drawerActiveBackgroundColor
               : sceneOptions?.drawerInactiveBackgroundColor,
-            transform: [{ translateX }],
           },
-          // bgAnimStyle,
+          bgAnimStyle,
         ]}
       />
       <View style={styles.drawerRowContentContainer}>
@@ -128,28 +126,14 @@ const DrawerItemRow: React.FC<
 const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
   const window = useWindowDimensions();
   const rowWidth = (window.width * 0.75 * 80) / 100;
-  // const progress = useDrawerProgress();
+  const progress = useDrawerProgress();
 
-  const rotate = Animated.interpolateNode(props.progress, {
-    inputRange: [0, 1],
-    outputRange: [0.3, 0],
-  });
-  const scale = Animated.interpolateNode(props.progress, {
-    inputRange: [0, 1],
-    outputRange: [0.9, 1],
-  });
-  const translateX = Animated.interpolateNode(props.progress, {
-    inputRange: [0, 1],
-    outputRange: [-rowWidth, 0],
-  });
-
-  // For @react-navigation/drawer v6 (more latest versions)
-  /* const drawerStyle = useAnimatedStyle(() => {
+  const drawerStyle = useAnimatedStyle(() => {
     const drawerProgress = progress as Animated.SharedValue<number>;
 
     return {
       transform: [
-        { rotate: `${interpolate(drawerProgress.value, [0, 1], [0.3, 0])}rad` },
+        { rotate: `${interpolate(drawerProgress.value, [0, 1], [0.2, 0])}rad` },
         { scale: interpolate(drawerProgress.value, [0, 1], [0.9, 1]) },
       ],
     };
@@ -164,25 +148,16 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
         },
       ],
     };
-  }, []); */
+  }, []);
 
   return (
     <SafeAreaView edges={['right', 'bottom', 'left']} style={{ flex: 1 }}>
       <View style={{ padding: 16, marginTop: 40 }}>
         <Animated.View
-          style={[
-            styles.drawerAvatarStyle,
-            styles.avatarShadow,
-            { transform: [{ rotate: rotate as any, scale }] },
-            // drawerStyle,
-          ]}
+          style={[styles.drawerAvatarStyle, styles.avatarShadow, drawerStyle]}
         >
           <Animated.Image
-            style={[
-              styles.drawerAvatarStyle,
-              { transform: [{ rotate: rotate as any, scale }] },
-              // drawerStyle,
-            ]}
+            style={[styles.drawerAvatarStyle, drawerStyle]}
             source={AppImages.userImage}
           />
         </Animated.View>
@@ -197,7 +172,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
         {DRAWER_SCENES.map(scene => (
           <DrawerItemRow
             key={scene.label}
-            {...{ ...props, ...scene, translateX /* , bgAnimStyle */ }}
+            {...{ ...props, ...scene, bgAnimStyle }}
           />
         ))}
       </DrawerContentScrollView>
