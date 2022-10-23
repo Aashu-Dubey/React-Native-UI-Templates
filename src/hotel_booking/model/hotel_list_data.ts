@@ -1,4 +1,4 @@
-import { AppImages } from '../../../res';
+import { AppImages } from '../../assets';
 
 export interface HotelListType {
   id: number;

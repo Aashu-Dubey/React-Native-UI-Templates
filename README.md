@@ -40,7 +40,7 @@ See how to setup and run for Android & iOS [here](https://reactnative.dev/docs/n
 
 You can run it in [Expo](https://docs.expo.io) [here](https://snack.expo.io/@ashu_dubey/react-native-ui-templates) (Not handled for web yet).
 
-![Image](res/introduction_animation/introduction_animation.png)
-![Image](res/hotel/hotel_booking.png)
-![Image](res/design_course/design_course.png)
-![Image](res/home/custom_drawer.png)
+![Image](src/assets/introduction_animation/introduction_animation.png)
+![Image](src/assets/hotel/hotel_booking.png)
+![Image](src/assets/design_course/design_course.png)
+![Image](src/assets/home/custom_drawer.png)

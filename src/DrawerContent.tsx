@@ -21,7 +21,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
-import { AppImages } from '../res';
+import { AppImages } from './assets';
 
 type DrawerScene = {
   label: string;

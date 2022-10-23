@@ -19,7 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
-import { AppImages } from '../res';
+import { AppImages } from './assets';
 
 const FeedbackScene: React.FC = () => {
   const { width } = useWindowDimensions();

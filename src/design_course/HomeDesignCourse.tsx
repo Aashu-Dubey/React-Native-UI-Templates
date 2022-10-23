@@ -16,7 +16,7 @@ import CategoryListView from './CategoryListView';
 import PopulerCourseListView from './PopulerCourseListView';
 import MyPressable from '../components/MyPressable';
 import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
-import { AppImages } from '../../res';
+import { AppImages } from '../assets';
 import Config from '../Config';
 
 interface CategoryBtn {
@@ -43,7 +43,7 @@ const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
 const HomeDesignCourse: React.FC = () => {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const [selectedCategory, setSelectedCategory] = useState('Ui/Ux');
 

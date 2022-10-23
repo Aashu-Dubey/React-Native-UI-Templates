@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyPressable from '../../components/MyPressable';
-import { AppImages } from '../../../res';
+import { AppImages } from '../../assets';
 
 interface Props {
   onNextClick: () => void;

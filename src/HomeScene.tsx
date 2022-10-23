@@ -20,7 +20,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from './components/MyPressable';
-import { AppImages } from '../res';
+import { AppImages } from './assets';
 import { showToast } from './util/action';
 
 const DEMOS = [
