@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* react_native_UI_TemplatesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* react_native_UI_TemplatesTests.m */; };
-		10EB70E65F384C2294C3C907 /* WorkSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC7B6AB9D65E4AC4A8F09898 /* WorkSans-SemiBold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		20F9DA8C74BE4D93A17CAB92 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58F751E0577B4070BBB66C87 /* WorkSans-Regular.ttf */; };
+		197760DBE81C4BAD80886008 /* WorkSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E1F04925A6F41A7BD079658 /* WorkSans-Bold.ttf */; };
 		232868305429C727C071348B /* libPods-react_native_UI_Templates-react_native_UI_TemplatesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C5D5FA051DBE2D500D3FD6 /* libPods-react_native_UI_Templates-react_native_UI_TemplatesTests.a */; };
 		29A3A383CB002D83A67C9AB6 /* libPods-react_native_UI_Templates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F519F8F17E4DA78419490D9B /* libPods-react_native_UI_Templates.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		A42A50F765754173893D8B47 /* WorkSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7C69C3F47264388AC06E341 /* WorkSans-Bold.ttf */; };
-		CCEF7728225F4DF384EEC5E5 /* WorkSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45BDF4E263A941B4BFE83AA1 /* WorkSans-Medium.ttf */; };
+		A28C3484E0D041CCAD176089 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79AAB25C395A45E7931536B5 /* WorkSans-Regular.ttf */; };
+		E807B3236FAF4B088175434A /* WorkSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEBFA48BC6B64093958CF951 /* WorkSans-Medium.ttf */; };
+		F9B992979551464089A3672B /* WorkSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318067BCDDB649AD87370A32 /* WorkSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,20 +43,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = react_native_UI_Templates/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = react_native_UI_Templates/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = react_native_UI_Templates/main.m; sourceTree = "<group>"; };
+		318067BCDDB649AD87370A32 /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-SemiBold.ttf"; path = "../src/assets/fonts/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		3C9930D13312D0F0C3276262 /* Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.debug.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates-react_native_UI_TemplatesTests/Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.debug.xcconfig"; sourceTree = "<group>"; };
-		45BDF4E263A941B4BFE83AA1 /* WorkSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Medium.ttf"; path = "../res/fonts/WorkSans-Medium.ttf"; sourceTree = "<group>"; };
-		58F751E0577B4070BBB66C87 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Regular.ttf"; path = "../res/fonts/WorkSans-Regular.ttf"; sourceTree = "<group>"; };
+		3E1F04925A6F41A7BD079658 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Bold.ttf"; path = "../src/assets/fonts/WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		592663D9C82B2705EBDD9BC6 /* Pods-react_native_UI_Templates-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates-tvOSTests/Pods-react_native_UI_Templates-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EC9EC7F78162D506508C7D1 /* libPods-react_native_UI_Templates-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_native_UI_Templates-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712039AD43E9EA30215450AA /* libPods-react_native_UI_Templates-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_native_UI_Templates-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		79AAB25C395A45E7931536B5 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Regular.ttf"; path = "../src/assets/fonts/WorkSans-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = react_native_UI_Templates/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81C5D5FA051DBE2D500D3FD6 /* libPods-react_native_UI_Templates-react_native_UI_TemplatesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-react_native_UI_Templates-react_native_UI_TemplatesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		848387773D686B86C1BDEE62 /* Pods-react_native_UI_Templates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates.release.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates/Pods-react_native_UI_Templates.release.xcconfig"; sourceTree = "<group>"; };
+		CEBFA48BC6B64093958CF951 /* WorkSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Medium.ttf"; path = "../src/assets/fonts/WorkSans-Medium.ttf"; sourceTree = "<group>"; };
 		D7871AF2EFF34CA387C57607 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D8EA91312745D2EE00B11F23 /* Pods-react_native_UI_Templates.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates.debug.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates/Pods-react_native_UI_Templates.debug.xcconfig"; sourceTree = "<group>"; };
-		DC7B6AB9D65E4AC4A8F09898 /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-SemiBold.ttf"; path = "../res/fonts/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		E69B5AA43ABC0949E7EE0CDB /* Pods-react_native_UI_Templates-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates-tvOS.release.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates-tvOS/Pods-react_native_UI_Templates-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E7C69C3F47264388AC06E341 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Bold.ttf"; path = "../res/fonts/WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F4E41721FE6E286992D9E9AB /* Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.release.xcconfig"; path = "Target Support Files/Pods-react_native_UI_Templates-react_native_UI_TemplatesTests/Pods-react_native_UI_Templates-react_native_UI_TemplatesTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,10 +130,10 @@
 		4ED86416C3074C82B3FB0935 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E7C69C3F47264388AC06E341 /* WorkSans-Bold.ttf */,
-				45BDF4E263A941B4BFE83AA1 /* WorkSans-Medium.ttf */,
-				58F751E0577B4070BBB66C87 /* WorkSans-Regular.ttf */,
-				DC7B6AB9D65E4AC4A8F09898 /* WorkSans-SemiBold.ttf */,
+				3E1F04925A6F41A7BD079658 /* WorkSans-Bold.ttf */,
+				CEBFA48BC6B64093958CF951 /* WorkSans-Medium.ttf */,
+				79AAB25C395A45E7931536B5 /* WorkSans-Regular.ttf */,
+				318067BCDDB649AD87370A32 /* WorkSans-SemiBold.ttf */,
 				D7871AF2EFF34CA387C57607 /* MaterialIcons.ttf */,
 			);
 			name = Resources;
@@ -282,10 +282,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				A42A50F765754173893D8B47 /* WorkSans-Bold.ttf in Resources */,
-				CCEF7728225F4DF384EEC5E5 /* WorkSans-Medium.ttf in Resources */,
-				20F9DA8C74BE4D93A17CAB92 /* WorkSans-Regular.ttf in Resources */,
-				10EB70E65F384C2294C3C907 /* WorkSans-SemiBold.ttf in Resources */,
+				197760DBE81C4BAD80886008 /* WorkSans-Bold.ttf in Resources */,
+				E807B3236FAF4B088175434A /* WorkSans-Medium.ttf in Resources */,
+				A28C3484E0D041CCAD176089 /* WorkSans-Regular.ttf in Resources */,
+				F9B992979551464089A3672B /* WorkSans-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
