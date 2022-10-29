@@ -51,12 +51,3 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
-
-// Temporary fix for reanimated 1 compile time error after upgrading RN to 0.68.4
-// remove this after upgrading all dependencies to latest versions
-// ref:- https://github.com/software-mansion/react-native-reanimated/issues/3242#issuecomment-1145423942
-subprojects { subproject ->
-        if(project['name'] == 'react-native-reanimated'){
-            project.configurations { compile { } }
-        }
-}
