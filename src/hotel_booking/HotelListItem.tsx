@@ -8,7 +8,7 @@ import {
   ListRenderItemInfo,
   useWindowDimensions,
 } from 'react-native';
-import { Rating } from 'react-native-ratings';
+import { RatingBar } from '@aashu-dubey/react-native-rating-bar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { HotelListType } from './model/hotel_list_data';
 
@@ -77,15 +77,19 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
           </View>
           <Text style={styles.perNightText}>/per night</Text>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 4 }}>
-          <Rating
-            type="custom"
-            ratingCount={5}
-            imageSize={16}
-            ratingColor="#54D3C2"
-            fractions={1}
-            startingValue={item.rating}
-            onFinishRating={() => {}}
+        <View style={styles.ratingContainer}>
+          <RatingBar
+            initialRating={item.rating}
+            direction="horizontal"
+            allowHalfRating
+            itemCount={5}
+            itemSize={24}
+            glowColor="#54D3C2"
+            ratingElement={{
+              full: <Icon name="star-rate" color="#54D3C2" size={24} />,
+              half: <Icon name="star-half" color="#54D3C2" size={24} />,
+              empty: <Icon name="star-border" color="#54D3C2" size={24} />,
+            }}
           />
           <Text style={styles.review}>{item.reviews} Reviews</Text>
         </View>
@@ -128,6 +132,11 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   perNightText: { ...textStyle, color: 'black', marginTop: 4 },
+  ratingContainer: {
+    flexDirection: 'row',
+    marginTop: 4,
+    alignItems: 'center',
+  },
   review: {
     ...textStyle,
     marginLeft: 8,
