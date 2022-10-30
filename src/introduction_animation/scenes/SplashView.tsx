@@ -26,7 +26,7 @@ const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {
     outputRange: [0, -window.height, -window.height],
   });
 
-  const introImageData = Image.resolveAssetSource(AppImages.introduction_image);
+  const introImageData = Image.resolveAssetSource?.(AppImages.introduction_image);
 
   return (
     <Animated.View

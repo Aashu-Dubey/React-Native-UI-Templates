@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
+// import { BlurView } from '@react-native-community/blur';
 import CustomCalendar from './CustomCalendar';
 import MyPressable from '../components/MyPressable';
 
@@ -69,12 +69,12 @@ const CustomerCalendar: React.FC<Props> = ({
         onPress={() => setShowCal(false)}
       >
         <SafeAreaView style={styles.containerStyle}>
-          <BlurView
+          {/* <BlurView
             style={{ ...StyleSheet.absoluteFillObject }}
             blurType="light"
             blurAmount={25}
             reducedTransparencyFallbackColor="white"
-          />
+          /> */}
           <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => {}}>
             <View
               style={{ backgroundColor: 'white', borderRadius: 24, margin: 24 }}

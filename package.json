@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "web": "webpack serve -d source-map --mode development --config \"./web/webpack.config.js\""
   },
   "dependencies": {
     "@aashu-dubey/react-native-rating-bar": "^0.2.0",
@@ -19,15 +20,19 @@
     "@react-navigation/stack": "^6.3.2",
     "@types/react-native-vector-icons": "^6.4.12",
     "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-native": "0.68.4",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-reanimated": "^2.11.0",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-web": "^0.18.9",
+    "setimmediate": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
@@ -36,17 +41,24 @@
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-react-native-web": "^0.18.9",
     "eslint": "^8.25.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.73.2",
     "react-test-renderer": "17.0.2",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "resolutions": {
     "@types/react": "^17"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "react-native-web",
     "moduleFileExtensions": [
       "ts",
       "tsx",

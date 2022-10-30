@@ -1,5 +1,13 @@
 # React Native UI Templates
 
+🚧 🚧 🚧
+
+This branch adds initial support for the Web.
+
+Other compatibility issues and UI responsivenes for web or bigger screens are still work in progress.
+
+---
+
 Free UI templates created in react-native.
 
 <p align="center">
@@ -44,6 +52,16 @@ npx react-native run-ios
 # Run Android
 npx react-native run-android
 
+```
+
+### 🌐 Running on Web
+
+```bash
+# From project's root, run
+yarn run web
+
+# Logs will mention where the project is running, for ex. 'http://localhost:8080/'
+# then open that localhost url on any web browser.
 ```
 
 ## 🌻 Motivation

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet, useWindowDimensions } from 'react-native';
+import { Platform, StatusBar, StyleSheet, useWindowDimensions } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -43,7 +43,7 @@ const DrawerNavigator: React.FC = () => {
       drawerContent={props => <DrawerContent {...props} />}
       // this is just to enable shadow/elevation style on drawer, as it fallback to JS drawer solution instead of native one (v6)
       // as explained here:- https://github.com/react-navigation/react-navigation/issues/10946#issuecomment-1287082343
-      detachInactiveScreens={false}
+      detachInactiveScreens={Platform.OS === 'web' ? true : false}
     >
       <Drawer.Screen name="home" component={HomeScene} />
       <Drawer.Screen name="help" component={HelpScene} />
