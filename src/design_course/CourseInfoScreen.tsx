@@ -73,88 +73,89 @@ const CourseInfoScreen: React.FC = () => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-      <ImageBackground
-        style={{ flex: 1 }}
-        imageStyle={{ height: window.width / 1.2 }}
-        source={AppImages.webInterFace}
-      >
-        <View style={styles.contentContainer}>
-          <ScrollView
-            style={[
-              styles.scrollContainer,
-              {
-                marginTop: window.width / 1.2 - 24,
-                paddingBottom: insets.bottom,
-              },
-            ]}
-            contentContainerStyle={{
-              flexGrow: 1,
-              minHeight: infoHeight,
-              // maxHeight: tempHeight > infoHeight ? tempHeight : infoHeight,
-            }}
-          >
-            <Text style={styles.courseTitle}>{'Web Design\nCourse'}</Text>
-            <View style={styles.priceRatingContainer}>
-              <Text style={[styles.textStyle, styles.price]}>$28.99</Text>
-              <Text style={styles.textStyle}>4.3</Text>
-              <Icon name="star" size={24} color="rgb(0, 182, 240)" />
-            </View>
-            <Animated.View
-              style={[styles.boxesContainer, { opacity: opacity1.current }]}
-              renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
-            >
-              {getTimeBoxUI('24', 'Classes')}
-              {getTimeBoxUI('2 hours', 'Time')}
-              {getTimeBoxUI('24', 'Seat')}
-            </Animated.View>
-            <Animated.Text
-              style={[styles.courseDescription, { opacity: opacity2.current }]}
-              numberOfLines={3}
-            >
-              Lorem ipsum is simply dummy text of printing & typesetting
-              industry, Lorem ipsum is simply dummy text of printing &
-              typesetting industry.
-            </Animated.Text>
-            <Animated.View
-              style={[styles.footerContainer, { opacity: opacity3.current }]}
-              renderToHardwareTextureAndroid
-            >
-              <View style={styles.addView}>
-                <Icon name="add" size={28} color="rgb(0, 182, 240)" />
-              </View>
-              <View style={{ width: 16 }} />
-              <View style={styles.joinCourse}>
-                <MyPressable>
-                  <Text style={styles.joinCourseText}>Join Course</Text>
-                </MyPressable>
-              </View>
-            </Animated.View>
-          </ScrollView>
-        </View>
+    <></>
+    // <View style={{ flex: 1 }}>
+    //   <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+    //   <ImageBackground
+    //     style={{ flex: 1 }}
+    //     imageStyle={{ height: window.width / 1.2 }}
+    //     source={AppImages.webInterFace}
+    //   >
+    //     <View style={styles.contentContainer}>
+    //       <ScrollView
+    //         style={[
+    //           styles.scrollContainer,
+    //           {
+    //             marginTop: window.width / 1.2 - 24,
+    //             paddingBottom: insets.bottom,
+    //           },
+    //         ]}
+    //         contentContainerStyle={{
+    //           flexGrow: 1,
+    //           minHeight: infoHeight,
+    //           // maxHeight: tempHeight > infoHeight ? tempHeight : infoHeight,
+    //         }}
+    //       >
+    //         <Text style={styles.courseTitle}>{'Web Design\nCourse'}</Text>
+    //         <View style={styles.priceRatingContainer}>
+    //           <Text style={[styles.textStyle, styles.price]}>$28.99</Text>
+    //           <Text style={styles.textStyle}>4.3</Text>
+    //           <Icon name="star" size={24} color="rgb(0, 182, 240)" />
+    //         </View>
+    //         <Animated.View
+    //           style={[styles.boxesContainer, { opacity: opacity1.current }]}
+    //           renderToHardwareTextureAndroid // just to avoid UI glitch when animating view with elevation
+    //         >
+    //           {getTimeBoxUI('24', 'Classes')}
+    //           {getTimeBoxUI('2 hours', 'Time')}
+    //           {getTimeBoxUI('24', 'Seat')}
+    //         </Animated.View>
+    //         <Animated.Text
+    //           style={[styles.courseDescription, { opacity: opacity2.current }]}
+    //           numberOfLines={3}
+    //         >
+    //           Lorem ipsum is simply dummy text of printing & typesetting
+    //           industry, Lorem ipsum is simply dummy text of printing &
+    //           typesetting industry.
+    //         </Animated.Text>
+    //         <Animated.View
+    //           style={[styles.footerContainer, { opacity: opacity3.current }]}
+    //           renderToHardwareTextureAndroid
+    //         >
+    //           <View style={styles.addView}>
+    //             <Icon name="add" size={28} color="rgb(0, 182, 240)" />
+    //           </View>
+    //           <View style={{ width: 16 }} />
+    //           <View style={styles.joinCourse}>
+    //             <MyPressable>
+    //               <Text style={styles.joinCourseText}>Join Course</Text>
+    //             </MyPressable>
+    //           </View>
+    //         </Animated.View>
+    //       </ScrollView>
+    //     </View>
 
-        <Animated.View
-          style={[
-            styles.favoriteIcon,
-            {
-              top: window.width / 1.2 - 24 - 35,
-              transform: [{ scale: favIconScale.current }],
-            },
-          ]}
-        >
-          <Icon name="favorite" size={28} color="white" />
-        </Animated.View>
+    //     <Animated.View
+    //       style={[
+    //         styles.favoriteIcon,
+    //         {
+    //           top: window.width / 1.2 - 24 - 35,
+    //           transform: [{ scale: favIconScale.current }],
+    //         },
+    //       ]}
+    //     >
+    //       <Icon name="favorite" size={28} color="white" />
+    //     </Animated.View>
 
-        <MyPressable
-          style={[styles.backBtn, { marginTop }]}
-          android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-back-ios" size={24} color="black" />
-        </MyPressable>
-      </ImageBackground>
-    </View>
+    //     <MyPressable
+    //       style={[styles.backBtn, { marginTop }]}
+    //       android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
+    //       onPress={() => navigation.goBack()}
+    //     >
+    //       <Icon name="arrow-back-ios" size={24} color="black" />
+    //     </MyPressable>
+    //   </ImageBackground>
+    // </View>
   );
 };
 

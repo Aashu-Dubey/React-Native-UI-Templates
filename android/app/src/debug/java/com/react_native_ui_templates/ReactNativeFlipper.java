@@ -4,7 +4,7 @@
  * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
  * directory of this source tree.
  */
-package com.react_native_ui_templates;
+package com.read_in_ten_UI;
 
 import android.content.Context;
 import com.facebook.flipper.android.AndroidFlipperClient;

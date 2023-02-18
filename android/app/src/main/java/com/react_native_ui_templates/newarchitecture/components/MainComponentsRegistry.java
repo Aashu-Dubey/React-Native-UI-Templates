@@ -1,4 +1,4 @@
-package com.react_native_ui_templates.newarchitecture.components;
+package com.read_in_ten_UI.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

@@ -4,13 +4,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-  HomeScene,
+  DemoHomeScene,
   DrawerContent,
   HelpScene,
   FeedbackScene,
   InviteFriendScene,
 } from '.';
-import { CourseInfoScreen, HomeDesignCourse } from './design_course';
+import { CourseInfoScreen, HomeScene } from './design_course';
 import { IntroductionAnimationScreen } from './introduction_animation';
 import HotelHomeScreen from './hotel_booking/HotelHomeScreen';
 
@@ -46,6 +46,7 @@ const DrawerNavigator: React.FC = () => {
       detachInactiveScreens={false}
     >
       <Drawer.Screen name="home" component={HomeScene} />
+      <Drawer.Screen name="demo_home" component={DemoHomeScene} />
       <Drawer.Screen name="help" component={HelpScene} />
       <Drawer.Screen name="feedback" component={FeedbackScene} />
       <Drawer.Screen name="invite_friend" component={InviteFriendScene} />
@@ -68,7 +69,7 @@ export default () => {
         <Stack.Screen name="Hotel" component={HotelHomeScreen} />
 
         <Stack.Group>
-          <Stack.Screen name="DesignCourse" component={HomeDesignCourse} />
+          {/* <Stack.Screen name="DesignCourse" component={HomeDesignCourse} /> */}
           <Stack.Screen name="CourseInfo" component={CourseInfoScreen} />
         </Stack.Group>
 

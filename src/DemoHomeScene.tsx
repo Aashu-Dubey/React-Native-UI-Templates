@@ -114,7 +114,7 @@ const ListItem: React.FC<ListItemProps> = ({
   );
 };
 
-const HomeScene: React.FC = () => {
+const DemoHomeScene: React.FC = () => {
   const navigation = useNavigation<any>();
   const inset = useSafeAreaInsets();
 
@@ -203,4 +203,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScene;
+export default DemoHomeScene;

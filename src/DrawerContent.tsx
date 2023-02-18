@@ -36,6 +36,7 @@ interface DrawerItemProps extends DrawerScene {
 
 const DRAWER_SCENES: DrawerScene[] = [
   { label: 'Home', icon: 'home', routeKey: 'home' },
+  { label: 'Demo Home', icon: 'home', routeKey: 'demo_home' },
   {
     label: 'Help',
     icon: AppImages.support_icon,

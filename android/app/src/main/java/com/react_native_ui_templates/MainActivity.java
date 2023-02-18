@@ -1,4 +1,4 @@
-package com.react_native_ui_templates;
+package com.read_in_ten_UI;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -18,7 +18,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "react_native_UI_Templates";
+    return "read_in_ten_UI";
   }
 
   /**

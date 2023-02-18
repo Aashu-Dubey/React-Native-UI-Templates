@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,8 @@ import {
   TextInput,
   useWindowDimensions,
   FlatList,
+  Platform,
+  Animated
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +20,8 @@ import MyPressable from '../components/MyPressable';
 import { CATEGORY_LIST, POPULAR_COURSE_LIST } from './model/category';
 import { AppImages } from '../assets';
 import Config from '../Config';
+import { CATEGORIES } from '../util/constants';
+import functions from '@react-native-firebase/functions';
 
 interface CategoryBtn {
   text: string;
@@ -25,7 +29,9 @@ interface CategoryBtn {
   onPress: () => void;
 }
 
-const CATEGORIES = ['Ui/Ux', 'Coding', 'Basic UI'];
+if (__DEV__) {
+  functions().useEmulator('localhost', 5001);
+}
 
 const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
   <>
@@ -36,24 +42,64 @@ const CategoryButton = ({ text, selectedCat, onPress }: CategoryBtn) => (
         </Text>
       </MyPressable>
     </View>
-    {text !== CATEGORIES[2] && <View style={{ width: 16 }} />}
+    {<View style={{ width: 16 }} />}
   </>
 );
 
-const HomeDesignCourse: React.FC = () => {
+const HomeScene: React.FC = () => {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
 
+  const opacity3 = useRef<Animated.Value>(new Animated.Value(0));
+
   const [selectedCategory, setSelectedCategory] = useState('Ui/Ux');
+  const [book, setBook] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const paddingTop = Config.isIos
     ? Math.max(insets.top, 20)
     : StatusBar.currentHeight;
+  
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(opacity3.current, {
+        toValue: 1,
+        duration: 500,
+        delay: 600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  useEffect(() => {
+    functions()
+      .httpsCallable('getAllFinanceBooks')()
+      .then(response => {
+        setBook(response.data);
+        setLoading(false);
+      });
+  }, []);
+
 
   const renderScrollableHeader = (
     <>
-      <View style={[styles.searchInputMainContainer, { width: width * 0.75 }]}>
+      <Animated.View
+        style={[styles.randomPickBookContainer, { opacity: opacity3.current }]}
+        renderToHardwareTextureAndroid
+      >
+        <View style={styles.joinCourse}>
+          <MyPressable onPress={() => console.log(book)}>
+            <Text style={styles.joinCourseText}>Read Something</Text>
+          </MyPressable>
+        </View>
+        <View style={{ width: 16 }} />
+        <View style={styles.addView}>
+          <Icon name="add" size={28} color="rgb(0, 182, 240)" />
+        </View>
+      </Animated.View>
+      {/* search bar */}
+      {/* <View style={[styles.searchInputMainContainer, { width: width * 0.75 }]}>
         <View style={styles.searchInputContainer}>
           <TextInput
             style={[
@@ -67,17 +113,25 @@ const HomeDesignCourse: React.FC = () => {
           />
           <Icon name="search" size={25} color="#B9BABC" />
         </View>
-      </View>
-      <Text style={styles.sectionHeaderText}>Category</Text>
-      <View style={styles.categoryRowContainer}>
-        {CATEGORIES.map(text => (
+      </View> */}
+      {/* Popular */}
+      <Text style={styles.sectionHeaderText}>Popular Books</Text>
+
+      <FlatList
+        contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 3}}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={CATEGORIES}
+        renderItem={data => (
           <CategoryButton
-            {...{ text, key: text }}
+            text={data.item}
             selectedCat={selectedCategory}
-            onPress={() => setSelectedCategory(text)}
+            onPress={() => setSelectedCategory(data.item)}
           />
-        ))}
-      </View>
+        )}
+        keyExtractor={(category) => category}
+      />
+      
 
       <FlatList
         contentContainerStyle={{ padding: 16 }}
@@ -92,7 +146,7 @@ const HomeDesignCourse: React.FC = () => {
         )}
         keyExtractor={item => item.id.toString()}
       />
-      <Text style={styles.sectionHeaderText}>Popular Course</Text>
+      <Text style={styles.sectionHeaderText}>Categories</Text>
     </>
   );
 
@@ -100,10 +154,20 @@ const HomeDesignCourse: React.FC = () => {
     <View style={{ flex: 1, backgroundColor: 'white', paddingTop }}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View style={styles.header}>
+        
         <View style={{ flex: 1, justifyContent: 'center' }}>
-          <Text style={styles.headerTextNormal}>Choose your</Text>
-          <Text style={styles.headerTextBold}>Design Course</Text>
+        <MyPressable
+          style={{ marginLeft: 8 }}
+          android_ripple={{ color: 'grey', radius: 20, borderless: true }}
+          touchOpacity={0.6}
+          onPress={() => navigation.toggleDrawer()}
+        >
+          <Icon name="menu" size={25} color="black" />
+        </MyPressable>
+          {/* <Text style={styles.headerTextNormal}>Choose your</Text>
+          <Text style={styles.headerTextBold}>Design Course</Text> */}
         </View>
+        
         <Image
           style={{ width: 60, height: 60 }}
           source={AppImages.design_header_image}
@@ -134,6 +198,40 @@ const HomeDesignCourse: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  joinCourse: {
+    flex: 1,
+    borderRadius: 16,
+    backgroundColor: 'rgb(0, 182, 240)',
+    elevation: 4,
+    shadowColor: 'rgb(0, 182, 240)',
+    shadowOffset: { width: 1.1, height: 1.1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10.0,
+    ...Platform.select({ android: { overflow: 'hidden' } }),
+  },
+  joinCourseText: {
+    padding: 18,
+    paddingVertical: 12,
+    fontSize: 18,
+    fontFamily: 'WorkSans-SemiBold',
+    alignSelf: 'center',
+    color: 'white',
+  },
+  randomPickBookContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+    paddingVertical:25,
+  },
+  addView: {
+    width: 48,
+    height: 48,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   searchInputMainContainer: {
     marginTop: 8,
     marginLeft: 18,
@@ -205,4 +303,4 @@ const styleCatrgory = (selected: boolean) =>
     },
   });
 
-export default HomeDesignCourse;
+export default HomeScene;

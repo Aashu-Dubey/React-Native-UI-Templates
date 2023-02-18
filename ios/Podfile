@@ -4,9 +4,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'react_native_UI_Templates' do
+target 'read_in_ten_UI' do
   config = use_native_modules!
-
   # Flags change depending on the env values.
   flags = get_default_flags()
   use_react_native!(
@@ -18,7 +17,7 @@ target 'react_native_UI_Templates' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'react_native_UI_TemplatesTests' do
+  target 'read_in_ten_UITests' do
     inherit! :complete
     # Pods for testing
   end
@@ -27,7 +26,23 @@ target 'react_native_UI_Templates' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
+
+#   use_flipper!({ 'Flipper' => '0.182.0' })
+#    use_flipper!({ 'Flipper-Folly' => '2.5' })
+#  pod 'Firebase', :modular_headers => true
+#  pod 'FirebaseCoreInternal', :modular_headers => true
+#  pod 'GoogleUtilities', :modular_headers => true
+#  pod 'FirebaseCore', :modular_headers => true
+#  pod 'FirebaseCoreExtension', :modular_headers => true
+#  pod 'FirebaseAppCheckInterop', :modular_headers => true
+#  pod 'FirebaseAuthInterop', :modular_headers => true
+#  pod 'FirebaseMessagingInterop', :modular_headers => true
+#  pod 'GTMSessionFetcher', :modular_headers => true
+#  pod 'RNFBFunctions', :path => '../node_modules/@react-native-firebase/functions'
+#  pod 'FirebaseFunctions', :modular_headers => true
 
   post_install do |installer|
     react_native_post_install(installer)

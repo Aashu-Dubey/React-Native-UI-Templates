@@ -13,7 +13,7 @@ class MainComponentsRegistry
  public:
   // Adapt it to the package you used for your Java class.
   constexpr static auto kJavaDescriptor =
-      "Lcom/react_native_ui_templates/newarchitecture/components/MainComponentsRegistry;";
+      "Lcom/read_in_ten_UI/newarchitecture/components/MainComponentsRegistry;";
 
   static void registerNatives();
 

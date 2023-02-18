@@ -10,7 +10,7 @@ include $(CLEAR_VARS)
 LOCAL_PATH := $(THIS_DIR)
 
 # You can customize the name of your application .so file here.
-LOCAL_MODULE := react_native_ui_templates_appmodules
+LOCAL_MODULE := read_in_ten_UI_appmodules
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/*.cpp)
