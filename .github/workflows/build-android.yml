@@ -1,0 +1,56 @@
+name: Build an Android APK
+
+on:
+  push:
+    paths:
+      - '*'
+      - '.github/workflows/build-android.yml'
+      - 'android/**'
+      - 'src/**'
+      - '!**/*.md'
+    branches:
+      - main
+
+jobs:
+  build-apk:
+    permissions:
+      contents: write
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Web environment to install packages.
+      - name: Setup Web environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      # Setup Java environment in order to build the Android app.
+      - name: Setup Java environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: 'gradle'
+
+      # Here '--frozen-lockfile' will only use commited 'yarn.lock', and will throw error if some update is needed
+      - name: Install node_modules
+        run: yarn install --frozen-lockfile
+
+      # In some cases, Gradle is not executable by default, so we do this before the build process
+      - name: Make gradlew executable
+        working-directory: android
+        run: chmod +x ./gradlew
+
+      - name: Build Android release APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Save apk file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rn-ui-templates
+          path: android/app/build/outputs/apk/release/app-release.apk
