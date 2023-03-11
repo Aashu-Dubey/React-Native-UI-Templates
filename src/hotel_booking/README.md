@@ -1,12 +1,11 @@
 # Hotel Booking Template
 
-A hotel booking UI template showing the list of hotels nearby with their ratings and other details, filter UI and custom interactive calendar view etc.
-
-<p align="center">
-  <img alt="Hotel booking template | react-native" src="../assets/hotel/hotel_booking.png" height="200px">
+<p>
+  <img alt="Hotel booking template | react-native" align="right" src="../assets/hotel/hotel_booking.png" height="200px">
 </p>
 
----
+
+A hotel booking UI template showing the list of hotels nearby with their ratings and other details, filter UI and custom interactive calendar view etc.
 
 ## 📦 Packages used
 
@@ -19,5 +18,4 @@ A hotel booking UI template showing the list of hotels nearby with their ratings
 
 ## 🔗 Links
 
-- [Twitter Post](https://twitter.com/aashudubey_ad/status/1576292697173766145)
-- [Youtube Short](https://youtube.com/shorts/ioFcve0rYnc?feature=share)
+- **Demo: [twitter](https://twitter.com/aashudubey_ad/status/1576292697173766145) \| [youtube](https://youtube.com/shorts/ioFcve0rYnc)**

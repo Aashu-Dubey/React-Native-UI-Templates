@@ -1,12 +1,10 @@
 # Animated Onboarding Template
 
-An onboarding UI template with smooth animations, for a Mental Wellness App.
-
-<p align="center">
-  <img alt="Animated Onboarding template, Mental Wellness App | react-native" src="../assets/introduction_animation/introduction_animation.png" height="200px">
+<p>
+  <img alt="Animated Onboarding template, Mental Wellness App | react-native" align="right" src="../assets/introduction_animation/introduction_animation.png" height="200px">
 </p>
 
----
+An onboarding UI template with smooth animations, for a Mental Wellness App.
 
 ## 📦 Packages used
 
@@ -20,5 +18,4 @@ Original UI design for this template on [Behance](<https://www.behance.net/galle
 ## 🔗 Links
 
 - [UI on Behance](<https://www.behance.net/gallery/96755139/Mental-Wellness-App-(Onboarding)>)
-- [Twitter Post](https://twitter.com/aashudubey_ad/status/1580260456215695360)
-- [Youtube Short](https://youtube.com/shorts/AOD9FyiSR3U?feature=share)
+- **Demo: [twitter](https://twitter.com/aashudubey_ad/status/1580260456215695360) \| [youtube](https://youtube.com/shorts/AOD9FyiSR3U)**
