@@ -46,4 +46,5 @@ This was initially started as my learning project and is inspired from the Flutt
 ## 🔗 Links
 
 - [Original Flutter project](https://github.com/mitesh77/Best-Flutter-UI-Templates)
+- [Ionic-UI-Templates](https://github.com/Aashu-Dubey/Ionic-UI-Templates): Ionic version of this project.
 - [Twitter Post](https://twitter.com/aashudubey_ad/status/1484571529644212224)

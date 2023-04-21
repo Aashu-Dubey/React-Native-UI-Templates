@@ -282,9 +282,9 @@ PODS:
   - React-jsinspector (0.68.4)
   - React-logger (0.68.4):
     - glog
-  - react-native-blur (4.2.0):
+  - react-native-blur (4.3.0):
     - React-Core
-  - react-native-safe-area-context (4.4.1):
+  - react-native-safe-area-context (4.5.1):
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -355,9 +355,9 @@ PODS:
     - React-jsi (= 0.68.4)
     - React-logger (= 0.68.4)
     - React-perflogger (= 0.68.4)
-  - RNGestureHandler (2.8.0):
+  - RNGestureHandler (2.9.0):
     - React-Core
-  - RNReanimated (2.11.0):
+  - RNReanimated (3.1.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -384,7 +384,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.18.2):
+  - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
   - RNVectorIcons (9.2.0):
@@ -583,8 +583,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 4f35a29798ba9d0d892a84001d11f626688dbb8e
   React-jsinspector: 6f75220cd4b6020976d340ab21c63458dd3cad9e
   React-logger: 7013d2499df6346e6a72802d4084badaaa82543b
-  react-native-blur: 3e9c8e8e9f7d17fa1b94e1a0ae9fd816675f5382
-  react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
+  react-native-safe-area-context: f5549f36508b1b7497434baa0cd97d7e470920d4
   React-perflogger: 0b0500685176e53ea582c45179a653aa82e4ae49
   React-RCTActionSheet: 38469be9d20242f9c717e43c2983e8e3e6c640c4
   React-RCTAnimation: 93774f3e8857e7c3c1cbbd277056d02be4496be1
@@ -597,9 +597,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: a67beb7d2f3c73e9b74c4124ef61b84c601be649
   React-runtimeexecutor: 088723cf020113e64736a709f52719dbb359c73e
   ReactCommon: 1a4f19f3b4366feec03a98bdbb200b6085c5000f
-  RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
-  RNReanimated: 64ea1fe8072fe5e6a8e1dc9e3278fef728ff8a7a
-  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
+  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
+  RNReanimated: 5b2de63592d18e7cfdb9d3cbbeb3cdf74d4cb7d1
+  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: c926c8eec5c78a788b51e6c8a604825d00d694d7
@@ -607,4 +607,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 3e49e0038b3001280ee7e67e213b2b7473291923
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
