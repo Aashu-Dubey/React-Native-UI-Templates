@@ -48,7 +48,9 @@ const TopBackSkipView: React.FC<Props> = ({
           android_ripple={{ color: 'darkgrey', borderless: true, radius: 28 }}
           onPress={() => onSkipClick()}
         >
-          <Text style={{ fontFamily: 'WorkSans-Regular' }}>Skip</Text>
+          <Text style={{ color: 'black', fontFamily: 'WorkSans-Regular' }}>
+            Skip
+          </Text>
         </MyPressable>
       </Animated.View>
     </Animated.View>

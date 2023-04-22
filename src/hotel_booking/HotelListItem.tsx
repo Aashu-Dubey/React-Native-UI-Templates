@@ -63,9 +63,7 @@ const HotelListItem: React.FC<Props> = ({ data }) => {
       <View style={{ padding: 8, paddingHorizontal: 16 }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Text style={styles.title}>{item.titleTxt}</Text>
-          <Text style={{ fontSize: 22, fontFamily: 'WorkSans-SemiBold' }}>
-            ${item.perNight}
-          </Text>
+          <Text style={styles.perNightPrice}>${item.perNight}</Text>
         </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.subText}>
@@ -121,6 +119,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-SemiBold',
   },
@@ -130,6 +129,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingRight: 4,
     marginTop: 4,
+  },
+  perNightPrice: {
+    color: 'black',
+    fontSize: 22,
+    fontFamily: 'WorkSans-SemiBold',
   },
   perNightText: { ...textStyle, color: 'black', marginTop: 4 },
   ratingContainer: {

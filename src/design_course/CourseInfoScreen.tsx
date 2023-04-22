@@ -80,15 +80,14 @@ const CourseInfoScreen: React.FC = () => {
         imageStyle={{ height: window.width / 1.2 }}
         source={AppImages.webInterFace}
       >
-        <View style={styles.contentContainer}>
+        <View
+          style={[
+            styles.contentContainer,
+            { marginTop: window.width / 1.2 - 24 },
+          ]}
+        >
           <ScrollView
-            style={[
-              styles.scrollContainer,
-              {
-                marginTop: window.width / 1.2 - 24,
-                paddingBottom: insets.bottom,
-              },
-            ]}
+            style={styles.scrollContainer}
             contentContainerStyle={{
               flexGrow: 1,
               minHeight: infoHeight,
@@ -117,21 +116,24 @@ const CourseInfoScreen: React.FC = () => {
               industry, Lorem ipsum is simply dummy text of printing &
               typesetting industry.
             </Animated.Text>
-            <Animated.View
-              style={[styles.footerContainer, { opacity: opacity3.current }]}
-              renderToHardwareTextureAndroid
-            >
-              <View style={styles.addView}>
-                <Icon name="add" size={28} color="rgb(0, 182, 240)" />
-              </View>
-              <View style={{ width: 16 }} />
-              <View style={styles.joinCourse}>
-                <MyPressable>
-                  <Text style={styles.joinCourseText}>Join Course</Text>
-                </MyPressable>
-              </View>
-            </Animated.View>
           </ScrollView>
+          <Animated.View
+            style={[
+              styles.footerContainer,
+              { paddingBottom: insets.bottom + 16, opacity: opacity3.current },
+            ]}
+            renderToHardwareTextureAndroid
+          >
+            <View style={styles.addView}>
+              <Icon name="add" size={28} color="rgb(0, 182, 240)" />
+            </View>
+            <View style={{ width: 16 }} />
+            <View style={styles.joinCourse}>
+              <MyPressable>
+                <Text style={styles.joinCourseText}>Join Course</Text>
+              </MyPressable>
+            </View>
+          </Animated.View>
         </View>
 
         <Animated.View
@@ -161,20 +163,22 @@ const CourseInfoScreen: React.FC = () => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
     shadowColor: 'grey',
     shadowOffset: { width: 1.1, height: 1.1 },
     shadowOpacity: 0.2,
     shadowRadius: 10.0,
+    elevation: 16,
   },
   scrollContainer: {
-    flex: 1,
-    backgroundColor: 'white',
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     paddingHorizontal: 8,
-    elevation: 16,
   },
   courseTitle: {
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-SemiBold',
     letterSpacing: 0.27,
@@ -233,8 +237,8 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingHorizontal: 24,
+    // paddingBottom: 16,
   },
   addView: {
     width: 48,

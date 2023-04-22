@@ -66,11 +66,13 @@ const styles = StyleSheet.create({
     maxHeight: IMAGE_HEIGHT,
   },
   title: {
+    color: 'black',
     fontSize: 26,
     textAlign: 'center',
     fontFamily: 'WorkSans-Bold',
   },
   subtitle: {
+    color: 'black',
     textAlign: 'center',
     fontFamily: 'WorkSans-Regular',
     paddingHorizontal: 64,

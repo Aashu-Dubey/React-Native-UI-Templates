@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     color: 'dodgerblue',
   },
   sectionHeaderText: {
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-SemiBold',
     letterSpacing: 0.27,
@@ -178,6 +179,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   headerTextBold: {
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-Bold',
     letterSpacing: 0.2,

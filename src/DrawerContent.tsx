@@ -157,7 +157,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
           style={[styles.drawerAvatarStyle, styles.avatarShadow, drawerStyle]}
         >
           <Animated.Image
-            style={[styles.drawerAvatarStyle, drawerStyle]}
+            style={styles.drawerAvatarStyle}
             source={AppImages.userImage}
           />
         </Animated.View>
@@ -178,11 +178,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
       </DrawerContentScrollView>
 
       <MyPressable style={styles.signOutBtnStyle}>
-        <Text
-          style={{ flex: 1, fontSize: 16, fontFamily: 'WorkSans-SemiBold' }}
-        >
-          Sign Out
-        </Text>
+        <Text style={styles.signOutText}>Sign Out</Text>
         <Icon name="power-settings-new" size={20} color="red" />
       </MyPressable>
     </SafeAreaView>
@@ -227,6 +223,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
   },
   avatarShadow: {
+    backgroundColor: 'white',
     elevation: 24,
     shadowColor: '#3A5160',
     shadowOffset: { width: 2, height: 4 },
@@ -242,6 +239,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: 'darkgrey',
+  },
+  signOutText: {
+    flex: 1,
+    color: 'black',
+    fontSize: 16,
+    fontFamily: 'WorkSans-SemiBold',
   },
 });
 

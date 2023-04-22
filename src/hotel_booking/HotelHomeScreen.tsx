@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   useWindowDimensions,
+  ListRenderItemInfo,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +15,7 @@ import CustomerCalendar from './CalendarPopupView';
 import FilterModal from './FiltersModal';
 import HotelListItem from './HotelListItem';
 import MyPressable from '../components/MyPressable';
-import { HOTEL_LIST } from './model/hotel_list_data';
+import { HOTEL_LIST, HotelListType } from './model/hotel_list_data';
 
 const HALF_MONTHS = [
   'Jan',
@@ -51,6 +52,7 @@ const HotelHomeScreen: React.FC = () => {
         <TextInput
           style={styles.searchInput}
           placeholder="London..."
+          placeholderTextColor="#3c3c434c"
           selectionColor="#54D3C2"
         />
         <View style={styles.searchBtnContainer}>
@@ -70,7 +72,7 @@ const HotelHomeScreen: React.FC = () => {
           onPress={() => setShowCal(true)}
         >
           <Text style={styles.headerDetailTitle}>Choose date</Text>
-          <Text style={{ fontSize: 16, fontFamily: 'WorkSans-Regular' }}>
+          <Text style={styles.sectionText}>
             {`${String(startDate.getDate()).padStart(2, '0')}, ${
               HALF_MONTHS[startDate.getMonth()]
             } - ${String(endDate.getDate()).padStart(2, '0')}, ${
@@ -81,16 +83,14 @@ const HotelHomeScreen: React.FC = () => {
         <View style={styles.verticalDivider} />
         <View style={styles.headerSectionContainer}>
           <Text style={styles.headerDetailTitle}>Number of Rooms</Text>
-          <Text style={{ fontSize: 16, fontFamily: 'WorkSans-Regular' }}>
-            1 Room - 2 Adults
-          </Text>
+          <Text style={styles.sectionText}>1 Room - 2 Adults</Text>
         </View>
       </View>
     </View>
   );
 
   const renderItem = useCallback(
-    data =>
+    (data: ListRenderItemInfo<HotelListType>) =>
       data.index > 0 ? (
         <HotelListItem {...{ data }} />
       ) : (
@@ -101,9 +101,7 @@ const HotelHomeScreen: React.FC = () => {
               style={{ flexDirection: 'row', padding: 8 }}
               onPress={() => setShowFilter(true)}
             >
-              <Text style={{ fontSize: 16, fontFamily: 'WorkSans-Regular' }}>
-                Filter
-              </Text>
+              <Text style={styles.sectionText}>Filter</Text>
               <Icon
                 style={{ paddingHorizontal: 8 }}
                 name="sort"
@@ -205,6 +203,7 @@ const styles = StyleSheet.create({
     flexBasis: 0,
   },
   headerTitle: {
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-SemiBold',
     textAlign: 'center',
@@ -230,6 +229,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     marginRight: 16,
+    color: 'black',
     fontSize: 18,
     elevation: 8,
     shadowColor: 'lightgrey',
@@ -239,16 +239,16 @@ const styles = StyleSheet.create({
   },
   searchBtnContainer: {
     borderRadius: 36,
-    shadowColor: 'grey',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
     elevation: 12,
   },
   searchBtn: {
     padding: 12,
     backgroundColor: '#54D3C2',
     borderRadius: 36,
+    shadowColor: 'grey',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
   },
   headerDetailContainer: {
     flexDirection: 'row',
@@ -259,6 +259,11 @@ const styles = StyleSheet.create({
     color: 'darkgrey',
     fontSize: 16,
     marginBottom: 8,
+    fontFamily: 'WorkSans-Regular',
+  },
+  sectionText: {
+    color: 'black',
+    fontSize: 16,
     fontFamily: 'WorkSans-Regular',
   },
   verticalDivider: {
@@ -280,6 +285,7 @@ const styles = StyleSheet.create({
   },
   hotelCountText: {
     flex: 1,
+    color: 'black',
     fontSize: 16,
     alignSelf: 'center',
     fontFamily: 'WorkSans-Regular',

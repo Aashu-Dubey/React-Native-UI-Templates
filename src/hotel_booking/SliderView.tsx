@@ -42,7 +42,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 7.49,
   },
-  thumbText: { width: 170, textAlign: 'center' },
+  thumbText: {
+    width: 170,
+    color: 'black',
+    textAlign: 'center',
+  },
 });
 
 export default SliderView;

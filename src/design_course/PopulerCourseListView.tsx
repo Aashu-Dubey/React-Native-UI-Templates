@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginHorizontal: 16,
     marginBottom: 4,
+    backgroundColor: 'white',
     elevation: 2,
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 0 },

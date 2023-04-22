@@ -70,12 +70,14 @@ const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {
 
 const styles = StyleSheet.create({
   title: {
+    color: 'black',
     fontSize: 25,
     textAlign: 'center',
     fontFamily: 'WorkSans-Bold',
     paddingVertical: 8,
   },
   subtitle: {
+    color: 'black',
     textAlign: 'center',
     fontFamily: 'WorkSans-Regular',
     paddingHorizontal: 24,

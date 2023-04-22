@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   title: {
+    color: 'black',
     fontSize: 20,
     fontFamily: 'WorkSans-Bold',
     textAlign: 'center',
     paddingTop: 8,
   },
   subTitle: {
+    color: 'black',
     fontSize: 16,
     fontFamily: 'WorkSans-Regular',
     textAlign: 'center',

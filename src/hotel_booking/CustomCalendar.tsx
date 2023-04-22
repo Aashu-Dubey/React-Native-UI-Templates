@@ -231,7 +231,7 @@ const CustomCalendar: React.FC<Props> = ({
             >
               <MyPressable
                 style={styles.dayNoBtn}
-                android_ripple={{ borderless: true }}
+                android_ripple={{ color: 'lightgrey', borderless: true }}
                 onPress={() => onDatePressedValidations(date)}
               >
                 <Text
@@ -332,6 +332,7 @@ const styles = StyleSheet.create({
   },
   monthHeaderStyle: {
     flex: 1,
+    color: 'black',
     fontSize: 20,
     fontFamily: 'WorkSans-Medium',
     textAlign: 'center',

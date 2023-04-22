@@ -7,8 +7,6 @@ import {
   View,
   Text,
   FlatList,
-  StatusBar,
-  Platform,
   Easing,
   useWindowDimensions,
   GestureResponderEvent,
@@ -47,7 +45,7 @@ const DEMOS = [
 ];
 
 interface ListItemProps {
-  data: ListRenderItemInfo<typeof DEMOS[0]>;
+  data: ListRenderItemInfo<(typeof DEMOS)[0]>;
   isGrid: boolean;
   onScreenClicked: ((event: GestureResponderEvent) => void) | null | undefined;
 }
@@ -120,7 +118,7 @@ const HomeScene: React.FC = () => {
 
   const [isGrid, setGrid] = useState(true);
 
-  const onTemplateClicked = (temp: typeof DEMOS[0]) => {
+  const onTemplateClicked = (temp: (typeof DEMOS)[0]) => {
     if (temp.screenName) {
       navigation.navigate(temp.screenName);
     } else {
@@ -186,6 +184,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     flex: 1,
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-Bold',
     textAlign: 'center',

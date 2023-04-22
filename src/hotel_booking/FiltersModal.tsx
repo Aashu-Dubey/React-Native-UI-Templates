@@ -68,9 +68,7 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
                 size={25}
                 color={data.isSelected ? '#54D3C2' : 'lightgrey'}
               />
-              <Text style={{ marginStart: 4, fontFamily: 'WorkSans-Regular' }}>
-                {data.titleTxt}
-              </Text>
+              <Text style={styles.checkTitle}>{data.titleTxt}</Text>
             </MyPressable>
           </View>,
         );
@@ -224,6 +222,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   headerText: {
+    color: 'black',
     fontSize: 22,
     fontFamily: 'WorkSans-Bold',
     textAlign: 'center',
@@ -247,16 +246,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 8,
   },
+  checkTitle: {
+    color: 'black',
+    marginStart: 4,
+    fontFamily: 'WorkSans-Regular',
+  },
   switchText: {
     flex: 1,
+    color: 'black',
     fontFamily: 'WorkSans-Regular',
     alignSelf: 'center',
   },
   buttonContainer: {
     backgroundColor: '#54D3C2',
     borderRadius: 24,
-    margin: 16,
-    marginTop: 8,
     elevation: 8,
     overflow: 'hidden',
   },
@@ -267,6 +270,10 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   applyBtnShadow: {
+    backgroundColor: '#54D3C2',
+    borderRadius: 24,
+    margin: 16,
+    marginTop: 8,
     shadowColor: 'grey',
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.6,

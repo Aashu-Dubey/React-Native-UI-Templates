@@ -145,12 +145,14 @@ const styles = StyleSheet.create({
     color: 'rgba(128, 128, 128, 0.8)',
     marginBottom: 4,
   },
-  startEndDateTextStyles: { fontSize: 16, fontFamily: 'WorkSans-Bold' },
+  startEndDateTextStyles: {
+    color: 'black',
+    fontSize: 16,
+    fontFamily: 'WorkSans-Bold',
+  },
   applyBtnContainer: {
     backgroundColor: '#54D3C2',
     borderRadius: 24,
-    margin: 16,
-    marginTop: 8,
     elevation: 8,
     overflow: 'hidden',
   },
@@ -161,6 +163,10 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   applyBtnShadow: {
+    backgroundColor: '#54D3C2',
+    borderRadius: 24,
+    margin: 16,
+    marginTop: 8,
     shadowColor: 'grey',
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.6,

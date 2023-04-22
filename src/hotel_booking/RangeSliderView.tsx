@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,12 +7,12 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider, { LabelProps } from '@ptomasroos/react-native-multi-slider';
 
-const CustomMarker = (props: { triangleStyle: StyleProp<ViewStyle> }) => (
+const customMarker = (triangleStyle: StyleProp<ViewStyle>) => (
   <View style={styles.shadowBg}>
     <View style={styles.markerStyle}>
-      <View style={props.triangleStyle} />
+      <View style={triangleStyle} />
     </View>
   </View>
 );
@@ -21,6 +21,43 @@ const RangeSliderView: React.FC = () => {
   const { width } = useWindowDimensions();
 
   const { containerStyle, trackStyle, selectedStyle } = styles;
+
+  const customLabel = useCallback(
+    (prop: LabelProps) => {
+      const {
+        oneMarkerValue,
+        twoMarkerValue,
+        oneMarkerLeftPosition,
+        twoMarkerLeftPosition,
+      } = prop;
+      const leftLabelDistance = oneMarkerLeftPosition - (width - 32) / 2 + 3;
+      const rightLabelDistance = twoMarkerLeftPosition - 18 / 2 + 3;
+
+      return (
+        <View>
+          {Number.isFinite(oneMarkerLeftPosition) &&
+            Number.isFinite(oneMarkerValue) && (
+              <View style={[styles.sliderLabel, { left: leftLabelDistance }]}>
+                <Text style={styles.sliderLabelText}>${oneMarkerValue}</Text>
+              </View>
+            )}
+
+          {Number.isFinite(twoMarkerLeftPosition) &&
+            Number.isFinite(twoMarkerValue) && (
+              <View
+                style={[
+                  styles.sliderLabel,
+                  { left: rightLabelDistance, position: 'absolute' },
+                ]}
+              >
+                <Text style={styles.sliderLabelText}>${twoMarkerValue}</Text>
+              </View>
+            )}
+        </View>
+      );
+    },
+    [width],
+  );
 
   return (
     <MultiSlider
@@ -31,46 +68,10 @@ const RangeSliderView: React.FC = () => {
       max={1000}
       allowOverlap
       isMarkersSeparated
-      customMarkerLeft={_ => (
-        <CustomMarker triangleStyle={styles.triangleLeftStyle} />
-      )}
-      customMarkerRight={_ => (
-        <CustomMarker triangleStyle={styles.triangleRightStyle} />
-      )}
+      customMarkerLeft={_ => customMarker(styles.triangleLeftStyle)}
+      customMarkerRight={_ => customMarker(styles.triangleRightStyle)}
       enableLabel
-      customLabel={prop => {
-        const {
-          oneMarkerValue,
-          twoMarkerValue,
-          oneMarkerLeftPosition,
-          twoMarkerLeftPosition,
-        } = prop;
-        const leftLabelDistance = oneMarkerLeftPosition - (width - 32) / 2 + 3;
-        const rightLabelDistance = twoMarkerLeftPosition - 18 / 2 + 3;
-
-        return (
-          <View>
-            {Number.isFinite(oneMarkerLeftPosition) &&
-              Number.isFinite(oneMarkerValue) && (
-                <View style={[styles.sliderLabel, { left: leftLabelDistance }]}>
-                  <Text style={styles.sliderLabelText}>${oneMarkerValue}</Text>
-                </View>
-              )}
-
-            {Number.isFinite(twoMarkerLeftPosition) &&
-              Number.isFinite(twoMarkerValue) && (
-                <View
-                  style={[
-                    styles.sliderLabel,
-                    { left: rightLabelDistance, position: 'absolute' },
-                  ]}
-                >
-                  <Text style={styles.sliderLabelText}>${twoMarkerValue}</Text>
-                </View>
-              )}
-          </View>
-        );
-      }}
+      customLabel={customLabel}
     />
   );
 };
@@ -94,7 +95,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   sliderLabel: { minWidth: 50, padding: 8 },
-  sliderLabelText: { textAlign: 'center' },
+  sliderLabelText: {
+    color: 'black',
+    textAlign: 'center',
+  },
   triangleRightStyle: {
     width: 0,
     height: 0,
@@ -129,19 +133,19 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     justifyContent: 'center',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 7.49,
   },
   shadowBg: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: 'rgba(128, 128, 128, 0.1)',
+    // backgroundColor: 'rgba(128, 128, 128, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 12,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 7.49,
   },
 });
 
