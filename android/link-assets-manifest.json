@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/WorkSans-Bold.ttf",
+      "sha1": "8aa832d11d326a9638d73123f13a291f9d17cbc2"
+    },
+    {
+      "path": "src/assets/fonts/WorkSans-Medium.ttf",
+      "sha1": "8157befeb8f303271b9c754f55d9bee89d4caac7"
+    },
+    {
+      "path": "src/assets/fonts/WorkSans-Regular.ttf",
+      "sha1": "dde5c5441ea6350524d0e0eb7058c8e672359279"
+    },
+    {
+      "path": "src/assets/fonts/WorkSans-SemiBold.ttf",
+      "sha1": "08d3f4f2abb01cbe8252dba795e27416a05704d6"
+    }
+  ]
+}

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "react_native_UI_Templates.app"
-               BlueprintName = "react_native_UI_Templates"
-               ReferencedContainer = "container:react_native_UI_Templates.xcodeproj">
+               BuildableName = "react_native_ui_templates.app"
+               BlueprintName = "react_native_ui_templates"
+               ReferencedContainer = "container:react_native_ui_templates.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "react_native_UI_TemplatesTests.xctest"
-               BlueprintName = "react_native_UI_TemplatesTests"
-               ReferencedContainer = "container:react_native_UI_Templates.xcodeproj">
+               BuildableName = "react_native_ui_templatesTests.xctest"
+               BlueprintName = "react_native_ui_templatesTests"
+               ReferencedContainer = "container:react_native_ui_templates.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "react_native_UI_Templates.app"
-            BlueprintName = "react_native_UI_Templates"
-            ReferencedContainer = "container:react_native_UI_Templates.xcodeproj">
+            BuildableName = "react_native_ui_templates.app"
+            BlueprintName = "react_native_ui_templates"
+            ReferencedContainer = "container:react_native_ui_templates.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "react_native_UI_Templates.app"
-            BlueprintName = "react_native_UI_Templates"
-            ReferencedContainer = "container:react_native_UI_Templates.xcodeproj">
+            BuildableName = "react_native_ui_templates.app"
+            BlueprintName = "react_native_ui_templates"
+            ReferencedContainer = "container:react_native_ui_templates.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
