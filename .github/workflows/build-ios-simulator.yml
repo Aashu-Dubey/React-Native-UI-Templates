@@ -1,0 +1,77 @@
+name: Create an iOS Simulator build
+
+on:
+  push:
+    paths:
+      - '*'
+      - '.github/workflows/build-ios-simulator.yml'
+      - 'ios/**'
+      - 'src/**'
+      - '!**/*.md'
+    branches:
+      - main
+
+jobs:
+  build-ios-simulator:
+    name: Create an iOS Simulator build
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Web environment to install packages.
+      - name: Setup Web environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      # Here '--frozen-lockfile' will only use commited 'yarn.lock', and will throw error if some update is needed
+      - name: Install node_modules
+        run: yarn install --frozen-lockfile
+
+      # improve iOS build compilation time
+      - name: Restore buildcache
+        uses: mikehardy/buildcache-action@v2
+        continue-on-error: true
+
+      - name: Restore Pods cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-pods-
+
+      - name: Install Pod files
+        run: npx pod-install ios
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - name: Run simulator build command
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+          CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
+          -scheme react_native_UI_Templates \
+          -workspace react_native_UI_Templates.xcworkspace \
+          -sdk iphonesimulator \
+          -configuration Release \
+          -derivedDataPath build | xcpretty
+
+      - name: Store build .app file as zip
+        working-directory: ios
+        run: |
+          cd build/Build/Products/Release-iphonesimulator
+          mkdir -p output
+          zip -r -y -o output/react_native_ui_templates.zip react_native_ui_templates.app
+
+      - name: Save build file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rn_ui_templates_ios
+          path: ios/build/Build/Products/Release-iphonesimulator/output
