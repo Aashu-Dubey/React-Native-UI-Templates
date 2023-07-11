@@ -1,17 +1,23 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, Animated, useWindowDimensions } from 'react-native';
 import { AppImages } from '../../assets';
+import { useSwipe } from '../../hooks/UseSwipe';
 
 interface Props {
   animationController: React.MutableRefObject<Animated.Value>;
+  onSwipeRight: () => void;
 }
 
 const IMAGE_WIDTH = 350;
 const IMAGE_HEIGHT = 350;
 
-const WelcomeView: React.FC<Props> = ({ animationController }) => {
+const WelcomeView: React.FC<Props> = ({
+  animationController,
+  onSwipeRight,
+}) => {
   const window = useWindowDimensions();
 
+  const { onTouchStart, onTouchEnd } = useSwipe({ onSwipeRight }, 6);
   const careRef = useRef<Text | null>(null);
 
   const slideAnim = animationController.current.interpolate({
@@ -34,6 +40,8 @@ const WelcomeView: React.FC<Props> = ({ animationController }) => {
   return (
     <Animated.View
       style={[styles.container, { transform: [{ translateX: slideAnim }] }]}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <Animated.Image
         style={[styles.image, { transform: [{ translateX: imageAnim }] }]}

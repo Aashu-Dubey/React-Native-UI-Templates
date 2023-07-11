@@ -1,18 +1,30 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, Animated, useWindowDimensions } from 'react-native';
 import { AppImages } from '../../assets';
+import { useSwipe } from '../../hooks/UseSwipe';
 
 interface Props {
   animationController: React.MutableRefObject<Animated.Value>;
+  onSwipeLeft: () => void;
+  onSwipeRight: () => void;
 }
 
 const IMAGE_WIDTH = 350;
 const IMAGE_HEIGHT = 250;
 
-const MoodDiaryView: React.FC<Props> = ({ animationController }) => {
+const MoodDiaryView: React.FC<Props> = ({
+  animationController,
+  onSwipeLeft,
+  onSwipeRight,
+}) => {
   const window = useWindowDimensions();
 
   const careRef = useRef<Text | null>(null);
+
+  const { onTouchStart, onTouchEnd } = useSwipe(
+    { onSwipeLeft, onSwipeRight },
+    6,
+  );
 
   const slideAnim = animationController.current.interpolate({
     inputRange: [0, 0.4, 0.6, 0.8],
@@ -34,6 +46,8 @@ const MoodDiaryView: React.FC<Props> = ({ animationController }) => {
   return (
     <Animated.View
       style={[styles.container, { transform: [{ translateX: slideAnim }] }]}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <Text style={styles.title} ref={careRef}>
         Mood Dairy

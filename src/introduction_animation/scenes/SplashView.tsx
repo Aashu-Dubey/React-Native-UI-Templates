@@ -11,15 +11,23 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MyPressable from '../../components/MyPressable';
 import { AppImages } from '../../assets';
+import { useSwipe } from '../../hooks/UseSwipe';
 
 interface Props {
   onNextClick: () => void;
+  onBackClick?: () => void;
   animationController: React.MutableRefObject<Animated.Value>;
 }
 
 const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {
   const window = useWindowDimensions();
   const insets = useSafeAreaInsets();
+
+  const onSwipeUp = () => {
+    onNextClick();
+  };
+
+  const { onTouchStart, onTouchEnd } = useSwipe({ onSwipeUp }, 6);
 
   const splashTranslateY = animationController.current.interpolate({
     inputRange: [0, 0.2, 0.8],
@@ -31,6 +39,8 @@ const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {
   return (
     <Animated.View
       style={{ flex: 1, transform: [{ translateY: splashTranslateY }] }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <ScrollView style={{ flexGrow: 0 }} alwaysBounceVertical={false}>
         <View>
