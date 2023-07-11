@@ -1,17 +1,28 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, Animated, useWindowDimensions } from 'react-native';
+import { Animated, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { AppImages } from '../../assets';
+import { useSwipe } from '../../hooks/UseSwipe';
 
 interface Props {
   animationController: React.MutableRefObject<Animated.Value>;
+  onSwipeLeft: () => void;
+  onSwipeDown: () => void;
 }
 
 const IMAGE_WIDTH = 350;
 const IMAGE_HEIGHT = 250;
 
-const RelaxView: React.FC<Props> = ({ animationController }) => {
+const RelaxView: React.FC<Props> = ({
+  animationController,
+  onSwipeLeft,
+  onSwipeDown,
+}) => {
   const window = useWindowDimensions();
 
+  const { onTouchStart, onTouchEnd } = useSwipe(
+    { onSwipeLeft, onSwipeDown },
+    6,
+  );
   const relaxRef = useRef<Text | null>(null);
 
   const relaxAnimation = animationController.current.interpolate({
@@ -34,6 +45,8 @@ const RelaxView: React.FC<Props> = ({ animationController }) => {
   return (
     <Animated.View
       style={[styles.container, { transform: [{ translateX: slideAnim }] }]}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <Animated.Text
         style={[styles.title, { transform: [{ translateY: relaxAnimation }] }]}

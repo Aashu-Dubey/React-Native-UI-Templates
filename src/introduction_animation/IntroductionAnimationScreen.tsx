@@ -89,10 +89,27 @@ const IntroductionAnimationScreen: React.FC = () => {
     playAnimation(0.8, 1200);
   }, [playAnimation]);
 
+  const onSwipeLeft = () => {
+    onNextClick();
+  };
+
+  const onSwipeRight = () => {
+    onBackClick();
+  };
+
+  const onSwipeUp = () => {
+    onNextClick();
+  };
+
+  const onSwipeDown = () => {
+    onBackClick();
+    console.log('swipeDown');
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: 'rgb(245, 235, 226)' }}>
       <StatusBar barStyle={`${currentPage > 0 ? 'dark' : 'light'}-content`} />
-      <SplashView {...{ onNextClick, animationController }} />
+      <SplashView {...{ onNextClick, animationController, onSwipeUp }} />
 
       <Animated.View
         style={[
@@ -100,13 +117,37 @@ const IntroductionAnimationScreen: React.FC = () => {
           { transform: [{ translateY: relaxTranslateY }] },
         ]}
       >
-        <RelaxView {...{ animationController }} />
+        <RelaxView
+          {...{
+            animationController,
+            onSwipeDown,
+            onSwipeLeft,
+          }}
+        />
 
-        <CareView {...{ animationController }} />
+        <CareView
+          {...{
+            animationController,
+            onSwipeLeft,
+            onSwipeRight,
+          }}
+        />
 
-        <MoodDiaryView {...{ animationController }} />
+        <MoodDiaryView
+          {...{
+            animationController,
+            onSwipeLeft,
+            onSwipeRight,
+          }}
+        />
 
-        <WelcomeView {...{ animationController }} />
+        <WelcomeView
+          {...{
+            animationController,
+            onSwipeLeft,
+            onSwipeRight,
+          }}
+        />
       </Animated.View>
 
       <TopBackSkipView {...{ onBackClick, onSkipClick, animationController }} />
