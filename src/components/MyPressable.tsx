@@ -12,7 +12,7 @@ const MyPressable: React.FC<Props> = ({
   android_ripple = { color: 'lightgrey' },
   touchOpacity = 0.4,
   children,
-  ...restOfPRops
+  ...restOfProps
 }) => {
   return (
     <Pressable
@@ -21,7 +21,7 @@ const MyPressable: React.FC<Props> = ({
         { opacity: !Config.isAndroid && pressed ? touchOpacity : 1 },
       ]}
       android_ripple={android_ripple}
-      {...restOfPRops}
+      {...restOfProps}
     >
       {children}
     </Pressable>
