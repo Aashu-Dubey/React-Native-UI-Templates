@@ -2110,7 +2110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@miblanchard/react-native-slider@npm:^2.3.1":
+"@miblanchard/react-native-slider@npm:^2.6.0":
   version: 2.6.0
   resolution: "@miblanchard/react-native-slider@npm:2.6.0"
   peerDependencies:
@@ -2195,7 +2195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/blur@npm:^4.3.0":
+"@react-native-community/blur@npm:^4.4.0":
   version: 4.4.0
   resolution: "@react-native-community/blur@npm:4.4.0"
   peerDependencies:
@@ -2638,7 +2638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/drawer@npm:^6.6.2":
+"@react-navigation/drawer@npm:^6.6.15":
   version: 6.6.15
   resolution: "@react-navigation/drawer@npm:6.6.15"
   dependencies:
@@ -2669,7 +2669,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^6.1.6":
+"@react-navigation/native@npm:^6.1.17":
   version: 6.1.17
   resolution: "@react-navigation/native@npm:6.1.17"
   dependencies:
@@ -2693,7 +2693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/stack@npm:^6.3.16":
+"@react-navigation/stack@npm:^6.3.29":
   version: 6.3.29
   resolution: "@react-navigation/stack@npm:6.3.29"
   dependencies:
@@ -8176,7 +8176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.9.0":
+"react-native-gesture-handler@npm:^2.16.2":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
   dependencies:
@@ -8192,7 +8192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.1.0":
+"react-native-reanimated@npm:^3.12.0":
   version: 3.12.0
   resolution: "react-native-reanimated@npm:3.12.0"
   dependencies:
@@ -8212,7 +8212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.5.1":
+"react-native-safe-area-context@npm:^4.10.4":
   version: 4.10.4
   resolution: "react-native-safe-area-context@npm:4.10.4"
   peerDependencies:
@@ -8222,7 +8222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.20.0":
+"react-native-screens@npm:^3.31.1":
   version: 3.31.1
   resolution: "react-native-screens@npm:3.31.1"
   dependencies:
@@ -8235,16 +8235,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^9.2.0":
-  version: 9.2.0
-  resolution: "react-native-vector-icons@npm:9.2.0"
+"react-native-vector-icons@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "react-native-vector-icons@npm:10.1.0"
   dependencies:
     prop-types: ^15.7.2
     yargs: ^16.1.1
   bin:
+    fa-upgrade.sh: bin/fa-upgrade.sh
     fa5-upgrade: bin/fa5-upgrade.sh
+    fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
-  checksum: 222baf88c3f269234c08a41680e6400a4bf1f4c170f7c2ffac34b2c1c089cdb1084223db2a7d9cc54ee212eec20ff1478f3f482df19062e3057c328642da0be2
+  checksum: c1e1d7c7ccc110e99caaed4d57324d5331dfa91817183350d2fd4df16d2302e7363da1f7a2b87011da3936b77aac3a7bf8ee11844dd8786b8b7dbc6553494866
   languageName: node
   linkType: hard
 
@@ -8350,16 +8352,16 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@miblanchard/react-native-slider": ^2.3.1
+    "@miblanchard/react-native-slider": ^2.6.0
     "@ptomasroos/react-native-multi-slider": ^2.2.2
-    "@react-native-community/blur": ^4.3.0
+    "@react-native-community/blur": ^4.4.0
     "@react-native/babel-preset": 0.74.84
     "@react-native/eslint-config": 0.74.84
     "@react-native/metro-config": 0.74.84
     "@react-native/typescript-config": 0.74.84
-    "@react-navigation/drawer": ^6.6.2
-    "@react-navigation/native": ^6.1.6
-    "@react-navigation/stack": ^6.3.16
+    "@react-navigation/drawer": ^6.6.15
+    "@react-navigation/native": ^6.1.17
+    "@react-navigation/stack": ^6.3.29
     "@types/react": ^18.2.6
     "@types/react-native-vector-icons": ^6.4.13
     "@types/react-test-renderer": ^18.0.0
@@ -8369,11 +8371,11 @@ __metadata:
     prettier: 2.8.8
     react: 18.2.0
     react-native: 0.74.2
-    react-native-gesture-handler: ^2.9.0
-    react-native-reanimated: ^3.1.0
-    react-native-safe-area-context: ^4.5.1
-    react-native-screens: ^3.20.0
-    react-native-vector-icons: ^9.2.0
+    react-native-gesture-handler: ^2.16.2
+    react-native-reanimated: ^3.12.0
+    react-native-safe-area-context: ^4.10.4
+    react-native-screens: ^3.31.1
+    react-native-vector-icons: ^10.1.0
     react-test-renderer: 18.2.0
     typescript: 5.0.4
   languageName: unknown
