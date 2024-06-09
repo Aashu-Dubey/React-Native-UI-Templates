@@ -17,26 +17,39 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      # 'corepack enable' is needed for now till it's experimental, may remove the command once it becomes stable in later node releases
+      - name: Enable Corepack
+        run: corepack enable
 
       # Setup Web environment to install packages.
       - name: Setup Web environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
           cache: 'yarn'
 
-      # Here '--frozen-lockfile' will only use commited 'yarn.lock', and will throw error if some update is needed
-      - name: Install node_modules
-        run: yarn install --frozen-lockfile
+      - uses: hendrikmuhs/ccache-action@v1.2
+        name: Xcode Compile Cache
+        with:
+          key: ${{ runner.os }}-ccache # makes a unique key w/related restore key internally
+          create-symlink: true
+          max-size: 1500M
 
-      # improve iOS build compilation time
-      - name: Restore buildcache
-        uses: mikehardy/buildcache-action@v2
-        continue-on-error: true
+      - name: Restore node_modules from cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node-modules-
+
+      # Here '--immutable' will only use commited 'yarn.lock', and will throw error if some update is needed
+      - name: Install node_modules
+        run: yarn install --immutable
 
       - name: Restore Pods cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ios/Pods
@@ -44,6 +57,13 @@ jobs:
             ~/.cocoapods
           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
           restore-keys: ${{ runner.os }}-pods-
+
+      - name: Restore build artifacts from cache
+        uses: actions/cache@v4
+        with:
+          path: ios/build
+          key: ${{ runner.os }}-ios-derived-data-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-ios-derived-data-
 
       - name: Install Pod files
         run: npx pod-install ios
@@ -54,6 +74,12 @@ jobs:
       - name: Run simulator build command
         working-directory: ios
         run: |
+          export CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros
+          export CCACHE_FILECLONE=true
+          export CCACHE_DEPEND=true
+          export CCACHE_INODECACHE=true
+          export CCACHE_LIMIT_MULTIPLE=0.95
+          ccache -s
           set -o pipefail
           xcodebuild \
           CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
@@ -62,6 +88,7 @@ jobs:
           -sdk iphonesimulator \
           -configuration Release \
           -derivedDataPath build | xcpretty
+          ccache -s
 
       - name: Store build .app file as zip
         working-directory: ios
@@ -71,7 +98,7 @@ jobs:
           zip -r -y -o output/react_native_ui_templates.zip react_native_ui_templates.app
 
       - name: Save build file as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rn_ui_templates_ios
           path: ios/build/Build/Products/Release-iphonesimulator/output

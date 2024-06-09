@@ -19,26 +19,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      # Optional security step: Validate whether gradle-wrapper.jar is valid or malicious
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v3
+
+      # 'corepack enable' is needed for now till it's experimental, may remove the command once it becomes stable in later node releases
+      - name: Enable Corepack
+        run: corepack enable
 
       # Setup Web environment to install packages.
       - name: Setup Web environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
           cache: 'yarn'
 
       # Setup Java environment in order to build the Android app.
       - name: Setup Java environment
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '11'
-          cache: 'gradle'
+          java-version: '17'
 
-      # Here '--frozen-lockfile' will only use commited 'yarn.lock', and will throw error if some update is needed
+      # Setup gradle using official gradle action
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          add-job-summary: 'on-failure'
+
+      - name: Restore node_modules from cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node-modules-
+
+      # Here '--immutable' will only use commited 'yarn.lock', and will throw error if some update is needed
       - name: Install node_modules
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       # In some cases, Gradle is not executable by default, so we do this before the build process
       - name: Make gradlew executable
@@ -50,7 +70,7 @@ jobs:
         run: ./gradlew assembleRelease --no-daemon
 
       - name: Save apk file as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rn-ui-templates
           path: android/app/build/outputs/apk/release/app-release.apk
