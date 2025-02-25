@@ -5,7 +5,7 @@ import NextButtonArrow from './components/NextButtonArrow';
 
 interface Props {
   onNextClick: () => void;
-  animationController: React.MutableRefObject<Animated.Value>;
+  animationController: React.RefObject<Animated.Value>;
 }
 
 interface DotIndicatorProps {

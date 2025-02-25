@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingHorizontal: 18,
     paddingVertical: 12,
-    elevation: 2,
+    elevation: 8,
     shadowColor: 'grey',
     shadowOffset: { width: 1.1, height: 1.1 },
     shadowOpacity: 0.22,

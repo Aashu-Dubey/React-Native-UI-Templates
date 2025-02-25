@@ -33,7 +33,7 @@ const DrawerNavigator: React.FC = () => {
           width: window.width * 0.75,
           backgroundColor: 'rgb(237, 240, 242, 0.5)',
         },
-        sceneContainerStyle: styles.drawerSceneContainer,
+        sceneStyle: styles.drawerSceneContainer,
         drawerActiveBackgroundColor: '#5cbbff',
         drawerType: 'back',
         overlayColor: 'transparent',

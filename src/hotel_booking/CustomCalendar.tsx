@@ -170,7 +170,7 @@ const CustomCalendar: React.FC<Props> = ({
       return;
     }
 
-    const listUI: JSX.Element[] = [];
+    const listUI: React.JSX.Element[] = [];
     for (let i = 0; i < 7; i++) {
       const weekDay = WEEK_DAYS[dateList[i].getDay()];
 
@@ -184,11 +184,11 @@ const CustomCalendar: React.FC<Props> = ({
   };
 
   const getDaysNoUI = () => {
-    const noList: JSX.Element[] = [];
+    const noList: React.JSX.Element[] = [];
     let count = 0;
 
     for (let i = 0; i < dateList.length / 7; i++) {
-      const listUI: JSX.Element[] = [];
+      const listUI: React.JSX.Element[] = [];
 
       for (let j = 0; j < 7; j++) {
         const date = dateList[count];
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
   dayNoBtnContainer: {
     ...StyleSheet.absoluteFillObject,
     padding: 2,
-    borderRadius: 32,
+    borderRadius: '50%',
   },
   activeDatesShadow: {
     ...Platform.select({

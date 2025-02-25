@@ -14,7 +14,7 @@ import { AppImages } from '../../assets';
 
 interface Props {
   onNextClick: () => void;
-  animationController: React.MutableRefObject<Animated.Value>;
+  animationController: React.RefObject<Animated.Value>;
 }
 
 const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {

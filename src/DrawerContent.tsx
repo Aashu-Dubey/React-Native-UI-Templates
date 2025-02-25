@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   Image,
   ViewStyle,
+  StyleProp,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -15,8 +16,9 @@ import {
 } from '@react-navigation/drawer';
 import { DrawerActions, NavigationState } from '@react-navigation/native';
 import Animated, {
-  AnimatedStyleProp,
+  AnimatedStyle,
   interpolate,
+  SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -31,7 +33,7 @@ type DrawerScene = {
 };
 
 interface DrawerItemProps extends DrawerScene {
-  bgAnimStyle: AnimatedStyleProp<ViewStyle>;
+  bgAnimStyle: AnimatedStyle<StyleProp<ViewStyle>>;
 }
 
 const DRAWER_SCENES: DrawerScene[] = [
@@ -129,7 +131,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
   const progress = useDrawerProgress();
 
   const drawerStyle = useAnimatedStyle(() => {
-    const drawerProgress = progress as Animated.SharedValue<number>;
+    const drawerProgress = progress as SharedValue<number>;
 
     return {
       transform: [
@@ -139,7 +141,7 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
     };
   }, []);
   const bgAnimStyle = useAnimatedStyle(() => {
-    const drawerProgress = progress as Animated.SharedValue<number>;
+    const drawerProgress = progress as SharedValue<number>;
 
     return {
       transform: [

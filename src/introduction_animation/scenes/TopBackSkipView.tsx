@@ -8,7 +8,7 @@ import Config from '../../Config';
 interface Props {
   onBackClick: () => void;
   onSkipClick: () => void;
-  animationController: React.MutableRefObject<Animated.Value>;
+  animationController: React.RefObject<Animated.Value>;
 }
 
 const TopBackSkipView: React.FC<Props> = ({

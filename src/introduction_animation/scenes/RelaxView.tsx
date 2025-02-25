@@ -3,7 +3,7 @@ import { StyleSheet, Text, Animated, useWindowDimensions } from 'react-native';
 import { AppImages } from '../../assets';
 
 interface Props {
-  animationController: React.MutableRefObject<Animated.Value>;
+  animationController: React.RefObject<Animated.Value>;
 }
 
 const IMAGE_WIDTH = 350;

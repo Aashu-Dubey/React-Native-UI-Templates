@@ -72,7 +72,8 @@ const HomeDesignCourse: React.FC = () => {
       <View style={styles.categoryRowContainer}>
         {CATEGORIES.map(text => (
           <CategoryButton
-            {...{ text, key: text }}
+            {...{ text }}
+            key={text}
             selectedCat={selectedCategory}
             onPress={() => setSelectedCategory(text)}
           />

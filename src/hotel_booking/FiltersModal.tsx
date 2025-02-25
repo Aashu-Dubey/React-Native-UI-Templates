@@ -42,12 +42,12 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
   const [accomodationList, setAccomodationList] = useState(accomodation_List);
 
   const getPList = () => {
-    const noList: JSX.Element[] = [];
+    const noList: React.JSX.Element[] = [];
     let count = 0;
     const columnCount = 2;
 
     for (let i = 0; i < popularFilterList.length / columnCount; i++) {
-      const listUI: JSX.Element[] = [];
+      const listUI: React.JSX.Element[] = [];
       for (let j = 0; j < columnCount; j++) {
         const data = popularFilterList[count];
         listUI.push(
@@ -113,7 +113,7 @@ const FilterModal: React.FC<Props> = ({ showFilter, setShowFilter }) => {
   };
 
   const getAccomodationListUI = () => {
-    const noList: JSX.Element[] = [];
+    const noList: React.JSX.Element[] = [];
     for (let i = 0; i < accomodationList.length; i++) {
       const data = accomodationList[i];
       noList.push(

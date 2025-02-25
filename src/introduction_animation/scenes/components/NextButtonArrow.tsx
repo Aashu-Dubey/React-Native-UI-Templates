@@ -17,7 +17,7 @@ const NextButtonArrow: React.FC<Props> = ({
   onBtnPress,
   animationController,
 }) => {
-  const arrowAnim = useRef<Animated.AnimatedInterpolation>(
+  const arrowAnim = useRef<Animated.AnimatedInterpolation<number>>(
     new Animated.Value(0),
   );
 
